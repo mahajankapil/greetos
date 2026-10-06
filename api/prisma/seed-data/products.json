@@ -1,0 +1,1057 @@
+[
+  {
+    "handle": "spinach",
+    "title": "Fresh Organic Spinach (Palak)",
+    "category": "Leafy Greens",
+    "usp": "Harvested fresh daily from organic farms",
+    "description": "Nutrient-rich, crisp green spinach leaves packed with iron, folate, and vitamins. Ideal for dal palak, smoothies, and palak paneer.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Fresh Harvest",
+      "100% Organic"
+    ],
+    "image": "http://localhost:5002/uploads/products/Spinach-%E0%A4%AA%E0%A4%BE%E0%A4%B2%E0%A4%95.webp",
+    "secondaryImage": "http://localhost:5002/uploads/products/Spinach-%E0%A4%AA%E0%A4%BE%E0%A4%B2%E0%A4%95.webp",
+    "isBestSeller": true,
+    "bestSellerOrder": 1,
+    "isCombo": false,
+    "netQuantity": "250 g",
+    "keyIngredients": [
+      "Fresh Spinach Leaves"
+    ],
+    "benefits": [
+      "Rich in Iron & Folate",
+      "Farm Fresh",
+      "Chemical-Free"
+    ],
+    "howToUse": "Wash thoroughly in clean water before cooking or blending.",
+    "suitableFor": "Daily cooking, soups & salads",
+    "shelfLifeMonths": 1,
+    "countryOfOrigin": "India",
+    "manufacturedBy": "Old Spice Agro Fresh Farms",
+    "marketedBy": "Old Spice Agro Fresh",
+    "options": [
+      {
+        "name": "250 g",
+        "price": 25,
+        "comparePrice": 35,
+        "stock": 100,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 45,
+        "comparePrice": 65,
+        "stock": 100,
+        "sortOrder": 1
+      },
+      {
+        "name": "1 kg",
+        "price": 80,
+        "comparePrice": 120,
+        "stock": 50,
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "handle": "fenugreek",
+    "title": "Fresh Green Fenugreek (Methi)",
+    "category": "Leafy Greens",
+    "usp": "Aromatic & healthy farm-fresh methi greens",
+    "description": "Fragrant and slightly bitter fresh fenugreek leaves. Perfect for methi thepla, methi bhaji, and parathas.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Organic",
+      "Direct From Farm"
+    ],
+    "image": "http://localhost:5002/uploads/products/Fenugreek-%E0%A4%AE%E0%A5%87%E0%A4%A5%E0%A5%80.webp",
+    "isBestSeller": true,
+    "bestSellerOrder": 2,
+    "netQuantity": "250 g",
+    "keyIngredients": [
+      "Fresh Methi Leaves"
+    ],
+    "benefits": [
+      "Controls Blood Sugar",
+      "Aromatic & Flavorful",
+      "100% Pesticide Free"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 30,
+        "comparePrice": 40,
+        "stock": 80,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 55,
+        "comparePrice": 75,
+        "stock": 80,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Fenugreek-%E0%A4%AE%E0%A5%87%E0%A4%A5%E0%A5%80.webp"
+  },
+  {
+    "handle": "coriander",
+    "title": "Fresh Coriander Leaves (Kothimbir)",
+    "category": "Leafy Greens",
+    "usp": "Intensely aromatic fresh coriander bunch",
+    "description": "Bright green, fresh coriander sprigs with roots. Essential for garnishing curries, chutneys, and snacks.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Kitchen Essential"
+    ],
+    "image": "http://localhost:5002/uploads/products/Coriander-%E0%A4%95%E0%A5%8B%E0%A4%A5%E0%A4%BF%E0%A4%82%E0%A4%AC%E0%A5%80%E0%A4%B0.webp",
+    "isBestSeller": true,
+    "bestSellerOrder": 3,
+    "netQuantity": "100 g",
+    "keyIngredients": [
+      "Fresh Coriander"
+    ],
+    "benefits": [
+      "Fresh Aroma",
+      "Rich in Antioxidants",
+      "Naturally Grown"
+    ],
+    "options": [
+      {
+        "name": "100 g Bunch",
+        "price": 15,
+        "comparePrice": 20,
+        "stock": 150,
+        "sortOrder": 0
+      },
+      {
+        "name": "250 g Bunch",
+        "price": 35,
+        "comparePrice": 45,
+        "stock": 100,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Coriander-%E0%A4%95%E0%A5%8B%E0%A4%A5%E0%A4%BF%E0%A4%82%E0%A4%AC%E0%A5%80%E0%A4%B0.webp"
+  },
+  {
+    "handle": "dill",
+    "title": "Fresh Dill Leaves (Shepu)",
+    "category": "Leafy Greens",
+    "usp": "Feathery aromatic green dill",
+    "description": "Distinctively flavoured fresh dill leaves (shepu). Great for Maharashtrian shepu bhaji, sabzi, and herbal teas.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Farm Fresh"
+    ],
+    "image": "http://localhost:5002/uploads/products/Dill-%E0%A4%B6%E0%A5%87%E0%A4%AA%E0%A5%82.webp",
+    "netQuantity": "200 g",
+    "benefits": [
+      "Good for Digestion",
+      "Aromatic Herbs",
+      "Pesticide Free"
+    ],
+    "options": [
+      {
+        "name": "200 g Bunch",
+        "price": 25,
+        "comparePrice": 35,
+        "stock": 60,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Dill-%E0%A4%B6%E0%A5%87%E0%A4%AA%E0%A5%82.webp"
+  },
+  {
+    "handle": "aluche-pan",
+    "title": "Fresh Aluche Pan (Colocasia Leaves)",
+    "category": "Leafy Greens",
+    "usp": "Tender fresh leaves for Alu Vadi / Patra",
+    "description": "Fresh, broad green colocasia / taro leaves carefully handpicked for making traditional Alu Vadi (Patra) and Alu chi Patal Bhaji.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Traditional Specialty"
+    ],
+    "image": "http://localhost:5002/uploads/products/Aluche%20Pan-%E0%A4%85%E0%A4%B3%E0%A5%82%E0%A4%9A%E0%A5%80%20%E0%A4%AA%E0%A4%BE%E0%A4%A8%E0%A5%87.png",
+    "netQuantity": "5 Leaves",
+    "benefits": [
+      "Freshly Cut",
+      "Perfect for Patra",
+      "High Fibre"
+    ],
+    "options": [
+      {
+        "name": "5 Leaves Pack",
+        "price": 30,
+        "comparePrice": 45,
+        "stock": 40,
+        "sortOrder": 0
+      },
+      {
+        "name": "10 Leaves Pack",
+        "price": 55,
+        "comparePrice": 80,
+        "stock": 40,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Aluche%20Pan-%E0%A4%85%E0%A4%B3%E0%A5%82%E0%A4%9A%E0%A5%80%20%E0%A4%AA%E0%A4%BE%E0%A4%A8%E0%A5%87.png"
+  },
+  {
+    "handle": "beetroot",
+    "title": "Organic Beetroot",
+    "category": "Root Vegetables",
+    "usp": "Rich red organic beetroots",
+    "description": "Sweet, earthy, deep red organic beetroots rich in nitrates, iron, and fiber. Excellent for juices, salads, and sabzi.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Superfood"
+    ],
+    "image": "http://localhost:5002/uploads/products/Beetroot%E2%80%93%E0%A4%AC%E0%A5%80%E0%A4%9F%E0%A4%B0%E0%A5%82%E0%A4%9F.jpg",
+    "isBestSeller": true,
+    "bestSellerOrder": 4,
+    "netQuantity": "500 g",
+    "benefits": [
+      "Boosts Blood Health",
+      "Rich in Stamina Nutrients",
+      "Organically Grown"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 35,
+        "comparePrice": 50,
+        "stock": 90,
+        "sortOrder": 0
+      },
+      {
+        "name": "1 kg",
+        "price": 65,
+        "comparePrice": 90,
+        "stock": 70,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Beetroot%E2%80%93%E0%A4%AC%E0%A5%80%E0%A4%9F%E0%A4%B0%E0%A5%82%E0%A4%9F.jpg"
+  },
+  {
+    "handle": "carrot",
+    "title": "Fresh Crunchy Carrots",
+    "category": "Root Vegetables",
+    "usp": "Sweet and crisp farm fresh carrots",
+    "description": "Crisp red/orange carrots filled with Beta-Carotene and Vitamin A. Great for gajar halwa, salads, and daily cooking.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Vitamin Rich"
+    ],
+    "image": "http://localhost:5002/uploads/products/Carrot-%E0%A4%97%E0%A4%BE%E0%A4%9C%E0%A4%B0.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "Good for Eye Sight",
+      "Sweet & Crunchy",
+      "Pesticide Free"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 40,
+        "comparePrice": 55,
+        "stock": 100,
+        "sortOrder": 0
+      },
+      {
+        "name": "1 kg",
+        "price": 75,
+        "comparePrice": 100,
+        "stock": 80,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Carrot-%E0%A4%97%E0%A4%BE%E0%A4%9C%E0%A4%B0.jpg"
+  },
+  {
+    "handle": "radish-mula",
+    "title": "Fresh White Radish (Mula)",
+    "category": "Root Vegetables",
+    "usp": "Crisp white organic radish",
+    "description": "Pungent, crisp white radish with fresh leaves intact. Excellent for mooli paratha, salads, and digestive health.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Farm Fresh"
+    ],
+    "image": "http://localhost:5002/uploads/products/Mula-%E0%A4%AE%E0%A5%81%E0%A4%B3%E0%A4%BE.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "Promotes Digestion",
+      "Crisp & Juicy",
+      "Natural Detox"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 30,
+        "comparePrice": 40,
+        "stock": 60,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Mula-%E0%A4%AE%E0%A5%81%E0%A4%B3%E0%A4%BE.jpg"
+  },
+  {
+    "handle": "potato",
+    "title": "Farm Fresh Potatoes",
+    "category": "Root Vegetables",
+    "usp": "Premium quality cooking potatoes",
+    "description": "Clean, smooth-skinned organic potatoes. Essential staple for every kitchen dish, fries, and curries.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Kitchen Staple"
+    ],
+    "image": "http://localhost:5002/uploads/products/Potato-%E0%A4%AC%E0%A4%9F%E0%A4%BE%E0%A4%9F%E0%A4%BE.jpg",
+    "netQuantity": "1 kg",
+    "benefits": [
+      "Daily Essential",
+      "Long Shelf Life",
+      "Naturally Grown"
+    ],
+    "options": [
+      {
+        "name": "1 kg",
+        "price": 35,
+        "comparePrice": 45,
+        "stock": 200,
+        "sortOrder": 0
+      },
+      {
+        "name": "2 kg",
+        "price": 65,
+        "comparePrice": 85,
+        "stock": 150,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Potato-%E0%A4%AC%E0%A4%9F%E0%A4%BE%E0%A4%9F%E0%A4%BE.jpg"
+  },
+  {
+    "handle": "suran",
+    "title": "Fresh Suran (Elephant Foot Yam)",
+    "category": "Root Vegetables",
+    "usp": "Nutritious organic yam",
+    "description": "Firm, earthy Elephant Foot Yam (Suran). Rich in dietary fiber and vitamins, ideal for dry sabzi and yam fries.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Specialty Root"
+    ],
+    "image": "http://localhost:5002/uploads/products/Suran-%E0%A4%B8%E0%A5%81%E0%A4%B0%E0%A4%A3.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "High Fiber",
+      "Supports Gut Health",
+      "Farm Picked"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 45,
+        "comparePrice": 60,
+        "stock": 50,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Suran-%E0%A4%B8%E0%A5%81%E0%A4%B0%E0%A4%A3.jpg"
+  },
+  {
+    "handle": "ginger",
+    "title": "Organic Fresh Ginger (Adrak)",
+    "category": "Root Vegetables",
+    "usp": "Spicy & aromatic ginger root",
+    "description": "Pungent, aromatic fresh ginger root. Essential for Indian chai, curry pastes, and natural immunity remedies.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Immunity Booster"
+    ],
+    "image": "http://localhost:5002/uploads/products/Ginger-%E0%A4%86%E0%A4%B2%E0%A5%87.webp",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Boosts Immunity",
+      "Aromatic Spice",
+      "Chemical Free"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 40,
+        "comparePrice": 55,
+        "stock": 100,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 75,
+        "comparePrice": 100,
+        "stock": 80,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Ginger-%E0%A4%86%E0%A4%B2%E0%A5%87.webp"
+  },
+  {
+    "handle": "garlic",
+    "title": "Desi Organic Garlic (Lasun)",
+    "category": "Root Vegetables",
+    "usp": "Aromatic & potent garlic cloves",
+    "description": "Small, pungent desi garlic cloves with intense flavor. Enhances tadka, chutneys, and medicinal health.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Desi Quality"
+    ],
+    "image": "http://localhost:5002/uploads/products/Garlic-%E0%A4%B2%E0%A4%B8%E0%A5%82%E0%A4%A3.jpg",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Heart Healthy",
+      "Strong Aroma",
+      "100% Organic"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 60,
+        "comparePrice": 80,
+        "stock": 90,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 110,
+        "comparePrice": 150,
+        "stock": 70,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Garlic-%E0%A4%B2%E0%A4%B8%E0%A5%82%E0%A4%A3.jpg"
+  },
+  {
+    "handle": "onion",
+    "title": "Fresh Red Onions (Kanda)",
+    "category": "Root Vegetables",
+    "usp": "Firm and sweet red onions",
+    "description": "Crisp, flavorful Nashik red onions. Perfect foundation for gravy curries, tadka, and fresh garden salads.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Essential"
+    ],
+    "image": "http://localhost:5002/uploads/products/Onion-%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%A6%E0%A4%BE.jpg",
+    "netQuantity": "1 kg",
+    "benefits": [
+      "Farm Fresh Nashik Quality",
+      "Long Lasting",
+      "Rich Flavor"
+    ],
+    "options": [
+      {
+        "name": "1 kg",
+        "price": 40,
+        "comparePrice": 50,
+        "stock": 200,
+        "sortOrder": 0
+      },
+      {
+        "name": "2 kg",
+        "price": 75,
+        "comparePrice": 95,
+        "stock": 150,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Onion-%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%A6%E0%A4%BE.jpg"
+  },
+  {
+    "handle": "green-onion",
+    "title": "Fresh Green Onion (Spring Onion)",
+    "category": "Root Vegetables",
+    "usp": "Tender green stalks & mild bulbs",
+    "description": "Fresh spring onions with crisp green leaves and tender white bulbs. Great for stir fries, fried rice, and salads.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Fresh Cut"
+    ],
+    "image": "http://localhost:5002/uploads/products/Green-onion-%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%AA%E0%A4%BE%E0%A4%A4.avif",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Mild Sweet Taste",
+      "Rich in Vitamin K",
+      "Farm Fresh"
+    ],
+    "options": [
+      {
+        "name": "250 g Bunch",
+        "price": 30,
+        "comparePrice": 40,
+        "stock": 70,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Green-onion-%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%AA%E0%A4%BE%E0%A4%A4.avif"
+  },
+  {
+    "handle": "broad-beans",
+    "title": "Fresh Broad Beans (Fava Beans)",
+    "category": "Beans & Peas",
+    "usp": "Tender organic broad beans",
+    "description": "Nutritious green broad bean pods filled with protein and fiber. Ideal for savory sabzi and curries.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Protein Rich"
+    ],
+    "image": "http://localhost:5002/uploads/products/Broad%20beans-%E0%A4%98%E0%A5%87%E0%A4%B5%E0%A4%A1%E0%A4%BE.webp",
+    "netQuantity": "500 g",
+    "benefits": [
+      "High Plant Protein",
+      "Fresh Pods",
+      "Organically Cultivated"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 45,
+        "comparePrice": 60,
+        "stock": 60,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Broad%20beans-%E0%A4%98%E0%A5%87%E0%A4%B5%E0%A4%A1%E0%A4%BE.webp"
+  },
+  {
+    "handle": "cluster-beans",
+    "title": "Fresh Cluster Beans (Gavar)",
+    "category": "Beans & Peas",
+    "usp": "Crisp and fibrous gavar pods",
+    "description": "Tender young gavar pods (cluster beans). High in dietary fiber, perfect for fry sabzi and Maharashtrian gavar masala.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "High Fiber"
+    ],
+    "image": "http://localhost:5002/uploads/products/Cluster%20bean-%E0%A4%97%E0%A4%B5%E0%A4%BE%E0%A4%B0.webp",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Low Glycemic Index",
+      "Crisp & Tender",
+      "Direct from Farms"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 30,
+        "comparePrice": 40,
+        "stock": 80,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 55,
+        "comparePrice": 75,
+        "stock": 70,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Cluster%20bean-%E0%A4%97%E0%A4%B5%E0%A4%BE%E0%A4%B0.webp"
+  },
+  {
+    "handle": "french-beans",
+    "title": "Tender French Beans",
+    "category": "Beans & Peas",
+    "usp": "Crisp green stringless french beans",
+    "description": "Bright green, tender french beans. Perfect for fried rice, poriyal, sabzi, and steamed healthy sides.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Fresh Pick"
+    ],
+    "image": "http://localhost:5002/uploads/products/French%20beans-%E0%A4%AB%E0%A4%B0%E0%A4%B8%E0%A4%AC%E0%A5%80.jpg",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Stringless & Sweet",
+      "Rich in Vitamins",
+      "Chemical Free"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 35,
+        "comparePrice": 45,
+        "stock": 90,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 65,
+        "comparePrice": 85,
+        "stock": 80,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/French%20beans-%E0%A4%AB%E0%A4%B0%E0%A4%B8%E0%A4%AC%E0%A5%80.jpg"
+  },
+  {
+    "handle": "green-peas",
+    "title": "Fresh Sweet Green Peas (Matar)",
+    "category": "Beans & Peas",
+    "usp": "Sweet and tender green pea pods",
+    "description": "Freshly harvested green pea pods filled with plump, sweet peas. Great for matar paneer, pulao, and snacks.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Seasonal Favorite"
+    ],
+    "image": "http://localhost:5002/uploads/products/Green-Peas-%E0%A4%AE%E0%A4%9F%E0%A4%BE%E0%A4%B0.jpg",
+    "netQuantity": "500 g Pods",
+    "benefits": [
+      "Naturally Sweet",
+      "High Protein",
+      "Farm Plucked"
+    ],
+    "options": [
+      {
+        "name": "500 g Pods",
+        "price": 50,
+        "comparePrice": 70,
+        "stock": 100,
+        "sortOrder": 0
+      },
+      {
+        "name": "1 kg Pods",
+        "price": 95,
+        "comparePrice": 130,
+        "stock": 70,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Green-Peas-%E0%A4%AE%E0%A4%9F%E0%A4%BE%E0%A4%B0.jpg"
+  },
+  {
+    "handle": "green-chilli",
+    "title": "Fresh Spicy Green Chilli",
+    "category": "Beans & Peas",
+    "usp": "Fiery farm-fresh green chillies",
+    "description": "Fresh, spicy green chillies full of natural capsaicin and spice. Adds quick kick to temperings and chutneys.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Spicy & Fresh"
+    ],
+    "image": "http://localhost:5002/uploads/products/Green%20chili-%E0%A4%AE%E0%A4%BF%E0%A4%B0%E0%A4%9A%E0%A5%80.jpg",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Pungent & Fresh",
+      "Rich in Vitamin C",
+      "No Preservatives"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 25,
+        "comparePrice": 35,
+        "stock": 120,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Green%20chili-%E0%A4%AE%E0%A4%BF%E0%A4%B0%E0%A4%9A%E0%A5%80.jpg"
+  },
+  {
+    "handle": "capsicum",
+    "title": "Fresh Green Capsicum (Shimla Mirch)",
+    "category": "Beans & Peas",
+    "usp": "Crunchy green bell peppers",
+    "description": "Plump, glossy green capsicum with thick crunchy walls. Perfect for stir-fries, pizzas, and kadai dishes.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Crunchy & Fresh"
+    ],
+    "image": "http://localhost:5002/uploads/products/Capsicum-%E0%A4%A2%E0%A5%8B%E0%A4%AC%E0%A4%B3%E0%A5%80%20%E0%A4%AE%E0%A4%BF%E0%A4%B0%E0%A4%9A%E0%A5%80.avif",
+    "netQuantity": "500 g",
+    "benefits": [
+      "Rich in Antioxidants",
+      "Crisp Texture",
+      "Naturally Grown"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 45,
+        "comparePrice": 60,
+        "stock": 80,
+        "sortOrder": 0
+      },
+      {
+        "name": "1 kg",
+        "price": 85,
+        "comparePrice": 115,
+        "stock": 60,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Capsicum-%E0%A4%A2%E0%A5%8B%E0%A4%AC%E0%A4%B3%E0%A5%80%20%E0%A4%AE%E0%A4%BF%E0%A4%B0%E0%A4%9A%E0%A5%80.avif"
+  },
+  {
+    "handle": "bottle-gourd",
+    "title": "Fresh Bottle Gourd (Lauki / Doodhi)",
+    "category": "Gourds & Squash",
+    "usp": "Tender and hydrating organic lauki",
+    "description": "Tender, light green bottle gourd with soft seeds inside. High water content makes it excellent for weight loss juice and kheer.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Low Calorie"
+    ],
+    "image": "http://localhost:5002/uploads/products/Bottle%20Gourd-%E0%A4%A6%E0%A5%81%E0%A4%A7%E0%A5%80%20%E0%A4%AD%E0%A5%8B%E0%A4%AA%E0%A4%B3%E0%A4%BE.webp",
+    "isBestSeller": true,
+    "bestSellerOrder": 5,
+    "netQuantity": "1 Piece (~800g)",
+    "benefits": [
+      "Cooling & Hydrating",
+      "Supports Weight Loss",
+      "Easy to Digest"
+    ],
+    "options": [
+      {
+        "name": "1 Pc (~800g)",
+        "price": 35,
+        "comparePrice": 50,
+        "stock": 70,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Bottle%20Gourd-%E0%A4%A6%E0%A5%81%E0%A4%A7%E0%A5%80%20%E0%A4%AD%E0%A5%8B%E0%A4%AA%E0%A4%B3%E0%A4%BE.webp"
+  },
+  {
+    "handle": "dodka-ridge-gourd",
+    "title": "Fresh Dodka (Ridge Gourd)",
+    "category": "Gourds & Squash",
+    "usp": "Nutritious ridged gourd",
+    "description": "Tender green ridge gourd (Dodka). Ideal for traditional Maharashtrian Dodka bhaji, curry, and skin-peel chutney.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Tender & Sweet"
+    ],
+    "image": "http://localhost:5002/uploads/products/Dodaka-%E0%A4%A6%E0%A5%8B%E0%A4%A1%E0%A4%95%E0%A4%BE.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "Rich in Dietary Fiber",
+      "Tender Taste",
+      "Direct Farm Harvest"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 40,
+        "comparePrice": 55,
+        "stock": 60,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Dodaka-%E0%A4%A6%E0%A5%8B%E0%A4%A1%E0%A4%95%E0%A4%BE.jpg"
+  },
+  {
+    "handle": "karela",
+    "title": "Fresh Organic Karela (Bitter Gourd)",
+    "category": "Gourds & Squash",
+    "usp": "Healthy bitter gourd rich in nutrients",
+    "description": "Dark green, dark-ridged organic bitter gourds. Promotes healthy sugar balance and blood purification.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Diabetic Friendly"
+    ],
+    "image": "http://localhost:5002/uploads/products/Karela-%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%B2%E0%A5%87.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "Maintains Sugar Level",
+      "Detoxifies Blood",
+      "Pesticide Free"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 40,
+        "comparePrice": 55,
+        "stock": 75,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Karela-%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%B2%E0%A5%87.jpg"
+  },
+  {
+    "handle": "pumpkin",
+    "title": "Fresh Yellow Pumpkin (Bhopla)",
+    "category": "Gourds & Squash",
+    "usp": "Sweet and hearty organic pumpkin",
+    "description": "Ripe orange-yellow pumpkin slices/pieces. Rich in Vitamin A and fibers, perfect for sambar, soups, and sweet bhopla puri.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Nutrient Rich"
+    ],
+    "image": "http://localhost:5002/uploads/products/Pumpkin-%E0%A4%AD%E0%A5%8B%E0%A4%AA%E0%A4%B3%E0%A4%BE.webp",
+    "netQuantity": "500 g Cut",
+    "benefits": [
+      "Rich in Vitamin A",
+      "Naturally Sweet",
+      "Clean Cut"
+    ],
+    "options": [
+      {
+        "name": "500 g Cut",
+        "price": 30,
+        "comparePrice": 45,
+        "stock": 60,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Pumpkin-%E0%A4%AD%E0%A5%8B%E0%A4%AA%E0%A4%B3%E0%A4%BE.webp"
+  },
+  {
+    "handle": "cucumber",
+    "title": "Fresh Crisp Cucumber (Kakdi)",
+    "category": "Gourds & Squash",
+    "usp": "Cooling & crisp salad cucumber",
+    "description": "Tender green cucumber with thin skin and juicy interior. Excellent hydration boost for everyday salads and raita.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Cooling Salad"
+    ],
+    "image": "http://localhost:5002/uploads/products/Green%20cucumber-%E0%A4%95%E0%A4%BE%E0%A4%95%E0%A4%A1%E0%A5%80.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "95% Water Content",
+      "Crisp & Refreshing",
+      "Pesticide Free"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 30,
+        "comparePrice": 40,
+        "stock": 100,
+        "sortOrder": 0
+      },
+      {
+        "name": "1 kg",
+        "price": 55,
+        "comparePrice": 75,
+        "stock": 80,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Green%20cucumber-%E0%A4%95%E0%A4%BE%E0%A4%95%E0%A4%A1%E0%A5%80.jpg"
+  },
+  {
+    "handle": "tendli",
+    "title": "Fresh Tendli (Ivy Gourd)",
+    "category": "Gourds & Squash",
+    "usp": "Crunchy green tendli",
+    "description": "Small, firm, striped ivy gourds (tendli). Delicious when stir-fried with mustard seeds and grated coconut.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Daily Favorite"
+    ],
+    "image": "http://localhost:5002/uploads/products/Tendli-%E0%A4%A4%E0%A5%8B%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80.webp",
+    "netQuantity": "250 g",
+    "benefits": [
+      "Low Calorie",
+      "Crisp Texture",
+      "Farm Picked"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 25,
+        "comparePrice": 35,
+        "stock": 70,
+        "sortOrder": 0
+      },
+      {
+        "name": "500 g",
+        "price": 45,
+        "comparePrice": 65,
+        "stock": 60,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Tendli-%E0%A4%A4%E0%A5%8B%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80.webp"
+  },
+  {
+    "handle": "brinjal",
+    "title": "Fresh Purple Brinjal (Baingan)",
+    "category": "Other Vegetables",
+    "usp": "Glossy purple organic eggplants",
+    "description": "Tender, shiny purple brinjals with soft seeds. Perfect for bharli vangi, baingan bharta, and curry.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Fresh Harvest"
+    ],
+    "image": "http://localhost:5002/uploads/products/Brinjal-%E0%A4%B5%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%80.jpg",
+    "netQuantity": "500 g",
+    "benefits": [
+      "Soft & Tender",
+      "Great for Bharta",
+      "Chemical Free"
+    ],
+    "options": [
+      {
+        "name": "500 g",
+        "price": 35,
+        "comparePrice": 50,
+        "stock": 80,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Brinjal-%E0%A4%B5%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%80.jpg"
+  },
+  {
+    "handle": "cabbage",
+    "title": "Fresh Green Cabbage",
+    "category": "Other Vegetables",
+    "usp": "Tight, crisp heads of organic cabbage",
+    "description": "Firm green cabbage head packed with fresh crisp leaves. Great for kobichi bhaji, momos, and salads.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Crisp Head"
+    ],
+    "image": "http://localhost:5002/uploads/products/Cabbage-%E0%A4%95%E0%A5%8B%E0%A4%AC%E0%A5%80.jpg",
+    "netQuantity": "1 Pc (~500g)",
+    "benefits": [
+      "High Vitamin C",
+      "Crunchy & Fresh",
+      "Organically Grown"
+    ],
+    "options": [
+      {
+        "name": "1 Pc (~500g)",
+        "price": 30,
+        "comparePrice": 40,
+        "stock": 90,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Cabbage-%E0%A4%95%E0%A5%8B%E0%A4%AC%E0%A5%80.jpg"
+  },
+  {
+    "handle": "cauliflower",
+    "title": "Fresh Cauliflower (Phool Gobi)",
+    "category": "Other Vegetables",
+    "usp": "Clean white cauliflower florets",
+    "description": "Tight, creamy-white cauliflower head with green protective leaves. Perfect for gobi paratha, aloo gobi, and sabzi.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Farm Fresh"
+    ],
+    "image": "http://localhost:5002/uploads/products/Cauliflower%20%E2%80%93%20%E0%A4%AB%E0%A5%8D%E0%A4%B2%E0%A5%89%E0%A4%B5%E0%A4%B0.jpg",
+    "netQuantity": "1 Pc (~600g)",
+    "benefits": [
+      "Clean White Florets",
+      "Pesticide Free",
+      "Nutrient Rich"
+    ],
+    "options": [
+      {
+        "name": "1 Pc (~600g)",
+        "price": 40,
+        "comparePrice": 55,
+        "stock": 85,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Cauliflower%20%E2%80%93%20%E0%A4%AB%E0%A5%8D%E0%A4%B2%E0%A5%89%E0%A4%B5%E0%A4%B0.jpg"
+  },
+  {
+    "handle": "drumstick",
+    "title": "Fresh Organic Drumsticks (Shevga)",
+    "category": "Other Vegetables",
+    "usp": "Tender moringa drumsticks for sambar & curry",
+    "description": "Fresh green drumsticks (Moringa pods). Rich in calcium and iron, essential for South Indian sambar and shevga bhaji.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Superfood Pods"
+    ],
+    "image": "http://localhost:5002/uploads/products/Drumstick-%E0%A4%B6%E0%A5%87%E0%A4%B5%E0%A4%97%E0%A4%BE.webp",
+    "netQuantity": "250 g",
+    "benefits": [
+      "High Calcium & Iron",
+      "Tender Moringa Pods",
+      "100% Natural"
+    ],
+    "options": [
+      {
+        "name": "250 g",
+        "price": 35,
+        "comparePrice": 50,
+        "stock": 60,
+        "sortOrder": 0
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Drumstick-%E0%A4%B6%E0%A5%87%E0%A4%B5%E0%A4%97%E0%A4%BE.webp"
+  },
+  {
+    "handle": "tomato",
+    "title": "Fresh Red Tomatoes",
+    "category": "Other Vegetables",
+    "usp": "Juicy farm-ripe red tomatoes",
+    "description": "Plump, juicy red tomatoes picked at peak freshness. Essential base for all Indian curries, soups, and chutneys.",
+    "rating": 0,
+    "reviewsCount": 0,
+    "labels": [
+      "Juicy & Fresh"
+    ],
+    "image": "http://localhost:5002/uploads/products/Tomato%E2%80%93%E0%A4%9F%E0%A5%8B%E0%A4%AE%E0%A5%85%E0%A4%9F%E0%A5%8B.jpg",
+    "isBestSeller": true,
+    "bestSellerOrder": 6,
+    "netQuantity": "1 kg",
+    "benefits": [
+      "Rich in Lycopene",
+      "Juicy Farm Ripe",
+      "Daily Essential"
+    ],
+    "options": [
+      {
+        "name": "1 kg",
+        "price": 35,
+        "comparePrice": 45,
+        "stock": 180,
+        "sortOrder": 0
+      },
+      {
+        "name": "2 kg",
+        "price": 65,
+        "comparePrice": 85,
+        "stock": 120,
+        "sortOrder": 1
+      }
+    ],
+    "secondaryImage": "http://localhost:5002/uploads/products/Tomato%E2%80%93%E0%A4%9F%E0%A5%8B%E0%A4%AE%E0%A5%85%E0%A4%9F%E0%A5%8B.jpg"
+  }
+]

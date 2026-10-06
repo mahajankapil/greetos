@@ -1,0 +1,18 @@
+# Dependencies and build output
+node_modules/
+dist/
+.next/
+*.tsbuildinfo
+*.log
+
+# Secrets: real values live in the .env files and the Deploy Panel, never in git
+.env
+.env.*
+!.env.example
+SUPBASE.txt
+*.bak*
+
+# Local-only files
+oldspice.zip
+dev-*.bat
+api/db/backups/*.sql

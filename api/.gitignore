@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+
+# Keep the schema + the latest committed dump, but ignore ad-hoc/local dumps.
+db/backups/*.sql
+!db/backups/latest.sql

@@ -1,0 +1,710 @@
+// Rovique — data model.
+// Plain PostgreSQL via Prisma. Nothing here is tied to a specific host:
+// point DATABASE_URL / DIRECT_URL at any Postgres (see db/README.md).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooled connection used by the running app.
+  url       = env("DATABASE_URL")
+  // Non-pooled connection — migrations need a real session.
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id               String     @id @default(cuid())
+  phone            String?    @unique
+  email            String?    @unique
+  name             String?
+  dob              DateTime?  @db.Date
+  passwordHash     String?
+  role             String     @default("customer") // "customer" | "admin" | "creator"
+  isActive         Boolean    @default(true)
+  // ── Google Sign-In (customers) ──────────────────────────────
+  // `googleId` is the Google account's stable subject claim ("sub"). We match
+  // returning users on it rather than on email, because a Google account can
+  // change its email address but never its sub.
+  googleId         String?    @unique
+  avatarUrl        String?
+  emailVerified    Boolean    @default(false)
+  // ── Referrals ───────────────────────────────────────────────
+  // Every customer gets a shareable code on first login.
+  referralCode     String?    @unique
+  createdAt        DateTime   @default(now())
+  orders           Order[]
+  addresses        Address[]
+  coupons          Coupon[]   @relation("UserCoupons")
+  referralsMade    Referral[] @relation("ReferralsMade")
+  referralReceived Referral?  @relation("ReferralsReceived")
+  reviews          Review[]
+  // Set only for partner logins — the Creator row this account signs in as.
+  creator          Creator?
+}
+
+// A customer's saved delivery address book. Orders store their own flat
+// snapshot (see Order below) so editing/deleting an Address here never
+// changes what a past order shows.
+model Address {
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  label        String? // "Home" / "Work" / "Other" — just a display tag
+  addressLine1 String
+  addressLine2 String?
+  landmark     String?
+  city         String
+  state        String
+  pincode      String
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+// Self-referencing category tree. A category may have subcategories (children)
+// AND its own products at the same time.
+model Category {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  parentId  String?
+  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  Category[] @relation("CategoryTree")
+  image     String?
+  sortOrder Int        @default(0)
+  isActive  Boolean    @default(true)
+  products  Product[]  @relation("ProductCategories")
+  createdAt DateTime   @default(now())
+}
+
+model ProductCategoryBar {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id                   String              @id @default(cuid())
+  legacyId             String?             @unique // original hardcoded id, preserved for the frontend
+  handle               String              @unique
+  title                String
+  // A product can belong to several categories/subcategories (many-to-many).
+  categories           Category[]          @relation("ProductCategories")
+  usp                  String?
+  description          String?
+  rating               Float               @default(0)
+  reviewsCount         Int                 @default(0)
+  unitsSold            String?             @default("1766+")
+  labels               String[]
+  image                String?
+  secondaryImage       String?
+  images               String[]
+  soldOut              Boolean             @default(false)
+  // ── Merchandising ─────────────────────────────────────────────
+  // Which homepage rows a piece appears in. These replaced matching on a
+  // free-text label ("featured"), which meant the admin had to type a magic
+  // word exactly right with nothing on screen saying it was magic.
+  // The *Order columns let each row be arranged independently, so a piece can
+  // lead the Featured row and sit third in Bestsellers.
+  isFeatured           Boolean             @default(false)
+  featuredOrder        Int                 @default(0)
+  isBestSeller         Boolean             @default(false)
+  bestSellerOrder      Int                 @default(0)
+  // ── Herbal / cosmetic spec ────────────────────────────────────
+  // What the product IS, printed on the product page. These deliberately do
+  // NOT create variants: a hair oil is one product with 100ml/200ml options,
+  // not one product per size. Every field is nullable and the PDP prints only
+  // what is filled in, so a half-completed listing looks deliberate rather
+  // than broken.
+  form                 String? // "Oil", "Shampoo", "Gel", "Cream", "Comb"
+  /**
+   * Net quantity as printed on the pack ("100 ml", "300 ml", "100 g").
+   * The Legal Metrology (Packaged Commodities) Rules 2011 require this on the
+   * listing for a pre-packaged commodity, so it is a first-class field rather
+   * than something buried in the description. Free text on purpose: a combo
+   * declares each component ("Oil 100 ml + Shampoo 300 ml").
+   */
+  netQuantity          String?
+  keyIngredients       String[] // "Bhringraj", "Amla", "Neem"
+  benefits             String[] // short claim chips shown under the price
+  howToUse             String?
+  suitableFor          String? // "All hair types", "Oily & acne-prone skin"
+  /**
+   * Shelf life in months from manufacture. Cosmetics carry a best-before
+   * rather than a warranty, and it is a number so the admin can sort and
+   * filter on it.
+   */
+  shelfLifeMonths      Int?
+  storage              String? // "Store in a cool, dry place away from sunlight"
+  /**
+   * Required on Indian e-commerce listings by the Consumer Protection
+   * (E-Commerce) Rules 2020, so it is a first-class field rather than
+   * something to bury in the description.
+   */
+  countryOfOrigin      String?
+  /**
+   * Manufacturer / marketer name and address. Also mandatory on a packaged
+   * cosmetic listing, and the two are frequently different companies for a
+   * D2C brand that manufactures on contract.
+   */
+  manufacturedBy       String?
+  marketedBy           String?
+  options              ProductOption[]
+  reviews              Review[]
+  collections          Collection[]        @relation("ProductCollections")
+  concerns             Concern[]           @relation("ProductConcerns")
+  /**
+   * Combo/kit membership. A combo is a Product in its own right (it has its
+   * own price, images and reviews) that also lists what is inside it, so the
+   * PDP can show the components and stock can be reasoned about.
+   */
+  isCombo              Boolean             @default(false)
+  bundleItems          BundleItem[]        @relation("BundleParent")
+  partOfBundles        BundleItem[]        @relation("BundleComponent")
+  productCategoryBarId String?
+  productCategoryBar   ProductCategoryBar? @relation(fields: [productCategoryBarId], references: [id], onDelete: SetNull)
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+}
+
+/**
+ * What a customer is trying to fix — "Hair Fall", "Acne & Pimples",
+ * "Pigmentation". This is the entry point most herbal shoppers actually use,
+ * and it is a separate dimension from Category on purpose: a concern cuts
+ * ACROSS categories (pigmentation is served by a face wash and a cream), so
+ * folding it into the category tree would force the same product to live in
+ * two places. Same reasoning as keeping gender out of the category tree.
+ */
+model Concern {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  /** Short line under the tile on the storefront's "Shop By Concern" grid. */
+  subtitle    String?
+  description String?
+  image       String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  products    Product[] @relation("ProductConcerns")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+/**
+ * One line inside a combo: "this kit contains 1 x Hibiscus Hair Potion".
+ * Modelled as a join row rather than a JSON blob so the component is a real
+ * foreign key — renaming a product updates every kit that contains it, and a
+ * component cannot be deleted out from under a kit that still sells it.
+ */
+model BundleItem {
+  id          String  @id @default(cuid())
+  bundle      Product @relation("BundleParent", fields: [bundleId], references: [id], onDelete: Cascade)
+  bundleId    String
+  component   Product @relation("BundleComponent", fields: [componentId], references: [id], onDelete: Restrict)
+  componentId String
+  quantity    Int     @default(1)
+  sortOrder   Int     @default(0)
+
+  @@unique([bundleId, componentId])
+  @@index([componentId])
+}
+
+model ProductOption {
+  id           String  @id @default(cuid())
+  product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId    String
+  name         String
+  /**
+   * Per-variant stock-keeping unit, printed on the invoice and packing slip.
+   */
+  sku          String?
+  price        Int
+  comparePrice Int?
+  memberPrice  Int?
+  savings      String?
+  /**
+   * Units on hand for THIS variant. Stock is per-option, not per-product,
+   * because "out of stock" for jewellery almost always means one ring size
+   * has run out while the others have not.
+   */
+  stock        Int     @default(0)
+  // Explicit display order. Without it Postgres returns options in whatever
+  // order it likes, and the storefront takes its headline price from the
+  // first one — so a new SKU could silently change a product's price.
+  sortOrder    Int     @default(0)
+}
+
+model Order {
+  id                   String            @id @default(cuid())
+  orderNo              String            @unique
+  user                 User?             @relation(fields: [userId], references: [id])
+  userId               String?
+  customer             String
+  email                String?
+  phone                String?
+  addressLine1         String?
+  addressLine2         String?
+  landmark             String?
+  city                 String?
+  state                String?
+  pincode              String?
+  total                Int // final amount paid (after discount, incl. delivery)
+  discount             Int               @default(0)
+  /**
+   * Delivery charge included in `total`. Snapshotted per order: the admin can
+   * change the flat rate or the free-delivery threshold at any time, and that
+   * must never rewrite what a past customer was actually charged.
+   */
+  shippingCharge       Int               @default(0)
+  couponCode           String?
+  status               String            @default("Order Placed")
+  steps                Json?
+  razorpayOrderId      String?
+  razorpayPaymentId    String?
+  paymentStatus        String            @default("pending") // pending | paid | failed
+  paymentMethod        String            @default("prepaid") // prepaid (Razorpay) | cod
+  // ── Manual fulfilment ───────────────────────────────────────
+  // Every parcel is packed and handed to a courier by hand — there is no
+  // courier integration. The admin types these in when the order goes out,
+  // and `dispatchedAt` being set is what "this has actually shipped" means.
+  courierName          String?
+  trackingNumber       String?
+  /**
+   * Optional full tracking URL. Kept separate from the number because Indian
+   * couriers have no shared URL format, and pasting the link the courier gave
+   * you is more reliable than guessing a template per carrier.
+   */
+  trackingUrl          String?
+  dispatchedAt         DateTime?
+  items                OrderItem[]
+  returnRequests       ReturnRequest[]
+  redemption           CouponRedemption?
+  invoice              Invoice?
+  createdAt            DateTime          @default(now())
+}
+
+/**
+ * The GST tax invoice for a paid order — at most one per order, ever.
+ * Everything legal is SNAPSHOTTED at issue time (seller details, rates,
+ * amounts): an invoice is a record of what was true when it was issued, and
+ * must not change because the business later edits its settings. Amounts are
+ * stored in PAISE, because GST back-calculation from tax-inclusive rupee
+ * prices produces fractions that rupee integers would silently lose.
+ */
+model Invoice {
+  id        String @id @default(cuid())
+  /**
+   * Controlled sequential number, e.g. "SCH-00042". Never reused.
+   */
+  invoiceNo String @unique
+  order     Order  @relation(fields: [orderId], references: [id])
+  orderId   String @unique
+
+  // Seller (from Business Settings at issue time)
+  sellerName    String
+  sellerAddress String
+  sellerGstin   String
+  sellerFssai   String?
+  sellerState   String
+
+  // Buyer
+  customerName   String
+  billingAddress String
+  placeOfSupply  String // buyer's state — decides CGST/SGST vs IGST
+
+  hsn     String
+  gstRate Int // percent, e.g. 18
+
+  // All in paise. Prices are tax-inclusive, so taxable + tax = total exactly.
+  taxableValue Int
+  cgst         Int
+  sgst         Int
+  igst         Int
+  total        Int
+  discount     Int @default(0)
+
+  /**
+   * Payment reference — Razorpay payment id, or "COD".
+   */
+  paymentRef String
+
+  createdAt DateTime @default(now())
+}
+
+model OrderItem {
+  id           String @id @default(cuid())
+  order        Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId      String
+  productTitle String
+  optionName   String
+  price        Int
+  quantity     Int
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  message   String
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String   @default("info") // "offer" | "info"
+  title     String
+  message   String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Coupon {
+  id            String             @id @default(cuid())
+  code          String             @unique // stored UPPERCASE
+  description   String?
+  discountType  String             @default("percent") // "percent" | "flat"
+  discountValue Int // percent (e.g. 15) or flat rupees
+  minAmount     Int                @default(0)
+  maxDiscount   Int? // cap for % discounts (rupees)
+  usageLimit    Int? // total redemptions (null = unlimited)
+  perUserLimit  Int? // per-user redemptions (null = unlimited)
+  usedCount     Int                @default(0)
+  validFrom     DateTime?
+  validUntil    DateTime?
+  active        Boolean            @default(true)
+  // Where the code came from: "manual" (admin-made, public),
+  // "creator" (an affiliate's shared code), "referral" (personal reward).
+  source        String             @default("manual")
+  // Set for personal coupons — only this user may redeem it, and it is the
+  // only kind that shows up under their account.
+  userId        String?
+  user          User?              @relation("UserCoupons", fields: [userId], references: [id], onDelete: Cascade)
+  creator       Creator?
+  redemptions   CouponRedemption[]
+  createdAt     DateTime           @default(now())
+
+  @@index([userId])
+}
+
+/**
+ * A creator/influencer running an affiliate code. Their coupon is what their
+ * audience types at checkout; commission is what we owe them per order.
+ */
+model Creator {
+  id              String             @id @default(cuid())
+  name            String
+  email           String             @unique
+  phone           String?
+  handle          String? // social handle, e.g. @someone
+  couponId        String             @unique
+  coupon          Coupon             @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  commissionType  String             @default("percent") // "percent" (of order value) | "flat" (per order)
+  commissionValue Int                @default(10)
+  isActive        Boolean            @default(true)
+  notes           String?
+  /**
+   * The partner's login, if they've been invited to the portal. Nullable:
+   * this programme is invite-only and a creator can exist as a tracked code
+   * long before (or without) ever getting an account.
+   */
+  userId          String?            @unique
+  user            User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  redemptions     CouponRedemption[]
+  payouts         CreatorPayout[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+}
+
+/**
+ * A partner's withdrawal request, and its settlement.
+ * There is no per-order settlement ledger: what a partner has earned is
+ * derived from delivered redemptions (see utils/creatorEarnings.ts), and these
+ * rows are subtracted from it to give the available balance. A row counts
+ * against that balance from the moment it is requested, so the money can't be
+ * requested twice while an admin is still settling the first one.
+ * The payee details are snapshotted here rather than stored on the Creator:
+ * they are how *this* payment was made, and must stay accurate in the record
+ * even if the partner later changes their bank or UPI.
+ */
+model CreatorPayout {
+  id            String    @id @default(cuid())
+  creator       Creator   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId     String
+  amount        Int
+  status        String    @default("requested") // "requested" | "paid" | "rejected"
+  // ── Where to send the money ────────────────────────────────
+  method        String    @default("upi") // "upi" | "bank"
+  upiId         String? // set when method = "upi"
+  accountName   String? // the four below are set when method = "bank"
+  accountNumber String?
+  ifsc          String?
+  bankName      String?
+  note          String? // anything else the partner wanted to say
+  adminNote     String? // payment reference, or why it was rejected
+  settledAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@index([creatorId])
+  @@index([status])
+}
+
+/**
+ * One row per coupon actually redeemed on a paid order.
+ * `Coupon.usedCount` alone can't answer "how much revenue did this creator
+ * drive" — this table snapshots the money at redemption time so reporting stays
+ * correct even if the coupon or commission rate is edited later.
+ */
+model CouponRedemption {
+  id         String   @id @default(cuid())
+  couponId   String
+  coupon     Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  orderId    String   @unique
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId     String?
+  code       String
+  subtotal   Int // cart value before discount
+  discount   Int // rupees taken off
+  orderTotal Int // what the customer actually paid
+  creatorId  String?
+  creator    Creator? @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+  commission Int      @default(0) // owed to the creator for this order
+  createdAt  DateTime @default(now())
+
+  @@index([couponId])
+  @@index([creatorId])
+}
+
+/**
+ * Links a new customer to whoever referred them.
+ * The referee's reward is issued immediately at signup; the referrer's is held
+ * until the referee actually pays for something (`status` flips to "rewarded"),
+ * so throwaway signups can't mint coupons.
+ */
+model Referral {
+  id               String    @id @default(cuid())
+  referrerId       String
+  referrer         User      @relation("ReferralsMade", fields: [referrerId], references: [id], onDelete: Cascade)
+  refereeId        String    @unique // a customer can only ever be referred once
+  referee          User      @relation("ReferralsReceived", fields: [refereeId], references: [id], onDelete: Cascade)
+  code             String
+  status           String    @default("pending") // "pending" | "rewarded"
+  refereeCouponId  String?
+  referrerCouponId String?
+  rewardedAt       DateTime?
+  createdAt        DateTime  @default(now())
+
+  @@index([referrerId])
+}
+
+model ReturnRequest {
+  id                   String    @id @default(cuid())
+  order                Order     @relation(fields: [orderId], references: [id])
+  orderId              String
+  type                 String // "Return", "Refund", "Exchange"
+  reason               String
+  imageUrl             String?
+  status               String    @default("Pending") // "Pending", "Accepted", "Declined"
+  adminComments        String?
+  pickupTime           String?
+  /**
+   * The reverse pickup, arranged by hand once the return is accepted. Mirrors
+   * the forward-shipment fields on Order.
+   */
+  returnCourierName    String?
+  returnTrackingNumber String?
+  pickedUpAt           DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
+/**
+ * One-time login codes emailed to customers.
+ * The code is stored hashed, never in plaintext, so a database leak can't be
+ * replayed as a login. `attempts` caps guessing: a 4-digit code is only 10,000
+ * combinations, so the row is burned after a handful of wrong tries.
+ */
+model EmailOtp {
+  id        String   @id @default(cuid())
+  email     String
+  codeHash  String
+  expiresAt DateTime
+  consumed  Boolean  @default(false)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+/**
+ * Interest registered against a product that can't be bought yet.
+ * Doubles as a demand signal: which of the not-yet-launched products people
+ * actually want, and how many of them, visible in the admin panel.
+ */
+model NotifyRequest {
+  id        String   @id @default(cuid())
+  product   String // e.g. "IGNITE"
+  variant   String? // jar size / flavour, when the request is that specific
+  email     String
+  notified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // One registration per person per product — re-submitting just refreshes it.
+  @@unique([product, email])
+  @@index([product])
+}
+
+model Setting {
+  key       String   @id
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/**
+ * A customer's rating and written review of a product.
+ * Client requirement (Q5/Q15): a customer submits it, an admin approves it,
+ * and only then does it appear under the product. `approved` therefore
+ * defaults to false — an unmoderated review must never be publicly readable,
+ * so the storefront's queries always filter on it.
+ * `Product.rating` and `Product.reviewsCount` are denormalised aggregates kept
+ * in step whenever a review is approved, hidden or deleted. They exist so a
+ * product grid can show stars without joining and averaging every review.
+ */
+model Review {
+  id         String   @id @default(cuid())
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId     String?
+  /**
+   * Snapshotted so a deleted account does not blank out its reviews.
+   */
+  authorName String
+  rating     Int // 1..5, enforced in the route
+  title      String?
+  body       String?
+  approved   Boolean  @default(false)
+  /**
+   * Set when the reviewer actually bought this product.
+   */
+  verified   Boolean  @default(false)
+  /**
+   * A photo the customer sent in, shown on the review card.
+   */
+  imageUrl   String?
+  /**
+   * Whether this review appears in the home page carousel.
+   * Separate from `approved` on purpose: approving publishes a review on the
+   * product page, which every genuine one deserves. The home page is a shop
+   * window with room for a handful, so that is a second, editorial choice.
+   */
+  showOnHome Boolean  @default(false)
+  adminNote  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // One review per customer per product.
+  @@unique([productId, userId])
+  @@index([productId, approved])
+}
+
+/**
+ * A merchandising group — "Bridal", "Under 999", "New In".
+ * Deliberately separate from Category. A category is what a piece IS
+ * (Earrings) and a product has exactly one place in that tree; a collection is
+ * a campaign a piece can join and leave, and it can span every category.
+ */
+model Collection {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  products    Product[] @relation("ProductCollections")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+/**
+ * A cart that was filled but never paid for (client requirement Q7).
+ * Keyed by email rather than user, because the cart is captured at the moment
+ * the customer identifies themselves at checkout — which may be before the
+ * account row is finished. `remindedAt` is what stops a nightly job mailing
+ * the same person about the same cart forever; `recoveredAt` is set when an
+ * order finally lands, so the reporting can show what the reminder was worth.
+ */
+model AbandonedCart {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  userId        String?
+  /**
+   * The cart lines as they stood: [{ productId, title, optionName, price, quantity }].
+   */
+  items         Json
+  subtotal      Int       @default(0)
+  remindedAt    DateTime?
+  reminderCount Int       @default(0)
+  recoveredAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([remindedAt, recoveredAt])
+}
+
+/**
+ * An email captured from the storefront — the welcome popup or the footer
+ * newsletter form.
+ * Separate from User on purpose: subscribing is not signing up. Most people
+ * who hand over an email for a first-order discount never create an account,
+ * and folding them into User would inflate the customer list with rows that
+ * have no orders and no password.
+ * `source` records which form it came from, so the value of the popup can be
+ * judged against the footer rather than guessed at.
+ */
+model Subscriber {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  source     String   @default("popup") // "popup" | "footer"
+  /**
+   * The code the visitor was shown, so it can be reconciled with redemptions.
+   */
+  couponCode String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Reel {
+  id           String   @id @default(cuid())
+  title        String?
+  videoUrl     String
+  thumbnailUrl String?
+  caption      String?
+  hashtags     String[]
+  instagramUrl String?
+  productLink  String?
+  productName  String?
+  sortOrder    Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// Login codes sent to a mobile number. Mirrors EmailOtp: same TTL, attempt
+/// limit and rate window, keyed on the normalised +91XXXXXXXXXX form so the
+/// same subscriber typed three different ways shares one rate-limit bucket.
+model PhoneOtp {
+  id        String   @id @default(cuid())
+  phone     String
+  codeHash  String
+  expiresAt DateTime
+  consumed  Boolean  @default(false)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([phone])
+}
