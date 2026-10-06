@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { PRODUCTS, Product } from '@/data/products';
+import { VegetableNavigation } from '@/components/VegetableNavigation';
+import { useDialog } from '@/hooks/useDialog';
 
 const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5002/api').replace(/\/$/, '');
 
@@ -24,6 +26,7 @@ export const Header: React.FC = () => {
   const { totalItems, openCart } = useCart();
   const { user, loading: authLoading } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const drawerRef = useDialog(drawerOpen, () => setDrawerOpen(false));
   const [searchQuery, setSearchQuery] = useState('');
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -33,6 +36,19 @@ export const Header: React.FC = () => {
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const mobileSearchRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setDrawerOpen(false);
+    setMoreDropdownOpen(false);
+    setIsFocused(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const closeOnDesktop = () => { if (desktop.matches) setDrawerOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => desktop.removeEventListener('change', closeOnDesktop);
+  }, []);
 
   const logo = 'https://mkpillllll.sirv.com/oldspice/categ/products/logooldspice.png';
 
@@ -119,14 +135,14 @@ export const Header: React.FC = () => {
     { id: 'HeaderMenu-home', name: 'HOME', href: '/' },
     { id: 'HeaderMenu-best-sellers', name: 'BEST SELLERS', href: '/collections/best-sellers' },
     { id: 'HeaderMenu-combos', name: 'ORGANIC BASKETS', href: '/collections/super-saver-combos' },
-    { id: 'HeaderMenu-leafy', name: 'LEAFY GREENS', href: '/collections/leafy-greens' },
-    { id: 'HeaderMenu-all-products', name: 'ALL PRODUCE', href: '/collections/all' },
+    { id: 'HeaderMenu-all-products', name: 'SHOP VEGETABLES', href: '/collections/all' },
     { id: 'HeaderMenu-offers', name: 'OFFERS', href: '/offers' },
   ];
 
   const moreDropdownItems = [
     { id: 'HeaderMenu-blog', name: 'BLOG', href: '/blogs/news' },
     { id: 'HeaderMenu-about', name: 'ABOUT US', href: '/about-us' },
+    { id: 'HeaderMenu-directors', name: 'BOARD OF DIRECTORS', href: '/board-of-directors' },
     { id: 'HeaderMenu-contact-us', name: 'CONTACT US', href: '/contact' },
   ];
 
@@ -164,7 +180,7 @@ export const Header: React.FC = () => {
         }}
       >
         {/* Left Side: Mobile Menu Button + Brand Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0, marginRight: '36px' }}>
+        <div className="header-brand" style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0, marginRight: '36px' }}>
           <button
             className="mobile-menu-btn"
             aria-label="Open menu"
@@ -210,6 +226,7 @@ export const Header: React.FC = () => {
             }}
           >
             {menuItems.map((item) => {
+              if (item.id === 'HeaderMenu-all-products') return <VegetableNavigation key={item.id} />;
               const active = isItemActive(item.href);
               return (
                 <li key={item.id}>
@@ -249,15 +266,26 @@ export const Header: React.FC = () => {
               );
             })}
 
-            {/* MORE Dropdown (Blog, About Us, Contact Us) */}
+            {/* More navigation */}
             <li
               style={{ position: 'relative' }}
               onMouseEnter={() => setMoreDropdownOpen(true)}
               onMouseLeave={() => setMoreDropdownOpen(false)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setMoreDropdownOpen(false);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  setMoreDropdownOpen(false);
+                  event.currentTarget.querySelector('button')?.focus();
+                }
+              }}
             >
               <button
                 type="button"
                 onClick={() => setMoreDropdownOpen((prev) => !prev)}
+                aria-expanded={moreDropdownOpen}
+                aria-controls="desktop-more-links"
                 style={{
                   background: 'none',
                   border: 'none',
@@ -292,6 +320,7 @@ export const Header: React.FC = () => {
 
               {moreDropdownOpen && (
                 <div
+                  id="desktop-more-links"
                   style={{
                     position: 'absolute',
                     top: '100%',
@@ -301,7 +330,7 @@ export const Header: React.FC = () => {
                     boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
                     borderRadius: '12px',
                     padding: '8px 0',
-                    minWidth: '160px',
+                    minWidth: '220px',
                     border: '1px solid #f3f4f6',
                     zIndex: 110,
                   }}
@@ -337,7 +366,7 @@ export const Header: React.FC = () => {
         </nav>
 
         {/* Right Side: Search Input/Icon + Account + Cart + Action Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
+        <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
           {/* Integrated Search Box with Animated Placeholder */}
           <div className="desktop-search-container" ref={searchContainerRef} style={{ position: 'relative' }}>
             <form action="/collections/all" method="get" role="search" style={{ display: 'flex', alignItems: 'center' }}>
@@ -383,6 +412,8 @@ export const Header: React.FC = () => {
                 <input
                   type="text"
                   name="q"
+                  aria-label="Search vegetables"
+                  enterKeyHint="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setIsFocused(true)}
@@ -570,6 +601,7 @@ export const Header: React.FC = () => {
           {/* Account Icon */}
           <Link
             href={user ? '/account' : '/account/login'}
+            className="touch-icon"
             aria-label={user ? 'Account' : 'Sign In'}
             style={{
               color: '#111827',
@@ -590,6 +622,7 @@ export const Header: React.FC = () => {
           {/* Cart Icon with Counter */}
           <button
             onClick={openCart}
+            className="touch-icon"
             type="button"
             aria-label="Cart"
             style={{
@@ -705,6 +738,8 @@ export const Header: React.FC = () => {
             <input
               type="text"
               name="q"
+              aria-label="Search vegetables"
+              enterKeyHint="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -896,7 +931,6 @@ export const Header: React.FC = () => {
           zIndex: 9999,
           pointerEvents: drawerOpen ? 'auto' : 'none',
           visibility: drawerOpen ? 'visible' : 'hidden',
-          transition: 'visibility 0.3s ease',
         }}
       >
         {/* Dark Backdrop Overlay */}
@@ -914,6 +948,12 @@ export const Header: React.FC = () => {
 
         {/* Side Drawer Panel */}
         <div
+          ref={drawerRef}
+          className="mobile-navigation-panel"
+          role="dialog"
+          aria-modal={drawerOpen ? true : undefined}
+          aria-label="Main menu"
+          tabIndex={-1}
           style={{
             position: 'absolute',
             top: 0,
@@ -987,6 +1027,8 @@ export const Header: React.FC = () => {
                 <input
                   type="text"
                   name="q"
+                  aria-label="Search vegetables"
+                  enterKeyHint="search"
                   placeholder={SEARCH_SUGGESTIONS[placeholderIdx]}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -1008,6 +1050,7 @@ export const Header: React.FC = () => {
           <div style={{ flex: 1, padding: '8px 0' }}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column' }}>
               {menuItems.map((item) => {
+                if (item.id === 'HeaderMenu-all-products') return <VegetableNavigation key={item.id} mobile onNavigate={() => setDrawerOpen(false)} />;
                 const active = isItemActive(item.href);
                 return (
                   <li key={item.id}>
@@ -1038,6 +1081,30 @@ export const Header: React.FC = () => {
                   </li>
                 );
               })}
+              <li>
+                <details className="mobile-more-menu">
+                  <summary style={{ padding: '13px 20px', fontSize: '12px', fontWeight: 700, letterSpacing: '0.8px', color: '#374151', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}>
+                    MORE
+                  </summary>
+                  <ul style={{ listStyle: 'none', padding: '8px 0', margin: 0, background: '#fafbfc' }}>
+                    {moreDropdownItems.map((item) => (
+                      <li key={item.id}>
+                        <Link
+                          href={item.href}
+                          aria-current={isItemActive(item.href) ? 'page' : undefined}
+                          onClick={(event) => {
+                            setDrawerOpen(false);
+                            event.currentTarget.closest('details')?.removeAttribute('open');
+                          }}
+                          style={{ display: 'block', padding: '11px 32px', fontSize: '12px', fontWeight: 700, letterSpacing: '0.8px', color: isItemActive(item.href) ? '#15803d' : '#374151', background: isItemActive(item.href) ? '#f0fdf4' : 'transparent', textDecoration: 'none' }}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </li>
             </ul>
           </div>
 
@@ -1078,39 +1145,6 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      <style jsx global>{`
-        @media (min-width: 1024px) {
-          .desktop-nav {
-            display: flex !important;
-          }
-          .desktop-search-container {
-            display: block !important;
-          }
-          .action-pill-btn {
-            display: inline-block !important;
-          }
-          .mobile-menu-btn {
-            display: none !important;
-          }
-          .mobile-search-bar-row {
-            display: none !important;
-          }
-        }
-
-        @media (max-width: 1023px) {
-          .desktop-nav,
-          .desktop-search-container,
-          .action-pill-btn {
-            display: none !important;
-          }
-          .mobile-menu-btn {
-            display: flex !important;
-          }
-          .mobile-search-bar-row {
-            display: block !important;
-          }
-        }
-      `}</style>
     </header>
   );
 };

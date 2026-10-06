@@ -16,14 +16,14 @@ export default function BlogPage() {
             Blogs & Organic Farming News
           </h1>
           <p style={{ fontSize: '16px', color: '#4a5568' }}>
-            Read expert Ayurvedic skin & hair care tips, natural ingredient guides, and wellness secrets.
+            Fresh vegetable guides, seasonal produce stories, and ideas from our local farms.
           </p>
         </div>
       </div>
 
       <div style={{ maxWidth: '1000px', margin: '60px auto 0', padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '50px' }}>
         {BLOG_POSTS.map((post) => (
-          <article id={post.slug} key={post.slug} style={{ background: '#f8faf6', borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', padding: '30px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', alignItems: 'center' }}>
+          <article id={post.slug} key={post.slug} style={{ scrollMarginTop: '130px', background: '#f8faf6', borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', padding: '30px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '30px', alignItems: 'center' }}>
             <div style={{ position: 'relative', width: '100%', height: '240px', borderRadius: '12px', overflow: 'hidden' }}>
               <Image src={post.image} alt={post.title} fill style={{ objectFit: 'cover' }} />
             </div>

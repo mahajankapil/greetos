@@ -531,7 +531,7 @@ export default function CheckoutPage() {
     <div style={{ background: '#fff', minHeight: '100vh' }}>
       {/* Checkout gets its own minimal chrome. The site nav is deliberately
           absent: every link out of here is a way to lose the order. */}
-      <header style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <header className="checkout-header" style={{ borderBottom: '1px solid #e5e7eb' }}>
         <div
           style={{
             maxWidth: '1160px',
@@ -548,7 +548,7 @@ export default function CheckoutPage() {
           >
             {SITE.name}
           </Link>
-          <Link href="/cart" aria-label="Back to cart" style={{ color: '#4b5563' }}>
+          <Link className="touch-icon" href="/cart" aria-label="Back to cart" style={{ color: '#4b5563' }}>
             <ShoppingBag size={22} />
           </Link>
         </div>

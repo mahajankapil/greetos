@@ -190,9 +190,18 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
             }}
           >
             {displayReels.map((reel) => (
-              <div
-                key={reel.id}
-                onClick={() => openReelModal(reel)}
+                <div
+                  key={reel.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Play ${reel.title || 'farm reel'}`}
+                  onClick={() => openReelModal(reel)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      openReelModal(reel);
+                    }
+                  }}
                 style={{
                   flexShrink: 0,
                   width: '210px',
@@ -208,6 +217,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
               >
                 <video
                   src={reel.videoUrl}
+                  preload="none"
                   poster={reel.thumbnailUrl || undefined}
                   muted
                   playsInline

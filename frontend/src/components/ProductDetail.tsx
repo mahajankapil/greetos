@@ -222,7 +222,7 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
             gap: '40px',
             alignItems: 'start',
           }}
@@ -423,7 +423,25 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
                   return (
                     <div
                       key={opt.id}
+                      role="radio"
+                      aria-checked={active}
+                      aria-label={`${opt.name}, ${money(opt.price)}`}
+                      tabIndex={active ? 0 : -1}
                       onClick={() => setSelectedId(opt.id)}
+                      onKeyDown={(event) => {
+                        if (event.key === ' ' || event.key === 'Enter') {
+                          event.preventDefault();
+                          setSelectedId(opt.id);
+                          return;
+                        }
+                        const index = packOptions.findIndex((option) => option.id === opt.id);
+                        const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 0;
+                        if (!direction && !['Home', 'End'].includes(event.key)) return;
+                        event.preventDefault();
+                        const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? packOptions.length - 1 : (index + direction + packOptions.length) % packOptions.length;
+                        setSelectedId(packOptions[nextIndex].id);
+                        event.currentTarget.parentElement?.querySelectorAll<HTMLElement>('[role="radio"]')[nextIndex]?.focus();
+                      }}
                       style={{
                         position: 'relative',
                         border: `2px solid ${active ? '#0f766e' : '#cbd5e1'}`,

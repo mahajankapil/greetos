@@ -18,7 +18,7 @@ export default function CartPage() {
     <div style={{ background: '#fcfdfa', minHeight: '80vh', padding: '40px 20px 80px' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
           <div>
             <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '32px', fontWeight: 800, color: '#1c2417', margin: 0 }}>
               Shopping Cart
@@ -36,22 +36,22 @@ export default function CartPage() {
           <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', padding: '60px 20px', textAlign: 'center' }}>
             <h3 style={{ fontSize: '20px', color: '#4a5568', marginBottom: '16px' }}>Your cart is empty</h3>
             <Link href="/collections/all" style={{ background: '#88b950', color: '#fff', padding: '12px 28px', borderRadius: '30px', fontWeight: 700, textDecoration: 'none' }}>
-              Explore Herbal Products
+              Shop Fresh Vegetables
             </Link>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '32px' }}>
             
             {/* Cart Table */}
             <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #e2e8f0', padding: '24px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {cart.map((item) => (
-                  <div key={lineKey(item.product.id, item.option.id)} style={{ display: 'flex', gap: '16px', paddingBottom: '20px', borderBottom: '1px solid #edf2f7', alignItems: 'center' }}>
+                  <div className="cart-page-item" key={lineKey(item.product.id, item.option.id)} style={{ display: 'flex', gap: '16px', paddingBottom: '20px', borderBottom: '1px solid #edf2f7', alignItems: 'center' }}>
                     <div style={{ position: 'relative', width: '80px', height: '80px', background: '#f8faf6', borderRadius: '10px', overflow: 'hidden', flexShrink: 0 }}>
                       <Image src={item.product.primaryImage} alt={item.product.title} fill style={{ objectFit: 'contain' }} />
                     </div>
 
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <Link href={`/products/${item.product.slug}`} style={{ textDecoration: 'none', color: '#1a202c', fontWeight: 700, fontSize: '16px', display: 'block', marginBottom: '4px' }}>
                         {item.product.title}
                       </Link>
@@ -63,17 +63,17 @@ export default function CartPage() {
                       </span>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #cbd5e1', borderRadius: '20px', padding: '2px 8px' }}>
-                      <button onClick={() => updateQuantity(lineKey(item.product.id, item.option.id), item.quantity - 1)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px' }}>
+                    <div className="cart-page-quantity" style={{ display: 'flex', alignItems: 'center', border: '1px solid #cbd5e1', borderRadius: '20px', padding: '2px 8px' }}>
+                      <button className="touch-icon" aria-label={`Decrease quantity of ${item.product.title}`} onClick={() => updateQuantity(lineKey(item.product.id, item.option.id), item.quantity - 1)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px' }}>
                         <Minus size={14} />
                       </button>
                       <span style={{ fontSize: '14px', fontWeight: 700, padding: '0 8px' }}>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(lineKey(item.product.id, item.option.id), item.quantity + 1)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px' }}>
+                      <button className="touch-icon" aria-label={`Increase quantity of ${item.product.title}`} onClick={() => updateQuantity(lineKey(item.product.id, item.option.id), item.quantity + 1)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px' }}>
                         <Plus size={14} />
                       </button>
                     </div>
 
-                    <button onClick={() => removeFromCart(lineKey(item.product.id, item.option.id))} style={{ background: 'none', border: 'none', color: '#e53e3e', cursor: 'pointer', padding: '8px' }}>
+                    <button className="touch-icon" aria-label={`Remove ${item.product.title} from cart`} onClick={() => removeFromCart(lineKey(item.product.id, item.option.id))} style={{ background: 'none', border: 'none', color: '#e53e3e', cursor: 'pointer', padding: '8px' }}>
                       <Trash2 size={18} />
                     </button>
                   </div>

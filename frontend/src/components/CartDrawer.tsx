@@ -5,9 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { X, Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { useCart, lineKey } from '@/context/CartContext';
+import { useDialog } from '@/hooks/useDialog';
 
 export const CartDrawer: React.FC = () => {
   const { cart, isOpen, closeCart, removeFromCart, updateQuantity, subtotal, totalItems } = useCart();
+  const dialogRef = useDialog(isOpen, closeCart);
 
   if (!isOpen) return null;
 
@@ -16,10 +18,7 @@ export const CartDrawer: React.FC = () => {
   const remainingForFreeShipping = freeShippingThreshold - subtotal;
 
   return (
-    // Above the fixed mobile bottom nav (z-index 9999), which otherwise paints
-    // over the subtotal and the checkout button. `100dvh` rather than 100%
-    // because iOS Safari measures 100% against the viewport *without* its
-    // toolbar, hiding the footer behind it.
+    // Keep cart actions above site navigation and within the dynamic viewport.
     <div
       style={{
         position: 'fixed',
@@ -38,6 +37,11 @@ export const CartDrawer: React.FC = () => {
 
       {/* Drawer */}
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping cart"
+        tabIndex={-1}
         style={{
           position: 'relative',
           zIndex: 10001,
@@ -51,14 +55,14 @@ export const CartDrawer: React.FC = () => {
         }}
       >
         {/* Header */}
-        <div style={{ padding: '20px', borderBottom: '1px solid #edf2f7', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ padding: '20px', paddingTop: 'calc(20px + env(safe-area-inset-top, 0px))', borderBottom: '1px solid #edf2f7', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ShoppingBag size={20} color="#88b950" />
             <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: '#1a202c' }}>
               Your Cart ({totalItems})
             </h3>
           </div>
-          <button onClick={closeCart} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}>
+          <button className="touch-icon" aria-label="Close cart" onClick={closeCart} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}>
             <X size={22} color="#4a5568" />
           </button>
         </div>
@@ -99,7 +103,7 @@ export const CartDrawer: React.FC = () => {
                   <div style={{ position: 'relative', width: '70px', height: '70px', background: '#f8faf6', borderRadius: '8px', overflow: 'hidden', flexShrink: 0 }}>
                     <Image src={item.product.primaryImage} alt={item.product.title} fill style={{ objectFit: 'contain' }} />
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <h4 style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: 700, color: '#1a202c', lineHeight: '1.3' }}>
                       {item.product.title}
                     </h4>
@@ -111,9 +115,11 @@ export const CartDrawer: React.FC = () => {
                     </span>
 
                     {/* Quantity Controls */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #cbd5e1', borderRadius: '4px' }}>
                         <button
+                          className="touch-icon"
+                          aria-label={`Decrease quantity of ${item.product.title}`}
                           onClick={() => updateQuantity(lineKey(item.product.id, item.option.id), item.quantity - 1)}
                           style={{ background: 'none', border: 'none', padding: '4px 8px', cursor: 'pointer' }}
                         >
@@ -121,6 +127,8 @@ export const CartDrawer: React.FC = () => {
                         </button>
                         <span style={{ fontSize: '13px', fontWeight: 600, padding: '0 6px' }}>{item.quantity}</span>
                         <button
+                          className="touch-icon"
+                          aria-label={`Increase quantity of ${item.product.title}`}
                           onClick={() => updateQuantity(lineKey(item.product.id, item.option.id), item.quantity + 1)}
                           style={{ background: 'none', border: 'none', padding: '4px 8px', cursor: 'pointer' }}
                         >
@@ -129,6 +137,8 @@ export const CartDrawer: React.FC = () => {
                       </div>
 
                       <button
+                        className="touch-icon"
+                        aria-label={`Remove ${item.product.title} from cart`}
                         onClick={() => removeFromCart(lineKey(item.product.id, item.option.id))}
                         style={{ background: 'none', border: 'none', color: '#e53e3e', cursor: 'pointer', padding: '4px' }}
                       >

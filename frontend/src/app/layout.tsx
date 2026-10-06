@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
@@ -12,6 +12,13 @@ export const metadata: Metadata = {
   icons: {
     icon: SITE.logoUrl,
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#2d451e',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

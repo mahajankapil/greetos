@@ -122,14 +122,15 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, title })
           {/* SINGLE THUMB LIST */}
           <div className="thumb-list" ref={thumbListRef}>
             {galleryImages.map((imgUrl, index) => (
-              <img
+              <button
                 key={index}
-                src={imgUrl}
-                alt={`${title} - Thumbnail ${index + 1}`}
-                data-full={imgUrl}
-                className={activeIndex === index ? 'active' : ''}
+                type="button"
+                aria-label={`Show image ${index + 1} of ${title}`}
+                aria-pressed={activeIndex === index}
                 onClick={() => setActiveIndex(index)}
-              />
+              >
+                <img src={imgUrl} alt="" className={activeIndex === index ? 'active' : ''} />
+              </button>
             ))}
           </div>
 

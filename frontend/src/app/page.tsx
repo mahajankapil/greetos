@@ -3,13 +3,13 @@ import type { Metadata } from 'next';
 import { HeroSlider, type DynamicBanner } from '@/components/HeroSlider';
 import { CollectionsGrid } from '@/components/CollectionsGrid';
 import { ProductSlider } from '@/components/ProductSlider';
-import { ShopByConcern } from '@/components/ShopByConcern';
 import { CustomerReviews } from '@/components/CustomerReviews';
 import { TrustBadges } from '@/components/TrustBadges';
 import { NewsInsights } from '@/components/NewsInsights';
 import { ReelsSection } from '@/components/ReelsSection';
-import { OurStorySection } from '@/components/OurStorySection';
-import { getProducts, getConcerns, getSettings, getReels, getCategories } from '@/lib/api';
+import { getProducts, getSettings, getReels, getCategories } from '@/lib/api';
+import { COLLECTIONS } from '@/data/collections';
+import { BLOG_POSTS } from '@/data/blogs';
 import { adaptProduct } from '@/lib/productAdapter';
 import { SITE } from '@/lib/site';
 
@@ -32,9 +32,8 @@ const DEFAULT_CATEGORY_IMAGES: Record<string, string> = {
 };
 
 export default async function HomePage() {
-  const [products, concerns, settings, reels, apiCategories] = await Promise.all([
+  const [products, settings, reels, apiCategories] = await Promise.all([
     getProducts(),
-    getConcerns(),
     getSettings(),
     getReels(),
     getCategories(),
@@ -44,6 +43,21 @@ export default async function HomePage() {
 
   const combos = all.filter((p) => p.isCombo);
   const bestSellers = all.filter((p) => p.isBestSeller);
+
+  const vegetableSections = COLLECTIONS
+    .filter((collection) => collection.slug !== 'organic-baskets')
+    .map((collection) => ({
+      ...collection,
+      title: collection.slug === 'other-vegetables' ? 'Everyday Vegetables' : collection.title,
+      products: products
+        .filter((product) => !product.isCombo && (
+          product.categories.some((category) => category.slug === collection.slug || category.name.toLowerCase() === collection.title.toLowerCase()) ||
+          product.category?.toLowerCase() === collection.title.toLowerCase() ||
+          product.category === collection.slug
+        ))
+        .map(adaptProduct),
+    }))
+    .filter((collection) => collection.products.length > 0);
 
   let heroBanners: DynamicBanner[] = [];
   if (settings?.hero_banners) {
@@ -77,32 +91,9 @@ export default async function HomePage() {
       const parsed = JSON.parse(settings.blog_posts);
       if (Array.isArray(parsed) && parsed.length > 0) {
         blogPosts = parsed.map((post: any, idx: number) => {
-          const isLegacy = !post.title || post.title.includes('Skin') || post.title.includes('Hair');
+          const isLegacy = !post.title || /skin|hair|herbal-skincare/i.test(`${post.title} ${post.slug || ''}`);
           if (isLegacy) {
-            const defaults = [
-              {
-                title: 'Guide to Storing Fresh Organic Leafy Greens at Home',
-                author: 'Old Spice Agro Fresh LLP',
-                date: 'August 31, 2026',
-                image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=800&auto=format&fit=crop',
-                slug: 'guide-to-storing-fresh-organic-leafy-greens',
-              },
-              {
-                title: 'Health Benefits of Eating Seasonally Harvested Produce',
-                author: 'Old Spice Agro Fresh LLP',
-                date: 'August 31, 2026',
-                image: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=800&auto=format&fit=crop',
-                slug: 'health-benefits-of-eating-seasonally-harvested-produce',
-              },
-              {
-                title: '100% Organic Produce: From Our Local Farms to Your Kitchen',
-                author: 'Old Spice Agro Fresh LLP',
-                date: 'April 22, 2026',
-                image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop',
-                slug: '100-percent-organic-vegetables-from-farm-to-table',
-              },
-            ];
-            return defaults[idx % defaults.length];
+            return BLOG_POSTS[idx % BLOG_POSTS.length];
           }
           return {
             ...post,
@@ -112,20 +103,6 @@ export default async function HomePage() {
       }
     } catch {
       blogPosts = [];
-    }
-  }
-
-  let ourStoryData = undefined;
-  if (settings?.our_story_section) {
-    try {
-      const parsed = JSON.parse(settings.our_story_section);
-      ourStoryData = {
-        ...parsed,
-        title: !parsed.title || parsed.title.includes('Rovique') ? 'Board Of Directors' : parsed.title,
-        subtitle: !parsed.subtitle || parsed.subtitle.includes('Rovique') || parsed.subtitle.includes('Glow') ? 'Leadership & Vision Behind Old Spice Agro Fresh LLP' : parsed.subtitle,
-      };
-    } catch {
-      ourStoryData = undefined;
     }
   }
 
@@ -143,15 +120,25 @@ export default async function HomePage() {
         <ProductSlider title="Best Sellers" products={bestSellers} viewAllLink="/collections/best-sellers" />
       )}
 
-      <OurStorySection data={ourStoryData} />
+      <div className="home-vegetable-sections">
+        {vegetableSections.map((collection) => (
+          <ProductSlider
+            key={collection.slug}
+            title={collection.title}
+            subtitle={collection.subtitle}
+            products={collection.products}
+            viewAllLink={`/collections/${collection.slug}`}
+          />
+        ))}
+      </div>
 
       <ReelsSection reels={reels} />
+
+      <NewsInsights posts={blogPosts} />
 
       <CustomerReviews />
 
       <TrustBadges />
-
-      <NewsInsights posts={blogPosts} />
     </div>
   );
 }

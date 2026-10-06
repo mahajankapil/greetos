@@ -24,6 +24,7 @@ export interface OurStoryData {
 
 interface OurStorySectionProps {
   data?: OurStoryData;
+  headingLevel?: 1 | 2;
 }
 
 const DEFAULT_DIRECTORS: DirectorCard[] = [
@@ -57,12 +58,13 @@ const DEFAULT_DIRECTORS: DirectorCard[] = [
   },
 ];
 
-export function OurStorySection({ data }: OurStorySectionProps) {
+export function OurStorySection({ data, headingLevel = 2 }: OurStorySectionProps) {
   if (data && data.enabled === false) {
     return null;
   }
 
   const title = data?.title || 'Board Of Directors';
+  const Heading = headingLevel === 1 ? 'h1' : 'h2';
   const subtitle = data?.subtitle || '';
   const directors = data?.directors && data.directors.length > 0 ? data.directors : DEFAULT_DIRECTORS;
 
@@ -82,7 +84,7 @@ export function OurStorySection({ data }: OurStorySectionProps) {
       >
         {/* Section Title */}
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h2
+          <Heading
             style={{
               fontSize: '32px',
               fontWeight: 800,
@@ -93,7 +95,7 @@ export function OurStorySection({ data }: OurStorySectionProps) {
             }}
           >
             {title}
-          </h2>
+          </Heading>
           {subtitle && (
             <p
               style={{

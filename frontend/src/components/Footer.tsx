@@ -59,12 +59,14 @@ export const Footer: React.FC = () => {
             <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
               Promotions, new products and sales. Directly to your inbox.
             </p>
-            <form onSubmit={(e) => { e.preventDefault(); alert('Subscribed successfully to Old Spice Agro Fresh LLP!'); }} style={{ display: 'flex', gap: '6px' }}>
+            <form className="footer-newsletter" onSubmit={(e) => { e.preventDefault(); alert('Subscribed successfully to Old Spice Agro Fresh LLP!'); }} style={{ display: 'flex', gap: '6px' }}>
               <input
                 type="email"
+                aria-label="Email address for newsletter"
+                autoComplete="email"
                 placeholder="Enter your email"
                 required
-                style={{ flex: 1, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '13px', outline: 'none' }}
+                style={{ flex: 1, minWidth: 0, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '13px' }}
               />
               <button
                 type="submit"
