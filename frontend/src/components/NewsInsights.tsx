@@ -25,7 +25,7 @@ export const NewsInsights: React.FC<NewsInsightsProps> = ({ posts }) => {
       <div className="farm-journal__inner">
         <div className="farm-journal__header">
           <div>
-            <p className="farm-journal__eyebrow">THE OLD SPICE JOURNAL</p>
+            <p className="farm-journal__eyebrow">BLOGS &amp; ORGANIC FARMING NEWS</p>
             <h2 id="farm-journal-title">Fresh from the Farm</h2>
             <p className="farm-journal__intro">Simple ideas for choosing, storing, and enjoying fresh vegetables.</p>
           </div>

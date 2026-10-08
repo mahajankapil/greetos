@@ -7,7 +7,7 @@
  * several places. Keeping them here means updating the business address once
  * rather than in nine files, and makes it obvious what is still a placeholder.
  *
- * TODO(rovique): every value marked PLACEHOLDER must be replaced with the
+ * TODO: every value marked PLACEHOLDER must be replaced with the
  * client's real registered details before the site goes live. Google rejects
  * stores whose contact and policy pages are unverifiable.
  */

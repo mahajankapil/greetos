@@ -28,8 +28,8 @@ interface Resolved {
  * products" to a shopper and all live under /collections/:
  *
  *   - the merchandising slugs the nav uses (all, best-sellers, super-saver-combos)
- *   - a real category (skin-care, hair-care, …)
- *   - a concern (acne-pimple, hair-fall-hair-growth, …)
+ *   - a real category (leafy-greens, root-vegetables, …)
+ *   - a concern (a shopper-facing grouping set in admin)
  *
  * The concern case is why the "Shop By Concern" tiles work at all: all nine of
  * them pointed at /collections/<slug> and every one used to 404.
@@ -57,7 +57,7 @@ const resolve = cache(async (slug: string): Promise<Resolved> => {
   if (slug === 'all') {
     return {
       title: 'All Products',
-      description: 'Natural Ayurvedic Range',
+      description: 'Farm Fresh Organic Produce',
       products: all,
     };
   }
@@ -73,7 +73,7 @@ const resolve = cache(async (slug: string): Promise<Resolved> => {
   if (slug === 'super-saver-combos' || slug === 'combos') {
     return {
       title: 'Super Saver Combos',
-      description: 'Complete Herbal Kits',
+      description: 'Farm Fresh Vegetable Baskets',
       products: all.filter((p) => p.isCombo || p.category === 'combos' || p.category === 'super-saver-combos'),
     };
   }
@@ -82,7 +82,7 @@ const resolve = cache(async (slug: string): Promise<Resolved> => {
 
   const catInfo = CATEGORY_NAMES[slug] || {
     title: category?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-    description: 'Pure Botanical Care',
+    description: 'Farm Fresh Organic Produce',
   };
 
   const pageTitle = category?.name || concern?.name || catInfo.title;
@@ -207,7 +207,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
             </h2>
             <p style={{ fontSize: '14px', color: '#718096', maxWidth: '420px', margin: '10px auto 0' }}>
               {searchQuery
-                ? 'Try checking for spelling errors or search for another term like face wash, oil, or serum.'
+                ? 'Try checking for spelling errors or search for another term like spinach, carrot, or tomato.'
                 : 'We’re still building out this range. In the meantime, the rest of the collection is worth a look.'}
             </p>
             <Link

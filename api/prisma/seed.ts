@@ -218,7 +218,7 @@ const DEMO_REVIEWS: {
 }[] = [
   // Intentionally empty. The forked list was five jewellery testimonials for
   // products that do not exist here; they would have seeded invented praise
-  // for Rovique. Add entries only if a demo needs populated reviews, and
+  // for this store. Add entries only if a demo needs populated reviews, and
   // delete them from admin -> Reviews before launch.
 ];
 

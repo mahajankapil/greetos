@@ -300,7 +300,7 @@ export default function AppearancePage() {
         title: 'New Article',
         author: 'Old Spice Agro Fresh LLP',
         date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-        image: 'https://roviqueherbal.com/cdn/shop/files/image_1.png?v=1776940830&width=533',
+        image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=800&auto=format&fit=crop',
         slug: `blog-${Date.now()}`,
       },
     ]);
@@ -395,7 +395,7 @@ export default function AppearancePage() {
                   rows={3}
                   value={announcementText}
                   onChange={(e) => setAnnouncementText(e.target.value)}
-                  placeholder="FREE SHIPPING ON PREPAID ORDERS ABOVE ₹799 | 100% AUTHENTIC HERBAL FORMULATIONS | PURE NATURAL BOTANICALS — NO HARSH CHEMICALS"
+                  placeholder="Free delivery on farm fresh orders above ₹499 | 100% Organic & Naturally Grown · Harvested Daily | Direct from local organic farms to your doorstep"
                   className="mt-1.5 w-full rounded-2xl border border-[#e5e5e5] px-4 py-3 text-sm outline-none focus:border-[#d4af37]"
                 />
                 <p className="mt-1.5 text-[11px] text-[#888888]">
@@ -513,7 +513,7 @@ export default function AppearancePage() {
                         <input
                           value={cat.title}
                           onChange={(e) => updateCategory(cat.id, 'title', e.target.value)}
-                          placeholder="e.g. Skin Care"
+                          placeholder="e.g. Leafy Greens"
                           className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                         />
                       </label>
@@ -525,7 +525,7 @@ export default function AppearancePage() {
                         <input
                           value={cat.href}
                           onChange={(e) => updateCategory(cat.id, 'href', e.target.value)}
-                          placeholder="/collections/skin-care"
+                          placeholder="/collections/leafy-greens"
                           className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                         />
                       </label>
@@ -538,7 +538,7 @@ export default function AppearancePage() {
                           <input
                             value={cat.image}
                             onChange={(e) => updateCategory(cat.id, 'image', e.target.value)}
-                            placeholder="https://example.com/skincare.png"
+                            placeholder="https://example.com/leafy-greens.png"
                             className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                           />
                           {cat.image && (
@@ -593,7 +593,7 @@ export default function AppearancePage() {
                         <input
                           value={post.title}
                           onChange={(e) => updateBlogPost(post.id, 'title', e.target.value)}
-                          placeholder="How to Know Your Skin Type..."
+                          placeholder="Guide to Storing Fresh Leafy Greens..."
                           className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                         />
                       </label>
@@ -605,7 +605,7 @@ export default function AppearancePage() {
                         <input
                           value={post.author}
                           onChange={(e) => updateBlogPost(post.id, 'author', e.target.value)}
-                          placeholder="Rovique Herbal"
+                          placeholder="Old Spice Agro Fresh LLP"
                           className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                         />
                       </label>
@@ -629,7 +629,7 @@ export default function AppearancePage() {
                         <input
                           value={post.slug}
                           onChange={(e) => updateBlogPost(post.id, 'slug', e.target.value)}
-                          placeholder="skin-care-guide"
+                          placeholder="leafy-greens-storage-guide"
                           className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                         />
                       </label>
@@ -843,7 +843,7 @@ export default function AppearancePage() {
                 <input
                   value={welcome.subtitle}
                   onChange={(e) => setWelcome({ ...welcome, subtitle: e.target.value })}
-                  placeholder="Join the Rovique list and get a little something off your first order."
+                  placeholder="Join the Old Spice Agro Fresh list and get a little something off your first order."
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
               </label>
@@ -876,7 +876,7 @@ export default function AppearancePage() {
                   <input
                     value={welcome.image}
                     onChange={(e) => setWelcome({ ...welcome, image: e.target.value })}
-                    placeholder="/demo/rovique-hero-demo.png"
+                    placeholder="https://example.com/welcome-banner.jpg"
                     className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                   />
                   {welcome.image && (

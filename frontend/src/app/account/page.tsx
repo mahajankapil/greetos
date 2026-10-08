@@ -257,8 +257,8 @@ export default function AccountPage() {
             <MenuRow
               href="/about-us"
               icon={<Info size={18} color="#4d7a1f" />}
-              title="About Rovique Herbal"
-              subtitle="Our story and how we formulate"
+              title="About Old Spice Agro Fresh"
+              subtitle="Our story and our farms"
               last
             />
           </div>

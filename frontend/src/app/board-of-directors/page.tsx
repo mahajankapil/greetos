@@ -20,10 +20,8 @@ export default async function BoardOfDirectorsPage() {
       const parsed = JSON.parse(settings.our_story_section);
       data = {
         ...parsed,
-        title: !parsed.title || parsed.title.includes('Rovique') ? 'Board Of Directors' : parsed.title,
-        subtitle: !parsed.subtitle || parsed.subtitle.includes('Rovique') || parsed.subtitle.includes('Glow')
-          ? 'Leadership & Vision Behind Old Spice Agro Fresh LLP'
-          : parsed.subtitle,
+        title: parsed.title || 'Board Of Directors',
+        subtitle: parsed.subtitle || 'Leadership & Vision Behind Old Spice Agro Fresh LLP',
       };
     } catch {
       data = undefined;

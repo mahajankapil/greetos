@@ -229,11 +229,6 @@ export default function InvoicePage() {
 
           {/* Enquiry Right Column */}
           <div className="flex flex-col justify-end text-right md:text-right space-y-1">
-            <p className="font-bold text-xs text-gray-900">For Any Enquiry</p>
-            <p className="text-xs text-gray-700 font-medium">@roviqueherbal@gmail.com</p>
-            <p className="text-xs text-gray-800 font-bold flex items-center justify-end gap-1">
-              <Phone size={12} /> : 7249485006
-            </p>
           </div>
         </div>
 

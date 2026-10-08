@@ -140,7 +140,7 @@ export const Header: React.FC = () => {
   ];
 
   const moreDropdownItems = [
-    { id: 'HeaderMenu-blog', name: 'BLOG', href: '/blogs/news' },
+    { id: 'HeaderMenu-blog', name: 'BLOGS & ORGANIC FARMING NEWS', href: '/blogs/news' },
     { id: 'HeaderMenu-about', name: 'ABOUT US', href: '/about-us' },
     { id: 'HeaderMenu-directors', name: 'BOARD OF DIRECTORS', href: '/board-of-directors' },
     { id: 'HeaderMenu-contact-us', name: 'CONTACT US', href: '/contact' },
@@ -572,7 +572,7 @@ export const Header: React.FC = () => {
                 ) : (
                   <div style={{ padding: '20px 12px', textAlign: 'center', color: '#6b7280' }}>
                     <p style={{ margin: 0, fontSize: '13px', fontWeight: 600 }}>No products found for "{searchQuery}"</p>
-                    <p style={{ margin: '4px 0 12px', fontSize: '12px', color: '#9ca3af' }}>Try searching for face wash, oil, serum or combo</p>
+                    <p style={{ margin: '4px 0 12px', fontSize: '12px', color: '#9ca3af' }}>Try searching for spinach, carrot, onion or tomato</p>
                     <Link
                       href="/collections/all"
                       onClick={() => {

@@ -53,13 +53,13 @@ export const ProductSlider: React.FC<ProductSliderProps> = ({
   };
 
   return (
-    <section className="rovique-card" aria-label={title}>
-      <div className="rovique-card__inner">
+    <section className="oldspice-card" aria-label={title}>
+      <div className="oldspice-card__inner">
         {/* Section Header */}
-        <div className="rovique-card__header">
+        <div className="oldspice-card__header">
           <div>
             <h2>{title}</h2>
-            {subtitle && <p className="rovique-card__subtitle">{subtitle}</p>}
+            {subtitle && <p className="oldspice-card__subtitle">{subtitle}</p>}
           </div>
         </div>
 

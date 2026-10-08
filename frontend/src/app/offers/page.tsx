@@ -2,22 +2,17 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useShippingRates } from '@/hooks/useShippingRates';
 
 export default function OffersPage() {
+  const { freeAbove } = useShippingRates();
   const offers = [
     {
-      title: 'Flat 5% OFF on Hair Care Combos',
-      code: 'HERBAL5',
-      desc: 'Get flat 5% off when you purchase any Super Saver Hair Care Combo.',
+      title: 'Free Delivery',
+      code: 'NO CODE NEEDED',
+      desc: `Free delivery on all orders above ₹${freeAbove}. Applied automatically at checkout.`,
       bg: '#fafdf8',
       border: '#eef6e6',
-    },
-    {
-      title: 'Free Express Shipping',
-      code: 'FREESHIP',
-      desc: 'Free shipping across India on all orders above ₹499.',
-      bg: '#f8fafc',
-      border: '#e2e8f0',
     },
   ];
 
@@ -27,7 +22,7 @@ export default function OffersPage() {
         Special Offers & Coupons
       </h1>
       <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '30px', fontSize: '14px' }}>
-        Exclusive discounts and natural beauty deals from Rovique Herbal
+        Current offers from Old Spice Agro Fresh
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>

@@ -36,6 +36,9 @@ const REVIEWS_ROW_1: ReviewItem[] = [
     initial: 'P',
     avatarColor: '#3a5a40',
   },
+];
+
+const REVIEWS_ROW_2: ReviewItem[] = [
   {
     id: 'r4',
     name: 'Girish S.',
@@ -44,9 +47,6 @@ const REVIEWS_ROW_1: ReviewItem[] = [
     initial: 'G',
     avatarColor: '#455a64',
   },
-];
-
-const REVIEWS_ROW_2: ReviewItem[] = [
   {
     id: 'r5',
     name: 'Pooja T.',
@@ -55,36 +55,19 @@ const REVIEWS_ROW_2: ReviewItem[] = [
     initial: 'P',
     avatarColor: '#ad1457',
   },
-  {
-    id: 'r6',
-    name: 'Neha R.',
-    rating: 5,
-    text: 'The D-Tan face wash removes tanning quickly and keeps skin feeling hydrated. Absolutely love it!',
-    initial: 'N',
-    avatarColor: '#00838f',
-  },
-  {
-    id: 'r7',
-    name: 'Rahul V.',
-    rating: 5,
-    text: 'Fast priority delivery and 100% authentic herbal products. Packaging is premium and results are amazing!',
-    initial: 'R',
-    avatarColor: '#1565c0',
-  },
-  {
-    id: 'r8',
-    name: 'Sneha P.',
-    rating: 5,
-    text: 'Best Ayurvedic combos! Anti acne soap cleared my blemishes gently without drying out my skin.',
-    initial: 'S',
-    avatarColor: '#d84315',
-  },
 ];
+
+/** Repeats a short row until it is at least four cards wide, so the loop has no gap. */
+const fillRow = (row: ReviewItem[]): ReviewItem[] => {
+  let out = [...row];
+  while (out.length < 4) out = [...out, ...row];
+  return out;
+};
 
 export const CustomerReviews: React.FC = () => {
   // Duplicate rows for seamless infinite continuous scroll loop
-  const track1 = [...REVIEWS_ROW_1, ...REVIEWS_ROW_1];
-  const track2 = [...REVIEWS_ROW_2, ...REVIEWS_ROW_2];
+  const track1 = [...fillRow(REVIEWS_ROW_1), ...fillRow(REVIEWS_ROW_1)];
+  const track2 = [...fillRow(REVIEWS_ROW_2), ...fillRow(REVIEWS_ROW_2)];
 
   const renderStars = (rating: number) => {
     return (

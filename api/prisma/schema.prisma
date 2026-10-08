@@ -1,4 +1,4 @@
-// Rovique — data model.
+// Old Spice Agro Fresh — data model.
 // Plain PostgreSQL via Prisma. Nothing here is tied to a specific host:
 // point DATABASE_URL / DIRECT_URL at any Postgres (see db/README.md).
 
@@ -112,29 +112,28 @@ model Product {
   featuredOrder        Int                 @default(0)
   isBestSeller         Boolean             @default(false)
   bestSellerOrder      Int                 @default(0)
-  // ── Herbal / cosmetic spec ────────────────────────────────────
+  // ── Product spec ─────────────────────────────────────────────
   // What the product IS, printed on the product page. These deliberately do
-  // NOT create variants: a hair oil is one product with 100ml/200ml options,
+  // NOT create variants: spinach is one product with 250 g/500 g options,
   // not one product per size. Every field is nullable and the PDP prints only
   // what is filled in, so a half-completed listing looks deliberate rather
   // than broken.
-  form                 String? // "Oil", "Shampoo", "Gel", "Cream", "Comb"
+  form                 String? // "Whole", "Bunch", "Leaves", "Pack"
   /**
-   * Net quantity as printed on the pack ("100 ml", "300 ml", "100 g").
+   * Net quantity as sold ("250 g", "500 g", "1 kg").
    * The Legal Metrology (Packaged Commodities) Rules 2011 require this on the
    * listing for a pre-packaged commodity, so it is a first-class field rather
    * than something buried in the description. Free text on purpose: a combo
-   * declares each component ("Oil 100 ml + Shampoo 300 ml").
+   * declares each component ("Spinach 250 g + Carrot 500 g").
    */
   netQuantity          String?
-  keyIngredients       String[] // "Bhringraj", "Amla", "Neem"
+  keyIngredients       String[] // "Fresh Spinach Leaves"
   benefits             String[] // short claim chips shown under the price
   howToUse             String?
-  suitableFor          String? // "All hair types", "Oily & acne-prone skin"
+  suitableFor          String? // "Daily cooking, soups & salads"
   /**
-   * Shelf life in months from manufacture. Cosmetics carry a best-before
-   * rather than a warranty, and it is a number so the admin can sort and
-   * filter on it.
+   * Shelf life in months (blank for fresh produce). A number so the admin
+   * can sort and filter on it.
    */
   shelfLifeMonths      Int?
   storage              String? // "Store in a cool, dry place away from sunlight"
@@ -145,9 +144,9 @@ model Product {
    */
   countryOfOrigin      String?
   /**
-   * Manufacturer / marketer name and address. Also mandatory on a packaged
-   * cosmetic listing, and the two are frequently different companies for a
-   * D2C brand that manufactures on contract.
+   * Grower / seller name and address (shown as "Grown by" / "Sold by").
+   * Mandatory on an e-commerce food listing, and the two can be different
+   * businesses.
    */
   manufacturedBy       String?
   marketedBy           String?
@@ -170,10 +169,10 @@ model Product {
 }
 
 /**
- * What a customer is trying to fix — "Hair Fall", "Acne & Pimples",
- * "Pigmentation". This is the entry point most herbal shoppers actually use,
+ * A shopper-facing grouping (here: "Leafy Greens", "Root Vegetables", …),
+ * an entry point many shoppers actually use,
  * and it is a separate dimension from Category on purpose: a concern cuts
- * ACROSS categories (pigmentation is served by a face wash and a cream), so
+ * ACROSS categories (one grouping can span several categories), so
  * folding it into the category tree would force the same product to live in
  * two places. Same reasoning as keeping gender out of the category tree.
  */
@@ -193,7 +192,7 @@ model Concern {
 }
 
 /**
- * One line inside a combo: "this kit contains 1 x Hibiscus Hair Potion".
+ * One line inside a combo: "this basket contains 1 x Fresh Spinach 250 g".
  * Modelled as a join row rather than a JSON blob so the component is a real
  * foreign key — renaming a product updates every kit that contains it, and a
  * component cannot be deleted out from under a kit that still sells it.

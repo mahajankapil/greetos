@@ -4,43 +4,8 @@ import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Volume2, VolumeX, Play, X, ExternalLink, ShoppingBag, Instagram } from 'lucide-react';
 import type { ApiReel } from '@/lib/api';
+import { SITE } from '@/lib/site';
 
-const DEFAULT_REELS: ApiReel[] = [
-  {
-    id: 'default-1',
-    title: 'Pure Herbal Skincare Essentials',
-    videoUrl: 'https://mkpillllll.sirv.com/herbal/videos/reel1.mp4',
-    thumbnailUrl: null,
-    caption: `Discover the secret to effortless, budget-friendly natural skincare! ✨🌿
-
-Our Day Cream provides lightweight daily hydration infused with aloe vera, niacinamide, and shea butter. Keep your skin feeling soft, deeply nourished, and glowing all day long.
-
-How do you use your favourite herbal skincare essentials in your daily routine? Let us know in the comments below! 👇`,
-    hashtags: ['RoviqueHerbal', 'HerbalSkincare', 'GlowingSkin', 'NaturalBeauty', 'Ayurveda'],
-    instagramUrl: 'https://www.instagram.com/roviqueherbal/',
-    productLink: '/products/day-cream',
-    productName: 'Day Cream',
-    sortOrder: 1,
-    isActive: true,
-  },
-  {
-    id: 'default-2',
-    title: 'Overnight Skin Repair & Nourishment',
-    videoUrl: 'https://mkpillllll.sirv.com/herbal/videos/reels2.mp4',
-    thumbnailUrl: null,
-    caption: `Transform your night skincare routine with 100% natural herbal ingredients! 🌙✨
-
-Our Night Cream is formulated with Saffron, Licorice Extract, and Shea Butter to repair dullness, diminish dark spots, and restore radiant skin overnight.
-
-Experience gentle, chemical-free care crafted with traditional Ayurvedic wisdom for soft, glowing skin every morning.`,
-    hashtags: ['OvernightRepair', 'RoviqueHerbal', 'AyurvedicCare', 'HealthySkin', 'GlowSecrets'],
-    instagramUrl: 'https://www.instagram.com/roviqueherbal/',
-    productLink: '/products/night-cream',
-    productName: 'Night Cream',
-    sortOrder: 2,
-    isActive: true,
-  },
-];
 
 const LOGO_AVATAR = 'https://mkpillllll.sirv.com/oldspice/categ/products/logooldspice.png';
 
@@ -49,7 +14,8 @@ interface ReelsSectionProps {
 }
 
 export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
-  const displayReels = propReels && propReels.length > 0 ? propReels : DEFAULT_REELS;
+  const displayReels = propReels ?? [];
+  const instagramUrl = displayReels.find((r) => r.instagramUrl)?.instagramUrl;
 
   const [activeModalReel, setActiveModalReel] = useState<ApiReel | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -98,6 +64,8 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
       setIsMuted(!isMuted);
     }
   };
+
+  if (displayReels.length === 0) return null;
 
   return (
     <section style={{ padding: '48px 0', backgroundColor: '#ffffff', overflow: 'hidden' }}>
@@ -289,7 +257,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
                       textShadow: '0 1px 3px rgba(0,0,0,0.6)',
                     }}
                   >
-                    {reel.title || 'Rovique Herbal Reel'}
+                    {reel.title || SITE.name}
                   </p>
 
                   {reel.productName && (
@@ -321,9 +289,10 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
         </div>
 
         {/* Bottom CTA Button */}
+        {instagramUrl && (
         <div style={{ textAlign: 'center', marginTop: '32px' }}>
           <a
-            href="https://www.instagram.com/roviqueherbal/"
+            href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -347,6 +316,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
             Visit our Instagram Page
           </a>
         </div>
+        )}
       </div>
 
       {/* Reel Modal popup matching Reference Image 2 */}
@@ -535,14 +505,14 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
                         boxSizing: 'border-box',
                       }}
                     >
-                      <img src={LOGO_AVATAR} alt="Rovique Herbal" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                      <img src={LOGO_AVATAR} alt={SITE.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                     </div>
                     <div>
                       <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: '#111827', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        roviqueherbal
+                        {SITE.name}
                         <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }} />
                       </h4>
-                      <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#6b7280' }}>Rovique Herbal Official</p>
+                      <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#6b7280' }}>Official</p>
                     </div>
                   </div>
 
@@ -584,7 +554,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
                     marginBottom: '16px',
                   }}
                 >
-                  {activeModalReel.caption || 'Authentic herbal care formulations made with love and traditional wisdom.'}
+                  {activeModalReel.caption}
                 </div>
 
                 {/* Hashtags */}
@@ -655,7 +625,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
                 )}
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: '#9ca3af' }}>
-                  <span>Rovique Herbal Moments</span>
+                  <span>{SITE.name} Moments</span>
                 </div>
               </div>
             </div>

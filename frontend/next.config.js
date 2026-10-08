@@ -5,14 +5,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'roviqueherbal.com',
-      },
-      {
-        protocol: 'http',
-        hostname: 'roviqueherbal.com',
-      },
-      {
-        protocol: 'https',
         hostname: 'cdn.shopify.com',
       },
       {

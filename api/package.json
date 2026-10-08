@@ -1,8 +1,8 @@
 {
-  "name": "rovique-api",
+  "name": "oldspice-api",
   "version": "0.1.0",
   "private": true,
-  "description": "Rovique storefront API (Express + Prisma + Postgres)",
+  "description": "Old Spice Agro Fresh API (Express + Prisma + Postgres)",
   "main": "dist/src/server.js",
   "scripts": {
     "postinstall": "prisma generate",

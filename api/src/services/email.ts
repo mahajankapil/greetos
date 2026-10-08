@@ -59,7 +59,7 @@ export async function sendPasswordResetEmail(email: string, resetLink: string): 
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'Rovique — Reset your admin password',
+    subject: 'Old Spice Agro Fresh — Reset your admin password',
     html: layout(
       'Reset your admin password',
       `<p style="color:#444;font-size:14px;line-height:1.6;">
@@ -89,11 +89,11 @@ export async function sendAdminInviteEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'Rovique — You have been added as an admin',
+    subject: 'Old Spice Agro Fresh — You have been added as an admin',
     html: layout(
       `Welcome aboard, ${name}`,
       `<p style="color:#444;font-size:14px;line-height:1.6;">
-         An administrator account has been created for you on the Rovique control panel.
+         An administrator account has been created for you on the Old Spice Agro Fresh admin panel.
          Set your password using the button below — the link expires in 24 hours.
        </p>
        ${button(setPasswordLink, 'Set Your Password')}
@@ -126,11 +126,11 @@ export async function sendCreatorInviteEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'Rovique — Your partner code and earnings portal',
+    subject: 'Old Spice Agro Fresh — Your partner code and earnings portal',
     html: layout(
-      `Welcome to Rovique, ${name}`,
+      `Welcome to Old Spice Agro Fresh, ${name}`,
       `<p style="color:#444;font-size:14px;line-height:1.6;">
-         Your Rovique partner code is live:
+         Your Old Spice Agro Fresh partner code is live:
        </p>
        <p style="margin:14px 0;">
          <span style="display:inline-block;border:1px dashed ${INK};border-radius:8px;padding:10px 20px;
@@ -177,22 +177,22 @@ export interface OrderEmailInput {
 
 const ORDER_EMAIL_COPY: Record<OrderEmailKind, { subject: (o: string) => string; heading: string; body: string }> = {
   confirmed: {
-    subject: (o) => `Order ${o} confirmed — ROVIQUE`,
+    subject: (o) => `Order ${o} confirmed — OLD SPICE AGRO FRESH`,
     heading: 'Your order is confirmed',
     body: 'We have your order and it is locked in. You will hear from us again when it ships.',
   },
   processing: {
-    subject: (o) => `Order ${o} is being packed — ROVIQUE`,
+    subject: (o) => `Order ${o} is being packed — OLD SPICE AGRO FRESH`,
     heading: 'Your order is being packed',
     body: 'Each piece is checked and wrapped by hand before it leaves us.',
   },
   shipped: {
-    subject: (o) => `Order ${o} has shipped — ROVIQUE`,
+    subject: (o) => `Order ${o} has shipped — OLD SPICE AGRO FRESH`,
     heading: 'Your order is on its way',
     body: 'Your parcel has been handed to the courier.',
   },
   delivered: {
-    subject: (o) => `Order ${o} delivered — ROVIQUE`,
+    subject: (o) => `Order ${o} delivered — OLD SPICE AGRO FRESH`,
     heading: 'Delivered',
     body: 'Your order has arrived. If anything is damaged or not what you ordered, report it from My Orders and we will put it right.',
   },
@@ -255,11 +255,11 @@ export async function sendLoginOtpEmail(email: string, code: string, ttlMinutes:
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: `${code} is your Rovique login code`,
+    subject: `${code} is your Old Spice Agro Fresh login code`,
     html: layout(
       'Your login code',
       `<p style="color:#444;font-size:14px;line-height:1.6;">
-         Enter this code on the Rovique storefront to sign in. It expires in
+         Enter this code on the Old Spice Agro Fresh store to sign in. It expires in
          ${ttlMinutes} minutes and can only be used once.
        </p>
        <div style="margin:22px 0;padding:18px;background:#f5f5f5;border-radius:10px;text-align:center;">
@@ -292,7 +292,7 @@ export async function sendOrderConfirmationEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: `Rovique — Order ${order.orderNo} confirmed`,
+    subject: `Old Spice Agro Fresh — Order ${order.orderNo} confirmed`,
     html: layout(
       `Thanks, ${order.customer}`,
       `<p style="color:#444;font-size:14px;line-height:1.6;">
@@ -345,7 +345,7 @@ export async function sendAbandonedCartEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'You left something behind — ROVIQUE',
+    subject: 'You left something behind — OLD SPICE AGRO FRESH',
     html: layout(
       'Still thinking it over?',
       `<p style="color:#444;font-size:14px;line-height:1.6;">

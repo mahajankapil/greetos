@@ -12,7 +12,7 @@ export const TrustBadges: React.FC = () => {
     },
     {
       title: 'Compliant to Standards',
-      desc: 'Made using natural herbal ingredients following strict quality control standards.',
+      desc: 'Naturally grown and checked for quality before every dispatch.',
       icon: <ShieldCheck size={56} color="#0f5636" strokeWidth={1.8} />,
     },
     {

@@ -127,7 +127,7 @@ export default function PaymentsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `rovique-payments-${filter}.csv`;
+    a.download = `oldspice-payments-${filter}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };

@@ -2,7 +2,7 @@
  * Sends abandoned-cart reminders (client requirement Q7).
  *
  * Run on a schedule, e.g. hourly:
- *   0 * * * * cd /root/rovique/api && npx tsx scripts/send-cart-reminders.ts
+ *   0 * * * * cd <repo>/api && npx tsx scripts/send-cart-reminders.ts
  *
  * Safe to run as often as you like: a cart is only mailed once it has been
  * idle for DELAY_HOURS, at most MAX_REMINDERS times, never after the customer

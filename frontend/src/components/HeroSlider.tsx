@@ -68,7 +68,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
   const swiperKey = useFallback ? 'fallback' : customSlides.map((s) => s.id || s.webImg).join('___');
 
   return (
-    <section className={`rovique-banner-slider${useFallback ? ' rovique-banner-slider--fallback' : ''}`}>
+    <section className={`oldspice-banner-slider${useFallback ? ' oldspice-banner-slider--fallback' : ''}`}>
       <Swiper
         key={swiperKey}
         modules={[Autoplay, Pagination, Navigation]}

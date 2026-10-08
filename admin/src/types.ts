@@ -53,7 +53,7 @@ export interface Product {
   featuredOrder?: number;
   isBestSeller?: boolean;
   bestSellerOrder?: number;
-  // ── Herbal / cosmetic spec ──────────────────────────────────
+  // ── Product spec ───────────────────────────────────────────
   form?: string | null;
   netQuantity?: string | null;
   keyIngredients?: string[];

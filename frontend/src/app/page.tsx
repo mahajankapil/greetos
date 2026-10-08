@@ -91,13 +91,13 @@ export default async function HomePage() {
       const parsed = JSON.parse(settings.blog_posts);
       if (Array.isArray(parsed) && parsed.length > 0) {
         blogPosts = parsed.map((post: any, idx: number) => {
-          const isLegacy = !post.title || /skin|hair|herbal-skincare/i.test(`${post.title} ${post.slug || ''}`);
+          const isLegacy = !post.title;
           if (isLegacy) {
             return BLOG_POSTS[idx % BLOG_POSTS.length];
           }
           return {
             ...post,
-            author: (!post.author || post.author.includes('Rovique')) ? 'Old Spice Agro Fresh LLP' : post.author,
+            author: post.author || 'Old Spice Agro Fresh LLP',
           };
         });
       }

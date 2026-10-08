@@ -13,7 +13,7 @@ import { fetchMe, type AuthUser } from '@/lib/authApi';
  * deactivated — so the user object always comes from the server.
  */
 
-const TOKEN_KEY = 'rovique_token';
+const TOKEN_KEY = 'oldspice_token';
 /**
  * The last user the server confirmed for this token.
  *
@@ -22,7 +22,7 @@ const TOKEN_KEY = 'rovique_token';
  * is unreachable. It is a convenience copy, never the source of truth — every
  * load still asks the server, and a rejection clears both.
  */
-const USER_KEY = 'rovique_user';
+const USER_KEY = 'oldspice_user';
 
 interface AuthContextValue {
   user: AuthUser | null;

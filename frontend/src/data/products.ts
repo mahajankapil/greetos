@@ -11,7 +11,7 @@ export interface ProductPackOption {
   stock: number;
   /** Optional pill on the pack picker, e.g. "Most popular". */
   badge?: string | null;
-  /** Optional line under the pack name, e.g. "2 Month Pack". */
+  /** Optional line under the pack name, e.g. "Family pack". */
   subtitle?: string | null;
 }
 

@@ -23,9 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const description = (product.usp || product.description || '').slice(0, 300);
   return {
-    // Product titles already carry the brand ("… by Rovique Herbal"), so only
-    // append the site name when it is not there — otherwise every tab reads
-    // "Rovique Herbal | Rovique Herbal".
+    // Only append the site name when the title doesn't already carry it,
+    // otherwise the tab would read "<brand> | <brand>".
     title: product.title.includes(SITE.name) ? product.title : `${product.title} | ${SITE.name}`,
     description,
     alternates: { canonical: `/products/${product.handle}` },

@@ -21,7 +21,7 @@ const coordsSchema = z.object({
 });
 
 /** OSM asks that automated users identify themselves and contact details. */
-const USER_AGENT = 'RoviqueHerbalStore/1.0 (+https://rovique.pcgnp.co)';
+const USER_AGENT = 'OldSpiceAgroFresh/1.0 (+https://oldspice.pcgnp.co)';
 const TIMEOUT_MS = 8000;
 
 interface NominatimAddress {

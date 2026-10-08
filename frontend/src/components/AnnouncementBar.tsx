@@ -30,10 +30,9 @@ export const AnnouncementBar: React.FC = () => {
   }, []);
 
   const defaultAnnouncements = [
-    'FREE SHIPPING ON PREPAID ORDERS ABOVE ₹799 IN MAHARASHTRA',
-    '100% AUTHENTIC HERBAL & AYURVEDIC FORMULATIONS',
-    'PURE NATURAL BOTANICALS — NO HARSH CHEMICALS',
-    'EXPRESS DELIVERY ACROSS INDIA ON ALL ORDERS',
+    'Free delivery on farm fresh orders above ₹499',
+    '100% Organic & Naturally Grown · Harvested Daily',
+    'Direct from local organic farms to your doorstep',
   ];
 
   const announcements = customItems && customItems.length > 0 ? customItems : defaultAnnouncements;

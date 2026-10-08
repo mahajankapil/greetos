@@ -50,7 +50,7 @@ export default function ReelsPage() {
     setThumbnailUrl('');
     setCaption('');
     setHashtags('');
-    setInstagramUrl('https://www.instagram.com/roviqueherbal/');
+    setInstagramUrl('');
     setProductLink('/collections/all-products');
     setProductName('');
     setSortOrder(reels.length + 1);
@@ -334,7 +334,7 @@ export default function ReelsPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Rovique Herbal Deep Cleansing Facewash"
+                    placeholder="e.g. Fresh Organic Spinach (Palak)"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
@@ -375,7 +375,7 @@ export default function ReelsPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="RoviqueHerbal, SkincareHacks, NaturalBeauty"
+                    placeholder="OldSpiceAgroFresh, FarmFresh, OrganicVegetables"
                     value={hashtags}
                     onChange={(e) => setHashtags(e.target.value)}
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
@@ -388,7 +388,7 @@ export default function ReelsPage() {
                   </label>
                   <input
                     type="url"
-                    placeholder="https://www.instagram.com/roviqueherbal/"
+                    placeholder="https://www.instagram.com/your-handle/"
                     value={instagramUrl}
                     onChange={(e) => setInstagramUrl(e.target.value)}
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
@@ -403,7 +403,7 @@ export default function ReelsPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Deep Cleansing Facewash"
+                    placeholder="e.g. Fresh Organic Spinach"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
@@ -416,7 +416,7 @@ export default function ReelsPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. /collections/all-products or /products/deep-cleansing-facewash"
+                    placeholder="e.g. /collections/all or /products/spinach"
                     value={productLink}
                     onChange={(e) => setProductLink(e.target.value)}
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"

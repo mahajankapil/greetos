@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Plus, Minus, Check, ChevronDown, Leaf, ShieldCheck, Truck, RotateCcw, Clock, MapPin, Star } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useShippingRates } from '@/hooks/useShippingRates';
 import { ProductGallery } from '@/components/ProductGallery';
 import type { Product, ProductPackOption } from '@/data/products';
 
@@ -106,30 +107,24 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
       {
         id: `${product.id}-1pc`,
         name: 'Pack Of 1 Pcs',
-        subtitle: 'Starter Pack',
         price: basePrice,
         comparePrice: baseComparePrice,
-        savings: 'Free Shipping',
         stock: 100,
         badge: '',
       },
       {
         id: `${product.id}-2pc`,
         name: 'Pack Of 2 Pcs',
-        subtitle: '2 Month Pack',
         price: Math.round(basePrice * 1.85),
         comparePrice: Math.round(baseComparePrice * 1.85),
-        savings: 'Free Shipping',
         stock: 100,
         badge: 'Most popular',
       },
       {
         id: `${product.id}-3pc`,
         name: 'Pack Of 3 Pcs',
-        subtitle: 'Full Course 3 Month',
         price: Math.round(basePrice * 2.5),
         comparePrice: Math.round(baseComparePrice * 2.5),
-        savings: 'Free Shipping',
         stock: 100,
         badge: '',
       },
@@ -138,6 +133,7 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
 
   const [selectedId, setSelectedId] = useState(packOptions[0]?.id ?? '');
   const [isBuying, setIsBuying] = useState(false);
+  const { freeAbove } = useShippingRates();
 
   React.useEffect(() => {
     if (packOptions.length > 0 && !packOptions.some((o) => o.id === selectedId)) {
@@ -195,14 +191,13 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
     product.netQuantity ||
     product.form ||
     product.suitableFor ||
-    product.shelfLifeMonths ||
     product.storage ||
     product.countryOfOrigin ||
     product.manufacturedBy ||
     product.marketedBy;
 
   // Concern tags list
-  const concernTags = concerns.length > 0 ? concerns.map((c) => c.name) : (labels.length > 0 ? labels : ['Ayurvedic Care', '100% Natural', 'Herbal Formulation']);
+  const concernTags = concerns.length > 0 ? concerns.map((c) => c.name) : (labels.length > 0 ? labels : ['Farm Fresh', '100% Natural', 'Harvested Daily']);
 
   return (
     <div style={{ background: '#ffffff', paddingBottom: '60px' }}>
@@ -342,12 +337,12 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
                 }}
               >
                 {[
-                  { icon: '🚚', text: 'Free Delivery On All Orders' },
-                  { icon: '🌿', text: '100% Ayurvedic & Herbal Product' },
+                  { icon: '🚚', text: `Free Delivery Above ₹${freeAbove}` },
+                  { icon: '🌿', text: 'Farm Fresh, Harvested Daily' },
                   { icon: '⚡', text: 'Express Dispatch in 24 Hours' },
                   { icon: '🔒', text: '100% Organic & Chemical Free' },
-                  { icon: '🚚', text: 'Free Delivery On All Orders' },
-                  { icon: '🌿', text: '100% Ayurvedic & Herbal Product' },
+                  { icon: '🚚', text: `Free Delivery Above ₹${freeAbove}` },
+                  { icon: '🌿', text: 'Farm Fresh, Harvested Daily' },
                   { icon: '⚡', text: 'Express Dispatch in 24 Hours' },
                   { icon: '🔒', text: '100% Organic & Chemical Free' },
                 ].map((item, idx) => (
@@ -419,7 +414,7 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }} role="radiogroup" aria-label="Pack size">
                 {packOptions.map((opt) => {
                   const active = opt.id === selectedId;
-                  const isPopular = opt.badge === 'Most popular' || opt.name.includes('2');
+                  const isPopular = opt.badge === 'Most popular';
                   return (
                     <div
                       key={opt.id}
@@ -487,6 +482,7 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
                             <span style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>
                               {opt.name}
                             </span>
+                            {opt.price >= freeAbove && (
                             <span
                               style={{
                                 border: '1px solid #0d9488',
@@ -497,12 +493,15 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
                                 padding: '1px 6px',
                               }}
                             >
-                              Free Shipping
+                              Free Delivery
                             </span>
+                            )}
                           </div>
-                          <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600, display: 'block', marginTop: '2px' }}>
-                            {opt.subtitle || (opt.name.includes('1') ? 'Starter Pack' : opt.name.includes('2') ? '2 Month Pack' : 'Full Course 3 Month')}
-                          </span>
+                          {opt.subtitle && (
+                            <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 600, display: 'block', marginTop: '2px' }}>
+                              {opt.subtitle}
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -787,7 +786,7 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
               )}
 
               {product.ingredients && product.ingredients.length > 0 && (
-                <Accordion title="Ingredients">
+                <Accordion title="What you get">
                   <ul style={{ margin: 0, paddingLeft: '18px' }}>
                     {product.ingredients.map((i) => (
                       <li key={i} style={{ marginBottom: '4px' }}>
@@ -795,9 +794,6 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
                       </li>
                     ))}
                   </ul>
-                  <p style={{ marginTop: '10px', fontSize: '12px', color: '#6b7280' }}>
-                    For the full ingredient list, see the pack. Patch test before first use.
-                  </p>
                 </Accordion>
               )}
 
@@ -821,13 +817,10 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
                     {product.netQuantity && <SpecRow label="Net quantity" value={product.netQuantity} />}
                     {product.form && <SpecRow label="Form" value={product.form} />}
                     {product.suitableFor && <SpecRow label="Suitable for" value={product.suitableFor} />}
-                    {product.shelfLifeMonths && (
-                      <SpecRow label="Shelf life" value={`${product.shelfLifeMonths} months from manufacture`} />
-                    )}
                     {product.storage && <SpecRow label="Storage" value={product.storage} />}
                     {product.countryOfOrigin && <SpecRow label="Country of origin" value={product.countryOfOrigin} />}
-                    {product.manufacturedBy && <SpecRow label="Manufactured by" value={product.manufacturedBy} />}
-                    {product.marketedBy && <SpecRow label="Marketed by" value={product.marketedBy} />}
+                    {product.manufacturedBy && <SpecRow label="Grown by" value={product.manufacturedBy} />}
+                    {product.marketedBy && <SpecRow label="Sold by" value={product.marketedBy} />}
                   </dl>
                 </Accordion>
               )}

@@ -146,8 +146,8 @@ router.delete(
 
 // ── Concerns ───────────────────────────────────────────────────
 /**
- * A concern is what the shopper is trying to fix ("Hair Fall", "Acne &
- * Pimples"). Flat by design — concerns do not nest, so there is none of the
+ * A concern is a shopper-facing grouping ("Leafy Greens", "Root
+ * Vegetables"). Flat by design — concerns do not nest, so there is none of the
  * parent/cycle handling categories need.
  */
 const concernSchema = z.object({
@@ -263,7 +263,7 @@ const productSchema = z.object({
   isBestSeller: z.boolean().optional(),
   featuredOrder: z.number().int().optional(),
   bestSellerOrder: z.number().int().optional(),
-  // ── Herbal / cosmetic spec ──────────────────────────────────
+  // ── Product spec ───────────────────────────────────────────
   form: optionalText,
   netQuantity: optionalText,
   keyIngredients: z.array(z.string().trim().min(1)).optional(),
@@ -1604,7 +1604,7 @@ router.post(
       return;
     }
     const settings = await getBusinessSettings();
-    const legalName = settings.legalName || 'ROVIQUE HERBAL';
+    const legalName = settings.legalName || 'OLD SPICE AGRO FRESH LLP';
     const address = settings.address || 'Pune, Maharashtra';
     const gstin = settings.gstin || '27AAAAA0000A1Z5';
     const state = settings.state || 'Maharashtra';
@@ -1668,7 +1668,7 @@ router.get(
     // Auto-generate invoice if not generated yet
     if (!order.invoice) {
       const settings = await getBusinessSettings();
-      const legalName = settings.legalName || 'ROVIQUE HERBAL';
+      const legalName = settings.legalName || 'OLD SPICE AGRO FRESH LLP';
       const address = settings.address || 'Pune, Maharashtra';
       const gstin = settings.gstin || '27AAAAA0000A1Z5';
       const state = settings.state || 'Maharashtra';

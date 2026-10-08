@@ -3,8 +3,8 @@ import { Plus, Pencil, Trash2, X, Loader2, EyeOff } from "lucide-react";
 import { api, apiError, resolveImage } from "../lib/api";
 
 /**
- * Concerns are what a shopper is trying to fix — "Hair Fall", "Acne &
- * Pimples". Flat by design: unlike categories they do not nest, because a
+ * Concerns are shopper-facing groupings (here "Leafy Greens", "Root
+ * Vegetables", …). Flat by design: unlike categories they do not nest, because a
  * concern cuts across the catalogue rather than dividing it.
  *
  * Products are attached to a concern from the product editor, not here, so

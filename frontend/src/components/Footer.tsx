@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer
-      className={`rovique-footer ${!isHomepage ? 'hide-on-mobile' : ''}`}
+      className={`oldspice-footer ${!isHomepage ? 'hide-on-mobile' : ''}`}
       style={{
         background: '#ffffff',
         borderTop: '1px solid #e2e8f0',

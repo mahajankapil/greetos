@@ -54,11 +54,11 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 /**
- * Bumped from `rovique_cart` when lines gained a pack option: a cart saved
- * under the old shape has no `option`, and restoring it would put lines on the
- * page with no price. A new key retires those rather than crashing on them.
+ * Versioned so a change to the line shape can retire old saved carts (a line
+ * with no `option` would show with no price) instead of crashing on them —
+ * bump the suffix when that happens.
  */
-const STORAGE_KEY = 'rovique_cart_v2';
+const STORAGE_KEY = 'oldspice_cart_v2';
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);

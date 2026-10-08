@@ -64,7 +64,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-3 text-sm outline-none focus:border-[#d4af37]"
-                placeholder="you@rovique.in"
+                placeholder="you@oldspice.pcgnp.co"
               />
             </label>
             <label className="block">
@@ -110,7 +110,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-3 text-sm outline-none focus:border-[#d4af37]"
-                placeholder="you@rovique.in"
+                placeholder="you@oldspice.pcgnp.co"
               />
             </label>
 

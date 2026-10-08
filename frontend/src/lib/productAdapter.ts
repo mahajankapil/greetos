@@ -127,7 +127,7 @@ export function adaptProduct(p: ApiProduct): Product {
 
     // ── Fields the static file never had ──────────────────────────
     // These are what make the product page describe THIS product instead of
-    // the hair combo it used to hardcode for everything.
+    // one hard-coded product shown for everything.
     benefits: p.benefits,
     netQuantity: p.netQuantity ?? undefined,
     suitableFor: p.suitableFor ?? undefined,

@@ -32,7 +32,7 @@ interface FormState {
   soldOut: boolean;
   isFeatured: boolean;
   isBestSeller: boolean;
-  // ── Herbal / cosmetic spec ──────────────────────────────────
+  // ── Product spec ───────────────────────────────────────────
   // Held as strings because they come straight from form inputs; blanks are
   // normalised to null by the API rather than saved as "".
   // keyIngredients/benefits are comma-separated in the box and split on save,
@@ -81,7 +81,7 @@ const emptyForm: FormState = {
   storage: '',
   manufacturedBy: '',
   marketedBy: '',
-  // Required on Indian e-commerce listings, and true for every Rovique piece,
+  // Required on Indian e-commerce listings, and true for every product here,
   // so it is prefilled rather than left for the admin to remember.
   countryOfOrigin: 'India',
   productCategoryBarId: null,
@@ -517,7 +517,7 @@ export default function ProductsPage() {
                 <input
                   value={editing.benefits}
                   onChange={(e) => setEditing({ ...editing, benefits: e.target.value })}
-                  placeholder="Fights hair fall, Strengthens roots, For all hair types"
+                  placeholder="Rich in iron, Farm fresh, Chemical-free"
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
                 <span className="mt-1 block text-[11px] text-[#999999]">
@@ -565,7 +565,7 @@ export default function ProductsPage() {
                 <input
                   value={editing.keyIngredients}
                   onChange={(e) => setEditing({ ...editing, keyIngredients: e.target.value })}
-                  placeholder="Bhringraj, Amla, Neem Oil"
+                  placeholder="Fresh spinach leaves"
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
                 <span className="mt-1 block text-[11px] text-[#999999]">
@@ -585,7 +585,7 @@ export default function ProductsPage() {
                   value={editing.howToUse}
                   onChange={(e) => setEditing({ ...editing, howToUse: e.target.value })}
                   rows={3}
-                  placeholder="Apply on the scalp 2 hours before washing. Rinse with lukewarm water."
+                  placeholder="Wash thoroughly before cooking. Keep refrigerated."
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
               </label>
@@ -594,15 +594,15 @@ export default function ProductsPage() {
                 <input
                   value={editing.suitableFor}
                   onChange={(e) => setEditing({ ...editing, suitableFor: e.target.value })}
-                  placeholder="All hair types, men and women"
+                  placeholder="Daily cooking, soups & salads"
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
               </label>
             </div>
 
             {/* The regulatory block. Net quantity, country of origin and the
-                manufacturer/marketer details are required on an Indian
-                packaged-cosmetic listing, which is why they are grouped and
+                grower/seller details are required on an Indian
+                e-commerce food listing, which is why they are grouped and
                 labelled rather than mixed in with marketing copy. */}
             <div className="mt-4 rounded-2xl border border-[#eee8dc] bg-[#fdfbf7] p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -615,20 +615,20 @@ export default function ProductsPage() {
                   label="Form"
                   value={editing.form}
                   onChange={(v) => setEditing({ ...editing, form: v })}
-                  options={['Oil', 'Shampoo', 'Conditioner', 'Gel', 'Cream', 'Serum', 'Face Wash', 'Powder', 'Soap', 'Lip Balm', 'Kit', 'Comb']}
+                  options={['Whole', 'Bunch', 'Leaves', 'Pods', 'Cut', 'Pack', 'Basket']}
                 />
                 <Field
                   label="Net quantity"
                   value={editing.netQuantity}
                   onChange={(v) => setEditing({ ...editing, netQuantity: v })}
-                  hint="As printed on the pack, e.g. 100 ml — legally required"
+                  hint="As sold, e.g. 250 g — legally required"
                 />
                 <Field
                   label="Shelf life (months)"
                   value={editing.shelfLifeMonths}
                   onChange={(v) => setEditing({ ...editing, shelfLifeMonths: v })}
                   type="number"
-                  hint="From manufacture. Leave blank if not applicable"
+                  hint="Leave blank for fresh produce"
                 />
                 <Field
                   label="Country of origin"
@@ -637,13 +637,13 @@ export default function ProductsPage() {
                   hint="Legally required on Indian listings"
                 />
                 <Field
-                  label="Manufactured by"
+                  label="Grown by"
                   value={editing.manufacturedBy}
                   onChange={(v) => setEditing({ ...editing, manufacturedBy: v })}
                   hint="Name and address, legally required"
                 />
                 <Field
-                  label="Marketed by"
+                  label="Sold by"
                   value={editing.marketedBy}
                   onChange={(v) => setEditing({ ...editing, marketedBy: v })}
                   hint="Leave blank if same as manufacturer"
@@ -678,7 +678,7 @@ export default function ProductsPage() {
                 {editing.options.map((o, i) => (
                   <div key={i} className="grid grid-cols-[1fr_110px_80px_80px_70px_32px] items-center gap-2">
                     <input
-                      placeholder="Name (e.g. Size 14)"
+                      placeholder="Name (e.g. 250 g)"
                       value={o.name}
                       onChange={(e) => setOpt(i, { name: e.target.value })}
                       className="rounded-xl border border-[#e5e5e5] px-3 py-2 text-sm outline-none focus:border-[#d4af37]"
