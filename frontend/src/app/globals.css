@@ -2,7 +2,6 @@
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 
-/* ===== FONTS ===== */
 /* ===== DESIGN SYSTEM VARIABLES ===== */
 :root {
   --color-brand: #88b950;
@@ -10,8 +9,10 @@
   --color-brand-light: #eef7e6;
   --color-text-dark: #1c2417;
   --color-text-muted: #64748b;
-  --font-heading: 'Goli', sans-serif;
-  --font-body: 'Assistant', sans-serif;
+  /* --font-display / --font-sans are set on <html> by next/font (app/layout.tsx) */
+  --font-heading: var(--font-display), Georgia, 'Times New Roman', serif;
+  --font-body: var(--font-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-nav: var(--font-sans);
 }
 
 /* ===== GLOBAL RESETS ===== */
@@ -26,6 +27,15 @@ html, body {
   color: var(--color-text-dark);
   background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
+  /* Fraunces' soft axis: rounder, friendlier letterforms. Fonts without the
+     axis (Outfit) ignore it. */
+  font-variation-settings: 'SOFT' 50;
+}
+
+/* Browsers don't let form controls inherit the page font (they fall back to
+   Arial), so buttons, inputs and selects would ignore the site typeface. */
+button, input, select, textarea {
+  font-family: inherit;
 }
 
 a {
@@ -374,7 +384,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .oldspice-card__header h2 {
-  font-family: 'Goli', sans-serif;
+  font-family: var(--font-heading);
   font-size: 32px;
   font-weight: 800;
   color: #1D1D1D;
@@ -638,7 +648,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .card__heading {
-  font-family: 'Goli', sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
   color: #1d2915;
@@ -898,7 +908,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .oldspice-concern__heading {
-  font-family: 'Goli', sans-serif;
+  font-family: var(--font-heading);
   font-size: 32px;
   font-weight: 800;
   color: #1D1D1D;
@@ -948,7 +958,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .oldspice-concern__title {
-  font-family: 'Goli', sans-serif;
+  font-family: var(--font-heading);
   font-size: 14px;
   font-weight: 700;
   color: #1D1D1D;
@@ -1432,7 +1442,7 @@ input[type="search"]::-webkit-search-results-decoration {
   background: #88b9501c;
   padding: 12px 18px;
   border-radius: 8px;
-  font-family: 'Goli', sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.35;
@@ -1523,7 +1533,7 @@ input[type="search"]::-webkit-search-results-decoration {
   justify-content: center;
   text-decoration: none;
   color: #6b7280;
-  font-family: 'Goli', sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.3px;

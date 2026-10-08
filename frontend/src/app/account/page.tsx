@@ -138,7 +138,7 @@ export default function AccountPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontFamily: 'Goli, sans-serif',
+                  fontFamily: 'var(--font-heading)',
                   fontSize: '26px',
                   fontWeight: 800,
                   color: '#4d7a1f',
@@ -149,7 +149,7 @@ export default function AccountPage() {
               <div style={{ minWidth: 0, flex: 1 }}>
                 <h2
                   style={{
-                    fontFamily: 'Goli, sans-serif',
+                    fontFamily: 'var(--font-heading)',
                     fontSize: '20px',
                     fontWeight: 800,
                     color: '#1c2417',

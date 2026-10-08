@@ -12,7 +12,7 @@ export default function BlogPage() {
           <span style={{ color: '#88b950', fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '1px' }}>
             OLD SPICE AGRO FRESH LLP JOURNAL
           </span>
-          <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '40px', fontWeight: 800, color: '#1c2417', margin: '8px 0' }}>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '40px', fontWeight: 800, color: '#1c2417', margin: '8px 0' }}>
             Blogs & Organic Farming News
           </h1>
           <p style={{ fontSize: '16px', color: '#4a5568' }}>

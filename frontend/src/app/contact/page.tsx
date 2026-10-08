@@ -12,8 +12,8 @@ export default function ContactPage() {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px', fontFamily: 'Assistant, sans-serif', color: '#1c2417' }}>
-      <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '32px', fontWeight: 800, color: '#1D1D1D', marginBottom: '10px', textAlign: 'center' }}>
+    <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px', fontFamily: 'var(--font-body)', color: '#1c2417' }}>
+      <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '32px', fontWeight: 800, color: '#1D1D1D', marginBottom: '10px', textAlign: 'center' }}>
         Contact Us
       </h1>
       <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '36px', fontSize: '15px' }}>

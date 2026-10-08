@@ -91,7 +91,7 @@ export function OurStorySection({ data, headingLevel = 2 }: OurStorySectionProps
               color: '#334155',
               margin: 0,
               letterSpacing: '-0.3px',
-              fontFamily: 'system-ui, -apple-system, sans-serif',
+              fontFamily: 'var(--font-heading)',
             }}
           >
             {title}

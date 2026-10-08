@@ -544,7 +544,7 @@ export default function CheckoutPage() {
         >
           <Link
             href="/"
-            style={{ fontFamily: 'Goli, sans-serif', fontSize: '22px', fontWeight: 800, color: '#1c2417', textDecoration: 'none' }}
+            style={{ fontFamily: 'var(--font-heading)', fontSize: '22px', fontWeight: 800, color: '#1c2417', textDecoration: 'none' }}
           >
             {SITE.name}
           </Link>

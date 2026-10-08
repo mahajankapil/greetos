@@ -153,7 +153,7 @@ function LoginForm() {
         <div style={{ textAlign: 'center', marginBottom: '22px' }}>
           <h1
             style={{
-              fontFamily: 'Goli, sans-serif',
+              fontFamily: 'var(--font-heading)',
               fontSize: '25px',
               fontWeight: 800,
               color: '#1c2417',
