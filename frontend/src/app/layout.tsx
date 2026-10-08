@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Outfit } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
@@ -21,9 +22,13 @@ export const viewport: Viewport = {
   themeColor: '#2d451e',
 };
 
+// Menu typeface, self-hosted with the build by next/font. (The theme's own
+// fonts were hot-linked from another site and never loaded here.)
+const navFont = Outfit({ subsets: ['latin'], weight: ['500', '600'], display: 'swap', variable: '--font-nav' });
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={navFont.variable}>
       <body
         style={{
           margin: 0,

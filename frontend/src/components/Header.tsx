@@ -233,16 +233,12 @@ export const Header: React.FC = () => {
                   <Link
                     id={item.id}
                     href={item.href}
+                    className={`site-nav-link${active ? ' is-active' : ''}`}
+                    aria-current={active ? 'page' : undefined}
                     style={{
                       textDecoration: 'none',
-                      fontSize: '12px',
-                      fontWeight: active ? 800 : 700,
-                      color: active ? '#111827' : '#4b5563',
-                      letterSpacing: '1px',
-                      textTransform: 'uppercase',
                       padding: '8px 0',
                       position: 'relative',
-                      transition: 'color 0.2s ease',
                       display: 'inline-block',
                       whiteSpace: 'nowrap',
                     }}
@@ -286,14 +282,10 @@ export const Header: React.FC = () => {
                 onClick={() => setMoreDropdownOpen((prev) => !prev)}
                 aria-expanded={moreDropdownOpen}
                 aria-controls="desktop-more-links"
+                className={`site-nav-link${moreDropdownItems.some((i) => isItemActive(i.href)) ? ' is-active' : ''}`}
                 style={{
                   background: 'none',
                   border: 'none',
-                  fontSize: '12px',
-                  fontWeight: moreDropdownItems.some((i) => isItemActive(i.href)) ? 800 : 700,
-                  color: moreDropdownItems.some((i) => isItemActive(i.href)) ? '#111827' : '#4b5563',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
                   padding: '8px 0',
                   cursor: 'pointer',
                   display: 'flex',
@@ -342,18 +334,9 @@ export const Header: React.FC = () => {
                         key={subItem.id}
                         href={subItem.href}
                         onClick={() => setMoreDropdownOpen(false)}
-                        style={{
-                          display: 'block',
-                          padding: '10px 18px',
-                          fontSize: '12px',
-                          fontWeight: subActive ? 800 : 700,
-                          color: subActive ? '#15803d' : '#374151',
-                          textDecoration: 'none',
-                          letterSpacing: '0.8px',
-                          textTransform: 'uppercase',
-                          transition: 'background 0.2s ease',
-                          background: subActive ? '#f0fdf4' : 'transparent',
-                        }}
+                        className={`site-nav-link site-nav-dropdown-item${subActive ? ' is-active' : ''}`}
+                        aria-current={subActive ? 'page' : undefined}
+                        style={{ textDecoration: 'none' }}
                       >
                         {subItem.name}
                       </Link>
@@ -670,9 +653,10 @@ export const Header: React.FC = () => {
             style={{
               background: '#111827',
               color: '#ffffff',
-              fontSize: '11px',
-              fontWeight: 800,
-              letterSpacing: '1.2px',
+              fontFamily: 'var(--font-nav), system-ui, sans-serif',
+              fontSize: '12.5px',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
               textTransform: 'uppercase',
               padding: '9px 18px',
               borderRadius: '9999px',
@@ -1057,13 +1041,10 @@ export const Header: React.FC = () => {
                     <Link
                       href={item.href}
                       onClick={() => setDrawerOpen(false)}
+                      className={`site-nav-link site-nav-mobile-item${active ? ' is-active' : ''}`}
+                      aria-current={active ? 'page' : undefined}
                       style={{
                         textDecoration: 'none',
-                        fontSize: '12px',
-                        fontWeight: active ? 800 : 700,
-                        letterSpacing: '0.8px',
-                        textTransform: 'uppercase',
-                        color: active ? '#111827' : '#374151',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -1083,7 +1064,7 @@ export const Header: React.FC = () => {
               })}
               <li>
                 <details className="mobile-more-menu">
-                  <summary style={{ padding: '13px 20px', fontSize: '12px', fontWeight: 700, letterSpacing: '0.8px', color: '#374151', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}>
+                  <summary className="site-nav-link site-nav-mobile-item" style={{ padding: '13px 20px', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}>
                     MORE
                   </summary>
                   <ul style={{ listStyle: 'none', padding: '8px 0', margin: 0, background: '#fafbfc' }}>
@@ -1096,7 +1077,8 @@ export const Header: React.FC = () => {
                             setDrawerOpen(false);
                             event.currentTarget.closest('details')?.removeAttribute('open');
                           }}
-                          style={{ display: 'block', padding: '11px 32px', fontSize: '12px', fontWeight: 700, letterSpacing: '0.8px', color: isItemActive(item.href) ? '#15803d' : '#374151', background: isItemActive(item.href) ? '#f0fdf4' : 'transparent', textDecoration: 'none' }}
+                          className={`site-nav-link site-nav-mobile-item${isItemActive(item.href) ? ' is-active' : ''}`}
+                          style={{ display: 'block', padding: '11px 32px', background: isItemActive(item.href) ? '#f0fdf4' : 'transparent', textDecoration: 'none' }}
                         >
                           {item.name}
                         </Link>

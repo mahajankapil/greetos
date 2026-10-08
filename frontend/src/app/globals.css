@@ -1917,3 +1917,41 @@ input[type="search"]::-webkit-search-results-decoration {
 @media (prefers-reduced-motion: reduce) {
   .farm-journal__card, .farm-journal__image img { transition: none; }
 }
+
+/* ===== SITE NAVIGATION TYPOGRAPHY =====
+   Every menu item uses one typeface, size and weight in every state. Hover and
+   the current page change colour (plus the underline) only — never weight —
+   so the menu doesn't shift or look bold only while the cursor is on it. */
+.site-nav-link {
+  font-family: var(--font-nav), system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: #4b5563;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.site-nav-link:hover { color: #2d451e; }
+.site-nav-link.is-active { color: #111827; }
+.site-nav-link:focus-visible { outline: 2px solid #15803d; outline-offset: 2px; border-radius: 4px; }
+
+/* Rows inside the desktop MORE dropdown */
+.site-nav-dropdown-item { display: block; padding: 10px 18px; font-size: 13.5px; color: #374151; }
+.site-nav-dropdown-item:hover,
+.site-nav-dropdown-item.is-active { background: #f0fdf4; color: #15803d; }
+
+/* Phone menu rows */
+.site-nav-mobile-item { color: #374151; }
+
+/* Narrow desktops (1024–1150px) have less room for six items */
+@media (min-width: 1024px) and (max-width: 1150px) {
+  .desktop-nav .site-nav-link { font-size: 13px; letter-spacing: 0.04em; }
+}
+
+/* The SHOP BESTSELLERS pill only fits beside six menu items from ~1440px; the
+   1024–1350px rule above already hides it, this covers the gap up to 1440. The
+   same link is in the menu as BEST SELLERS. */
+@media (min-width: 1351px) and (max-width: 1439px) {
+  .header-actions .action-pill-btn { display: none !important; }
+}

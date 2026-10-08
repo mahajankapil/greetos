@@ -80,11 +80,14 @@ export function VegetableNavigation({ mobile = false, onNavigate }: { mobile?: b
         .vegetable-nav { position: relative; }
         button {
           display: flex; align-items: center; gap: 4px; padding: 8px 0;
-          background: none; border: none; font-family: inherit; font-size: 12px;
-          font-weight: 700; color: #4b5563; letter-spacing: 1px;
-          white-space: nowrap; cursor: pointer;
+          background: none; border: none; cursor: pointer; white-space: nowrap;
+          /* same as .site-nav-link in globals.css */
+          font-family: var(--font-nav), system-ui, sans-serif; font-size: 14px;
+          font-weight: 500; letter-spacing: 0.06em; line-height: 1.4;
+          text-transform: uppercase; color: #4b5563; transition: color 0.2s ease;
         }
-        .active > button { color: #111827; font-weight: 800; }
+        button:hover { color: #2d451e; }
+        .active > button { color: #111827; }
         .active:not(.mobile) > button { box-shadow: 0 2px 0 #111827; }
         svg { width: 14px; height: 14px; transition: transform 0.2s ease; }
         .vegetable-links {
@@ -95,8 +98,8 @@ export function VegetableNavigation({ mobile = false, onNavigate }: { mobile?: b
         }
         .vegetable-links :global(a) {
           display: block; padding: 10px 18px; text-decoration: none;
-          font-size: 12px; font-weight: 700; color: #374151;
-          letter-spacing: 0.8px; text-transform: uppercase;
+          font-family: var(--font-nav), system-ui, sans-serif; font-size: 13.5px;
+          font-weight: 500; color: #374151; letter-spacing: 0.06em; text-transform: uppercase;
         }
         .vegetable-links :global(a:hover), .vegetable-links :global(a[aria-current='page']) {
           background: #f0fdf4; color: #15803d;
@@ -106,7 +109,7 @@ export function VegetableNavigation({ mobile = false, onNavigate }: { mobile?: b
         }
         .mobile > button {
           width: 100%; justify-content: space-between; padding: 13px 20px;
-          letter-spacing: 0.8px; border-bottom: 1px solid #f9fafb; color: #374151;
+          border-bottom: 1px solid #f9fafb; color: #374151;
         }
         .mobile.active > button { background: #f4f8f2; color: #111827; }
         .mobile .vegetable-links {
@@ -114,6 +117,9 @@ export function VegetableNavigation({ mobile = false, onNavigate }: { mobile?: b
           box-shadow: none; background: #fafbfc;
         }
         .mobile .vegetable-links :global(a) { padding: 11px 32px; }
+        @media (min-width: 1024px) and (max-width: 1150px) {
+          .vegetable-nav:not(.mobile) > button { font-size: 13px; letter-spacing: 0.04em; }
+        }
       `}</style>
     </li>
   );
