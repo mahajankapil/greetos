@@ -31,7 +31,7 @@ export const PolicyPage: React.FC<Props> = ({ title, intro, lastUpdated, childre
 
       <h1
         style={{
-          fontFamily: 'Goli, sans-serif',
+          fontFamily: 'var(--font-heading)',
           fontSize: '32px',
           fontWeight: 800,
           color: '#1c2417',

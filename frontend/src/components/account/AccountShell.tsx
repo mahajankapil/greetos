@@ -93,7 +93,7 @@ export function AccountShell({
           >
             <User size={26} />
           </div>
-          <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '21px', fontWeight: 800, color: '#1c2417', margin: 0 }}>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '21px', fontWeight: 800, color: '#1c2417', margin: 0 }}>
             You&rsquo;re not signed in
           </h1>
           <p style={{ fontSize: '13.5px', color: '#64748b', lineHeight: 1.6, margin: '10px 0 0' }}>
@@ -147,7 +147,7 @@ export function AccountShell({
         )}
         <h1
           style={{
-            fontFamily: 'Goli, sans-serif',
+            fontFamily: 'var(--font-heading)',
             fontSize: '29px',
             fontWeight: 800,
             color: '#1c2417',

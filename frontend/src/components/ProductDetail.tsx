@@ -261,13 +261,13 @@ export const ProductDetail: React.FC<Props> = ({ product }) => {
             {/* Product Title */}
             <h1
               style={{
-                fontSize: '24px',
-                fontWeight: 800,
+                fontFamily: 'var(--font-heading)',
+                fontSize: '28px',
+                fontWeight: 700,
                 color: '#111827',
                 margin: '0 0 12px',
-                lineHeight: 1.3,
-                textTransform: 'uppercase',
-                letterSpacing: '0.3px',
+                lineHeight: 1.25,
+                letterSpacing: '-0.01em',
               }}
             >
               {product.title}

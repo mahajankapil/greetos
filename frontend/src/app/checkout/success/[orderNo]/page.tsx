@@ -33,7 +33,7 @@ export default function OrderSuccessPage({ params }: { params: { orderNo: string
           <CheckCircle2 size={52} color="#88b950" style={{ marginBottom: '12px' }} />
           <h1
             style={{
-              fontFamily: 'Goli, sans-serif',
+              fontFamily: 'var(--font-heading)',
               fontSize: '30px',
               fontWeight: 800,
               color: '#1c2417',

@@ -20,7 +20,7 @@ export default function CartPage() {
         
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
           <div>
-            <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '32px', fontWeight: 800, color: '#1c2417', margin: 0 }}>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '32px', fontWeight: 800, color: '#1c2417', margin: 0 }}>
               Shopping Cart
             </h1>
             <p style={{ fontSize: '14px', color: '#64748b', margin: '4px 0 0' }}>

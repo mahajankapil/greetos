@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 export default function AboutUsPage() {
   return (
-    <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px', fontFamily: 'Assistant, sans-serif', color: '#1c2417' }}>
-      <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '32px', fontWeight: 800, color: '#1D1D1D', marginBottom: '20px', textAlign: 'center' }}>
+    <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px', fontFamily: 'var(--font-body)', color: '#1c2417' }}>
+      <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '32px', fontWeight: 800, color: '#1D1D1D', marginBottom: '20px', textAlign: 'center' }}>
         About Old Spice Agro Fresh LLP
       </h1>
       <div style={{ background: '#fafdf8', border: '1px solid #eef6e6', borderRadius: '12px', padding: '30px', lineHeight: '1.7', fontSize: '15px' }}>

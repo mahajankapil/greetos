@@ -78,7 +78,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
               fontWeight: 700,
               color: '#111827',
               margin: 0,
-              fontFamily: "'Goli', sans-serif",
+              fontFamily: 'var(--font-heading)',
             }}
           >
             Organic Farm Moments On Instagram
@@ -550,7 +550,7 @@ export function ReelsSection({ reels: propReels }: ReelsSectionProps) {
                     lineHeight: '1.65',
                     color: '#374151',
                     whiteSpace: 'pre-line',
-                    fontFamily: 'sans-serif',
+                    fontFamily: 'var(--font-body)',
                     marginBottom: '16px',
                   }}
                 >
