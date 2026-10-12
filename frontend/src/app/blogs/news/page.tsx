@@ -32,12 +32,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <div className={styles.journalPage}>
       <div className={styles.container}>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Blogs &amp; Organic Farming News</span></nav>
-        <header className={styles.listingHero}>
-          <div>
-            <p className={styles.eyebrow}><span aria-hidden="true" /> BLOGS &amp; ORGANIC FARMING NEWS</p>
-            <h1>Fresh ideas.<br /><span>Rooted in everyday life.</span></h1>
-          </div>
-          <p>From the farm to your kitchen, discover simple ways to choose well, cook with the seasons, and enjoy every basket.</p>
+        <header className={styles.listingHead}>
+          <p className={styles.eyebrow}>FROM OUR FARMS TO YOUR KITCHEN</p>
+          <h1>Blogs &amp; Organic Farming News</h1>
+          <p>Simple ways to choose well, cook with the seasons, and enjoy every basket.</p>
         </header>
 
         {articles.length === 0 ? (
@@ -51,11 +49,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             {categories.length > 1 && (
               <nav className={styles.filters} aria-label="Filter stories by category">
                 <Link href="/blogs/news" scroll={false} className={!active ? styles.filterActive : undefined} aria-current={!active ? 'page' : undefined}>
-                  All stories <span>{articles.length}</span>
+                  All stories
                 </Link>
-                {categories.map(([slug, { name, count }]) => (
+                {categories.map(([slug, { name }]) => (
                   <Link key={slug} href={`/blogs/news?category=${slug}`} scroll={false} className={active === slug ? styles.filterActive : undefined} aria-current={active === slug ? 'page' : undefined}>
-                    {name} <span>{count}</span>
+                    {name}
                   </Link>
                 ))}
               </nav>
@@ -65,10 +63,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
             {rest.length > 0 && (
               <section aria-labelledby="more-stories-title">
-                <div className={styles.listingBar}>
-                  <h2 id="more-stories-title">More stories <span>{String(rest.length).padStart(2, '0')}</span></h2>
-                  <p>A little knowledge. A fresher everyday.</p>
-                </div>
+                <h2 id="more-stories-title" className={styles.listingTitle}>More stories</h2>
                 <div className={`${styles.grid} ${styles.listingGrid}`}>
                   {rest.map((post) => <JournalCard key={post.slug} post={post} />)}
                 </div>

@@ -33,25 +33,23 @@ export function JournalCard({ post, headingLevel = 3 }: { post: JournalCardPost;
   );
 }
 
-/** The newest story, shown large at the top of the journal. */
+/** The newest story: a wide photo banner with the title laid over it. */
 export function FeaturedJournalCard({ post }: { post: JournalCardPost }) {
   return (
-    <article className={styles.featured}>
-      <Link href={articleHref(post.slug)} className={styles.featuredLink}>
-        <div className={styles.featuredImage}>
-          <img src={post.image} alt={post.imageAlt} width={1200} height={800} fetchPriority="high" decoding="async" style={{ objectPosition: post.imagePosition }} />
-        </div>
-        <div className={styles.featuredBody}>
-          <p className={styles.featuredLabel}>Latest story</p>
-          <div className={styles.cardMeta}>
-            <span className={styles.category}>{post.category}</span>
-            <span>{post.readingMinutes} min read</span>
-          </div>
-          <h2 className={styles.featuredTitle}>{post.title}</h2>
-          <p className={styles.featuredExcerpt}>{post.excerpt}</p>
-          <div className={styles.featuredFooter}>
-            <time dateTime={post.publishedAt}>{post.date}</time>
-            <span className={styles.readLink}>Read the story <span aria-hidden="true">→</span></span>
+    <article className={styles.banner}>
+      <Link href={articleHref(post.slug)} className={styles.bannerLink}>
+        <img className={styles.bannerImage} src={post.image} alt={post.imageAlt} width={1600} height={900} fetchPriority="high" decoding="async" style={{ objectPosition: post.imagePosition }} />
+        <span className={styles.bannerShade} aria-hidden="true" />
+        <div className={styles.bannerBody}>
+          <p className={styles.bannerMeta}>
+            <span className={styles.bannerLabel}>Latest story</span>
+            <span>{post.category}</span>
+          </p>
+          <h2 className={styles.bannerTitle}>{post.title}</h2>
+          {post.excerpt && <p className={styles.bannerExcerpt}>{post.excerpt}</p>}
+          <div className={styles.bannerFooter}>
+            <span><time dateTime={post.publishedAt}>{post.date}</time> · {post.readingMinutes} min read</span>
+            <span className={styles.bannerButton}>Read the story <span aria-hidden="true">→</span></span>
           </div>
         </div>
       </Link>
