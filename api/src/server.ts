@@ -27,6 +27,7 @@ import returnsRoutes from './routes/returns.routes';
 import settingsRoutes from './routes/settings.routes';
 import reelsRoutes from './routes/reels.routes';
 import geoRoutes from './routes/geo.routes';
+import blogsRoutes from './routes/blogs.routes';
 
 assertProductionSecrets();
 
@@ -77,6 +78,7 @@ app.use('/api/addresses', addressRoutes);
 app.use('/api/returns', returnsRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/reels', reelsRoutes);
+app.use('/api/blogs', blogsRoutes);
 // Reverse geocoding for the checkout's "use my current location" button.
 app.use('/api/geo', geoRoutes);
 app.use('/api/admin', adminRoutes);

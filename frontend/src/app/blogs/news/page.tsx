@@ -1,50 +1,86 @@
-import React from 'react';
-import Image from 'next/image';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BLOG_POSTS } from '@/data/blogs';
+import { getArticles } from '@/lib/blog';
+import { FeaturedJournalCard, JournalCard } from '@/components/JournalCard';
+import { SITE } from '@/lib/site';
+import styles from '@/components/Journal.module.css';
 
-export default function BlogPage() {
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: 'Blogs & Organic Farming News | Old Spice Agro Fresh',
+  description: 'Practical guides to fresh vegetables, seasonal eating, organic farming and a more thoughtful everyday kitchen.',
+  alternates: { canonical: '/blogs/news' },
+};
+
+type BlogPageProps = { searchParams: { category?: string | string[] } };
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const articles = await getArticles();
+
+  // Category filter: ?category=<slug>. Counts come from all live articles.
+  const categories = Array.from(
+    articles.reduce((map, a) => map.set(a.categorySlug, { name: a.category, count: (map.get(a.categorySlug)?.count ?? 0) + 1 }), new Map<string, { name: string; count: number }>()),
+  );
+  const wanted = Array.isArray(searchParams.category) ? searchParams.category[0] : searchParams.category;
+  const active = categories.some(([slug]) => slug === wanted) ? wanted : undefined;
+  const shown = active ? articles.filter((a) => a.categorySlug === active) : articles;
+  const [featured, ...rest] = shown;
+
   return (
-    <div style={{ background: '#ffffff', paddingBottom: '60px' }}>
-      {/* Banner */}
-      <div style={{ background: 'linear-gradient(135deg, #eef7e6 0%, #d8ebc8 100%)', padding: '60px 20px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <span style={{ color: '#88b950', fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            OLD SPICE AGRO FRESH LLP JOURNAL
-          </span>
-          <h1 style={{ fontFamily: 'Goli, sans-serif', fontSize: '40px', fontWeight: 800, color: '#1c2417', margin: '8px 0' }}>
-            Blogs & Organic Farming News
-          </h1>
-          <p style={{ fontSize: '16px', color: '#4a5568' }}>
-            Fresh vegetable guides, seasonal produce stories, and ideas from our local farms.
-          </p>
-        </div>
-      </div>
+    <div className={styles.journalPage}>
+      <div className={styles.container}>
+        <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Blogs &amp; Organic Farming News</span></nav>
+        <header className={styles.listingHero}>
+          <div>
+            <p className={styles.eyebrow}><span aria-hidden="true" /> BLOGS &amp; ORGANIC FARMING NEWS</p>
+            <h1>Fresh ideas.<br /><span>Rooted in everyday life.</span></h1>
+          </div>
+          <p>From the farm to your kitchen, discover simple ways to choose well, cook with the seasons, and enjoy every basket.</p>
+        </header>
 
-      <div style={{ maxWidth: '1000px', margin: '60px auto 0', padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '50px' }}>
-        {BLOG_POSTS.map((post) => (
-          <article id={post.slug} key={post.slug} style={{ scrollMarginTop: '130px', background: '#f8faf6', borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden', padding: '30px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '30px', alignItems: 'center' }}>
-            <div style={{ position: 'relative', width: '100%', height: '240px', borderRadius: '12px', overflow: 'hidden' }}>
-              <Image src={post.image} alt={post.title} fill style={{ objectFit: 'cover' }} />
-            </div>
+        {articles.length === 0 ? (
+          <div className={styles.emptyState}>
+            <h2>New stories are on their way.</h2>
+            <p>We&rsquo;re writing up fresh guides from our farms. In the meantime, see what&rsquo;s in season.</p>
+            <Link href="/collections/all" className={styles.outlineLink}>Shop fresh produce <span aria-hidden="true">↗</span></Link>
+          </div>
+        ) : (
+          <>
+            {categories.length > 1 && (
+              <nav className={styles.filters} aria-label="Filter stories by category">
+                <Link href="/blogs/news" scroll={false} className={!active ? styles.filterActive : undefined} aria-current={!active ? 'page' : undefined}>
+                  All stories <span>{articles.length}</span>
+                </Link>
+                {categories.map(([slug, { name, count }]) => (
+                  <Link key={slug} href={`/blogs/news?category=${slug}`} scroll={false} className={active === slug ? styles.filterActive : undefined} aria-current={active === slug ? 'page' : undefined}>
+                    {name} <span>{count}</span>
+                  </Link>
+                ))}
+              </nav>
+            )}
 
-            <div>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#88b950', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-                {post.category} • {post.date}
-              </span>
-              <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1c2417', margin: '0 0 12px', lineHeight: '1.3' }}>
-                {post.title}
-              </h2>
-              <p style={{ fontSize: '15px', color: '#4a5568', lineHeight: '1.6', marginBottom: '20px' }}>
-                {post.excerpt}
-              </p>
-              
-              <div style={{ whiteSpace: 'pre-line', fontSize: '14px', lineHeight: '1.7', color: '#334155', background: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-                {post.content}
-              </div>
-            </div>
-          </article>
-        ))}
+            {featured && <FeaturedJournalCard post={featured} />}
+
+            {rest.length > 0 && (
+              <section aria-labelledby="more-stories-title">
+                <div className={styles.listingBar}>
+                  <h2 id="more-stories-title">More stories <span>{String(rest.length).padStart(2, '0')}</span></h2>
+                  <p>A little knowledge. A fresher everyday.</p>
+                </div>
+                <div className={`${styles.grid} ${styles.listingGrid}`}>
+                  {rest.map((post) => <JournalCard key={post.slug} post={post} />)}
+                </div>
+              </section>
+            )}
+          </>
+        )}
+
+        <aside className={styles.shopBanner}>
+          <div><p className={styles.eyebrow}>FROM READING TO COOKING</p><h2>Put fresh ideas on your plate.</h2><p>Find the vegetables for your next everyday favourite.</p></div>
+          <Link href="/collections/all">Explore fresh produce <span aria-hidden="true">↗</span></Link>
+        </aside>
       </div>
     </div>
   );

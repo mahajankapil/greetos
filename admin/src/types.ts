@@ -175,6 +175,37 @@ export interface CreatorProgrammeSettings {
   minPayout: number;
 }
 
+export interface BlogSection {
+  id?: string;
+  title: string;
+  paragraphs: string[];
+  bullets: string[];
+}
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  cardTitle: string | null;
+  excerpt: string;
+  category: string | null;
+  author: string | null;
+  coverImage: string | null;
+  coverAlt: string | null;
+  coverPosition: string | null;
+  photoCredit: string | null;
+  photoCreditUrl: string | null;
+  introduction: string[];
+  sections: BlogSection[];
+  takeaway: string | null;
+  sources: { title: string; url: string }[];
+  published: boolean;
+  publishedAt: string | null;
+  readingMinutes: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Reel {
   id: string;
   title: string | null;

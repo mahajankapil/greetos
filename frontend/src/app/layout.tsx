@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { SiteHeader, SiteFooter } from '@/components/SiteChrome';
 import { SITE } from '@/lib/site';
+import StyledJsxRegistry from './StyledJsxRegistry';
 
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.tagline}`,
@@ -38,14 +39,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           backgroundColor: '#ffffff',
         }}
       >
-        <AuthProvider>
-          <CartProvider>
-            {/* Header and footer hide themselves on checkout — see SiteChrome. */}
-            <SiteHeader />
-            <main style={{ minHeight: '70vh' }}>{children}</main>
-            <SiteFooter />
-          </CartProvider>
-        </AuthProvider>
+        <StyledJsxRegistry>
+          <AuthProvider>
+            <CartProvider>
+              {/* Header and footer hide themselves on checkout — see SiteChrome. */}
+              <SiteHeader />
+              <main style={{ minHeight: '70vh' }}>{children}</main>
+              <SiteFooter />
+            </CartProvider>
+          </AuthProvider>
+        </StyledJsxRegistry>
       </body>
     </html>
   );

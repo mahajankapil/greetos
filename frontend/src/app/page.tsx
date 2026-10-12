@@ -9,7 +9,7 @@ import { NewsInsights } from '@/components/NewsInsights';
 import { ReelsSection } from '@/components/ReelsSection';
 import { getProducts, getSettings, getReels, getCategories } from '@/lib/api';
 import { COLLECTIONS } from '@/data/collections';
-import { BLOG_POSTS } from '@/data/blogs';
+import { getArticles } from '@/lib/blog';
 import { adaptProduct } from '@/lib/productAdapter';
 import { SITE } from '@/lib/site';
 
@@ -32,11 +32,12 @@ const DEFAULT_CATEGORY_IMAGES: Record<string, string> = {
 };
 
 export default async function HomePage() {
-  const [products, settings, reels, apiCategories] = await Promise.all([
+  const [products, settings, reels, apiCategories, articles] = await Promise.all([
     getProducts(),
     getSettings(),
     getReels(),
     getCategories(),
+    getArticles(),
   ]);
 
   const all = products.map(adaptProduct);
@@ -85,27 +86,6 @@ export default async function HomePage() {
       image: cat.image || DEFAULT_CATEGORY_IMAGES[cat.slug] || '',
     }));
 
-  let blogPosts = [];
-  if (settings?.blog_posts) {
-    try {
-      const parsed = JSON.parse(settings.blog_posts);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        blogPosts = parsed.map((post: any, idx: number) => {
-          const isLegacy = !post.title;
-          if (isLegacy) {
-            return BLOG_POSTS[idx % BLOG_POSTS.length];
-          }
-          return {
-            ...post,
-            author: post.author || 'Old Spice Agro Fresh LLP',
-          };
-        });
-      }
-    } catch {
-      blogPosts = [];
-    }
-  }
-
   return (
     <div style={{ background: '#ffffff' }}>
       <HeroSlider banners={heroBanners} />
@@ -134,7 +114,7 @@ export default async function HomePage() {
 
       <ReelsSection reels={reels} />
 
-      <NewsInsights posts={blogPosts} />
+      <NewsInsights posts={articles.slice(0, 4)} />
 
       <CustomerReviews />
 

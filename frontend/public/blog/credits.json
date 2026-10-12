@@ -1,0 +1,11 @@
+{
+  "license": "https://www.pexels.com/license/",
+  "downloaded": "2026-10-09",
+  "usage": "Illustrative stock photography for editorial articles; not photographs of Old Spice Agro Fresh farms or staff.",
+  "images": [
+    { "file": "leafy-greens.jpg", "photographer": "Eva Bronzini", "source": "https://www.pexels.com/photo/green-leaves-with-water-droplets-in-the-strainer-6824475/" },
+    { "file": "seasonal-produce.jpg", "photographer": "MART PRODUCTION", "source": "https://www.pexels.com/photo/assorted-fresh-vegetables-and-a-woven-basket-on-a-wooden-table-7890065/" },
+    { "file": "farm-to-kitchen.jpg", "photographer": "RDNE Stock project", "source": "https://www.pexels.com/photo/a-close-up-shot-of-a-person-arranging-vegetables-in-a-basket-8540212/" },
+    { "file": "weekly-basket.jpg", "photographer": "Tima Miroshnichenko", "source": "https://www.pexels.com/photo/a-person-holding-a-basket-full-of-fresh-vegetables-and-fruits-7880033/" }
+  ]
+}

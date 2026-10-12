@@ -1,65 +1,215 @@
+// Bundled starter posts. Live posts come from the API (admin → Blog) via
+// lib/blog.ts; these are only shown when the API cannot be reached.
+export interface BlogSection {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  bullets?: string[];
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
+  cardTitle: string;
   excerpt: string;
-  content: string;
+  introduction: string[];
+  sections: BlogSection[];
+  takeaway: string;
   author: string;
   date: string;
+  publishedAt: string;
   image: string;
+  imageAlt: string;
+  imagePosition?: string;
+  photoCredit: { name: string; url: string };
   category: string;
+  sources?: { title: string; url: string }[];
 }
+
+const author = 'Old Spice Agro Fresh LLP';
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "guide-to-storing-fresh-organic-leafy-greens",
-    title: "Guide to Storing Fresh Organic Leafy Greens at Home",
-    excerpt: "Discover simple farm-fresh storage tips for keeping spinach, coriander, and methi crisp and nutrient-rich for up to 10 days.",
-    content: `Organic leafy greens taste best when handled with care after harvest. Storing farm-fresh spinach, coriander, and methi correctly preserves their crisp texture and essential vitamins.
-
-### 1. Dry Before Storing
-Never wash leafy greens before refrigeration unless thoroughly dried. Excess surface moisture causes leaves to wilt prematurely.
-
-### 2. Wrap in Damp Cloth or Paper Towels
-Wrapping unwashed bunches of Spinach or Methi in breathable paper towels absorbs moisture while keeping them hydrated.
-
-### 3. Store in Airtight Containers
-Placing wrapped greens inside airtight glass or BPA-free containers extends freshness by up to 7–10 days!`,
-    author: "Old Spice Agro Fresh LLP",
-    date: "August 31, 2026",
-    image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=800&auto=format&fit=crop",
-    category: "Organic Farming"
+    slug: 'guide-to-storing-fresh-organic-leafy-greens',
+    title: 'A practical guide to storing fresh leafy greens',
+    cardTitle: 'Keep your leafy greens fresher for longer',
+    excerpt: 'A little care goes a long way. Make the most of your spinach, methi, and coriander with a simple storage routine.',
+    category: 'Kitchen know-how',
+    author, date: 'August 31, 2026', publishedAt: '2026-08-31',
+    image: '/blog/leafy-greens.jpg',
+    imageAlt: 'Fresh spinach leaves in a white kitchen colander',
+    imagePosition: '50% 45%',
+    photoCredit: { name: 'Eva Bronzini', url: 'https://www.pexels.com/photo/green-leaves-with-water-droplets-in-the-strainer-6824475/' },
+    introduction: [
+      'A generous bunch of palak, a handful of methi, and fragrant coriander can turn everyday ingredients into a meal worth looking forward to. Yet tender leaves are often the first things to be forgotten in the fridge. The good news is that a useful storage routine takes only a few minutes.',
+      'Think of it as three small jobs: sort your greens, manage surface moisture, and make them easy to find. There is no single freshness deadline for every bunch. The condition at purchase, the variety, and your refrigerator all affect how long the leaves will keep. Plan to enjoy tender greens early in the week instead of relying on a promised number of days.',
+    ],
+    sections: [
+      { id: 'start-with-a-quick-sort', title: 'Start with a quick sort', paragraphs: [
+        'Unpack greens as soon as you get home. Loosen tight bands and separate the bunches so the leaves are not crushed beneath heavier vegetables. Take a moment to look through the centre of each bunch, where moisture and damaged leaves can be easy to miss.',
+        'Keep spinach, methi, and coriander in separate containers. This makes it easier to check each one and take out exactly what you need. A simple label with the purchase date is more useful than trying to remember which bunch arrived first.',
+      ] },
+      { id: 'wash-when-you-need-them', title: 'Wash thoughtfully, then dry well', paragraphs: [
+        'Rinse produce under running water before preparing or eating it; do not use soap or detergent. If you wash a whole batch ahead, drain it well and gently dry the leaves with a clean towel or salad spinner before putting them away. Keep washed produce away from surfaces used for raw meat.',
+        'For sandy bunches, separate the leaves so you can reach the folds and stems. Work in small batches rather than filling a colander to the brim. Leaves should have room to move, and drying should be gentle enough to avoid bruising them.',
+      ] },
+      { id: 'give-leaves-room', title: 'Give leaves a little breathing room', paragraphs: [
+        'Use a clean food-storage box or produce bag with enough space for the leaves to sit loosely. A clean, dry paper towel can catch excess moisture; replace it when it becomes wet. Avoid packing a large bunch into a small box or closing it while water is still collecting at the bottom.',
+        'Refrigerate perishable greens and herbs at 4°C or below. Keep them separate from raw meat, poultry, and seafood. Place the container somewhere visible so it becomes part of your next meal, rather than something you rediscover at the back of the fridge.',
+      ] },
+      { id: 'match-the-green', title: 'Match your plan to the green', paragraphs: [
+        'Different bunches tend to play different roles in the kitchen. A little planning helps you use each one while its texture still suits the dish. Keep leaves whole until you need them where practical, and prepare only the quantity your recipe calls for.',
+      ], bullets: [
+        'Palak: plan a dal, sauté, or palak paneer early in the week. Set aside the amount for each meal before washing.',
+        'Methi: pick through the stems when you unpack it, then choose a bhaji, paratha filling, or dal for your next cooking session.',
+        'Coriander: reserve a small amount for garnishing and give the rest a purpose, such as chutney or a cooked masala. Tender stems can add flavour too.',
+      ] },
+      { id: 'a-small-daily-check', title: 'Make a small daily check', paragraphs: [
+        'When you open the fridge to cook, check the greens first. Replace wet lining, keep the lid and container clean, and use older purchases before newer ones. If leaves are slimy, mouldy, rotten, or smell unpleasant, discard them. Cooking is not a way to rescue spoiled produce.',
+        'Freshness is also about buying an amount that suits your real week. If a full bunch regularly goes unused, choose a smaller quantity or share a bunch between two planned dishes. A modest basket you finish is more useful than an overflowing drawer.',
+      ] },
+    ],
+    takeaway: 'Sort on arrival, keep surface moisture under control, and cook tender greens early. A visible container and a simple meal plan are your best starting point.',
+    sources: [{ title: 'FDA: Selecting and serving produce safely', url: 'https://www.fda.gov/food/buy-store-serve-safe-food/selecting-and-serving-produce-safely' }],
   },
   {
-    slug: "health-benefits-of-eating-seasonally-harvested-produce",
-    title: "Health Benefits of Eating Seasonally Harvested Produce",
-    excerpt: "Learn why eating seasonal root vegetables, gourds, and organic peppers delivers superior flavor and peak nutrition.",
-    content: `Eating seasonal vegetables ensures you receive maximum nutritional value directly from local organic farms.
-
-### Peak Nutrition & Flavor
-Vegetables harvested at natural maturity contain higher levels of antioxidants, vitamins, and minerals compared to artificially stored produce.
-
-### Chemical-Free Farm Practices
-Seasonal crops thrive naturally without aggressive chemical pesticides or synthetic growth boosters.
-
-### Supporting Local Agro Ecology
-Choosing seasonal harvest supports local farming families and reduces carbon emissions from long-distance transport.`,
-    author: "Old Spice Agro Fresh LLP",
-    date: "August 31, 2026",
-    image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=800&auto=format&fit=crop",
-    category: "Farm Fresh"
+    slug: 'health-benefits-of-eating-seasonally-harvested-produce',
+    title: 'Eating with the seasons: a fresher way to plan your plate',
+    cardTitle: 'Why eating with the seasons makes sense',
+    excerpt: 'Let the harvest inspire your next meal, with more variety, everyday cooking ideas, and a flexible shopping list.',
+    category: 'Seasonal eating',
+    author, date: 'August 31, 2026', publishedAt: '2026-08-31',
+    image: '/blog/seasonal-produce.jpg',
+    imageAlt: 'Squash, tomatoes, herbs, and vegetables arranged on a wooden table',
+    imagePosition: '50% 75%',
+    photoCredit: { name: 'MART PRODUCTION', url: 'https://www.pexels.com/photo/assorted-fresh-vegetables-and-a-woven-basket-on-a-wooden-table-7890065/' },
+    introduction: [
+      'Some of the best everyday meals begin with a simple question: what looks good this week? Building a dish around the available harvest can make shopping feel less repetitive and cooking more enjoyable. A familiar dal, sabzi, or soup can take on a different character with a new vegetable.',
+      'Seasonal eating is a flexible habit, not a strict rule. Growing seasons vary between regions and with the weather, so a fixed calendar cannot tell the whole story. Ask about current availability, look at the condition of the produce, and leave room in your plan for a sensible substitution.',
+    ],
+    sections: [
+      { id: 'follow-your-local-harvest', title: 'Follow your local harvest', paragraphs: [
+        'A useful place to start is the produce you see regularly in your local market. Notice when a vegetable becomes plentiful, compare its quality across a few visits, and ask the seller where it was grown. These small observations can teach you more about your local season than an all-purpose shopping calendar.',
+        'In a Maharashtra kitchen, that might mean exploring a different leafy green, choosing a tender gourd for a light sabzi, or adding a root vegetable to a family favourite. Availability can change even within the same state, so use the harvest in front of you as your guide.',
+      ] },
+      { id: 'variety-over-perfection', title: 'Put variety before perfection', paragraphs: [
+        'The everyday benefit of following the seasons is the invitation to eat a wider range of vegetables. If your usual basket contains only two or three favourites, add one ingredient with a different colour, texture, or cooking method. This keeps meals interesting without requiring an entirely new menu.',
+        'Seasonal produce is not automatically more nutritious than every other option. Variety, storage, preparation, and the rest of your diet matter too. Frozen vegetables can also be useful when fresh choices are limited. Aim for a routine you enjoy and can keep up, rather than a perfect-looking plate.',
+      ] },
+      { id: 'cook-to-the-vegetable', title: 'Let the vegetable lead the cooking', paragraphs: [
+        'Start with the texture you want. Tender greens suit quick cooking, while firm roots can bring substance to a stew or tray of roasted vegetables. Gourds work well in gently cooked dishes where they can take on the flavour of spices and aromatics.',
+        'Try one uncomplicated preparation before adding a new ingredient to a complex recipe. A small side dish gives you a chance to learn its taste, how much trimming it needs, and what your household prefers. Keep notes on what worked so the next shopping trip becomes easier.',
+      ], bullets: [
+        'Turn leafy greens into a simple garlic sauté or stir them into a familiar dal.',
+        'Use carrots or beetroot for a warm vegetable side with cumin and a squeeze of lemon.',
+        'Pair a mild gourd with the masala you already enjoy, and serve it with rice or roti.',
+      ] },
+      { id: 'shop-with-flexibility', title: 'Shop with a flexible list', paragraphs: [
+        'Write down what a recipe needs to do, as well as the exact ingredient. “One leafy green for dal” or “a firm vegetable for roasting” makes it easier to adapt when your first choice is unavailable. You still have a meal in mind, but you are not tied to one item.',
+        'Compare the price of the quantity you will actually use. A larger bag is not a saving if half of it goes uneaten. Seasonal abundance can sometimes offer good value, but check prices instead of assuming every seasonal item will always be cheaper.',
+      ] },
+      { id: 'build-a-seasonal-rhythm', title: 'Build a rhythm you can repeat', paragraphs: [
+        'Keep two or three reliable dishes in your weekly rotation and change the vegetables around them. A vegetable dal, a dry sabzi, and a one-pot rice dish offer enough flexibility for a varied basket. Add one new preparation when you have time, rather than changing everything at once.',
+        'At the end of the week, ask which vegetables you enjoyed and which were left behind. Adjust the next order accordingly. Over time, seasonal eating becomes less about following rules and more about recognising what works for your kitchen.',
+      ] },
+    ],
+    takeaway: 'Choose what is available and appealing, vary your vegetables, and keep your recipes flexible. The best seasonal routine is one you actually enjoy cooking.',
+    sources: [{ title: 'USDA MyPlate: Planning for healthy eating and savings', url: 'https://www.myplate.gov/sites/default/files/2024-01/MyPlatePlanningForHealthySavingsFVfinal-Jan2024.pdf' }],
   },
   {
-    slug: "100-percent-organic-vegetables-from-farm-to-table",
-    title: "100% Organic Produce: From Our Local Farms to Your Kitchen",
-    excerpt: "Explore how Old Spice Agro Fresh LLP grows, harvests, and delivers pure pesticide-free vegetables to your doorstep.",
-    content: `Pure nutrition begins at the soil level. At Old Spice Agro Fresh LLP, we prioritize organic composting, crop rotation, and natural pest control to bring you 100% farm-fresh produce daily.`,
-    author: "Old Spice Agro Fresh LLP",
-    date: "April 22, 2026",
-    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop",
-    category: "Organic Produce"
-  }
+    slug: '100-percent-organic-vegetables-from-farm-to-table',
+    title: 'From farm to kitchen: understanding the journey of your vegetables',
+    cardTitle: 'From the farm to your everyday kitchen',
+    excerpt: 'Look beyond the label. Explore growing practices, thoughtful handling, and the questions worth asking about your produce.',
+    category: 'Farm stories',
+    author, date: 'April 22, 2026', publishedAt: '2026-04-22',
+    image: '/blog/farm-to-kitchen.jpg',
+    imageAlt: 'Hands arranging harvested corn, herbs, and peppers in a wicker basket',
+    photoCredit: { name: 'RDNE Stock project', url: 'https://www.pexels.com/photo/a-close-up-shot-of-a-person-arranging-vegetables-in-a-basket-8540212/' },
+    introduction: [
+      'Before a vegetable reaches your chopping board, it has already been through several important stages: growing, harvesting, sorting, packing, and transport. Looking at that journey makes it easier to understand freshness and to ask useful questions when you shop.',
+      'At Old Spice Agro Fresh, our journal is a place to make those everyday choices easier to understand. This guide explores what to look for along the way, from the information on a label to the way you unpack a delivery at home.',
+    ],
+    sections: [
+      { id: 'it-starts-with-the-soil', title: 'The story starts with the soil', paragraphs: [
+        'Healthy growing conditions depend on more than watering a plant. Farmers make decisions about soil, the crops grown in succession, drainage, and how to manage pests. Composting and crop rotation are examples of practices used in organic farming, but the exact approach depends on the crop and the farm.',
+        'For a shopper, the useful question is not whether a vegetable looks rustic enough. It is whether the seller can explain how it was grown and provide relevant information about its source. A polished appearance, an unusual shape, or a little soil on a root is not evidence of a particular farming method.',
+      ] },
+      { id: 'understand-the-label', title: 'Understand what the label tells you', paragraphs: [
+        '“Local”, “fresh”, and “organic” describe different things. Local refers to origin, fresh describes the product’s condition or handling, and organic relates to a defined production system. One description does not automatically prove the others.',
+        'For organic food in India, use the FSSAI Jaivik Bharat information resources to understand the relevant labels and certification details. Ask the seller for product-specific information when you are unsure. Avoid judging certification from a green package, a leaf symbol, or a general promise on a website.',
+      ] },
+      { id: 'harvest-and-handling', title: 'Harvest and handling both matter', paragraphs: [
+        'A freshly picked vegetable can still lose quality if it is bruised, left in unsuitable conditions, or packed under heavier items. Tender leaves, firm roots, and delicate herbs have different handling needs. Paying attention to the whole journey is more useful than relying on one phrase such as “farm fresh”.',
+        'When your order arrives, look at the condition of the produce and the packaging. Separate delicate bunches from heavier vegetables and unpack promptly. If something arrives damaged or does not match the description, record the issue and contact the seller with the order details.',
+      ] },
+      { id: 'questions-worth-asking', title: 'Ask a few practical questions', paragraphs: [
+        'Good questions make shopping clearer without making it complicated. You do not need to know every agricultural term to have a useful conversation. Start with information that helps you decide what to buy and when to use it.',
+      ], bullets: [
+        'Where was this produce grown, and does the source change through the season?',
+        'What organic certification or traceability information is available for this item?',
+        'How should I store it, and which items in my order should I use first?',
+        'If a vegetable is unavailable, will I be told about a substitution before delivery?',
+      ] },
+      { id: 'finish-the-journey-well', title: 'Finish the journey well at home', paragraphs: [
+        'Your kitchen is the final part of the produce journey. Set aside a few minutes to sort the delivery, decide on the first meal, and put ingredients where you can see them. A clear plan helps turn a promising basket into food that is actually enjoyed.',
+        'Keep leafy greens for the earlier meals and check the remaining vegetables as the week goes on. Let the condition of each item guide you. Wash produce before preparing it, and keep the preparation area clean. Thoughtful handling at home complements the care taken earlier in the journey.',
+      ] },
+    ],
+    takeaway: 'Freshness, origin, and organic certification are different questions. Clear product information and careful handling help you make a more informed choice.',
+    sources: [{ title: 'FSSAI: Organic food and Jaivik Bharat', url: 'https://fssai.gov.in/citizen/organic-food' }],
+  },
+  {
+    slug: 'how-to-plan-your-weekly-vegetable-basket',
+    title: 'How to plan a weekly vegetable basket you will actually use',
+    cardTitle: 'A better basket for your week ahead',
+    excerpt: 'Shop with a few meals in mind, make room for seasonal favourites, and give every vegetable a place in your week.',
+    category: 'Everyday inspiration',
+    author, date: 'October 9, 2026', publishedAt: '2026-10-09',
+    image: '/blog/weekly-basket.jpg',
+    imageAlt: 'A shopper holding a reusable basket filled with fresh vegetables',
+    imagePosition: '65% 65%',
+    photoCredit: { name: 'Tima Miroshnichenko', url: 'https://www.pexels.com/photo/a-person-holding-a-basket-full-of-fresh-vegetables-and-fruits-7880033/' },
+    introduction: [
+      'A good vegetable basket begins before you shop. It starts with a look in the fridge, a realistic idea of how many meals you will cook, and a few dishes your household already enjoys. You do not need an elaborate meal planner or a different recipe for every day.',
+      'The aim is simple: buy enough variety to keep meals interesting, while giving each ingredient a clear purpose. This approach works for a small household, a busy family, or anyone trying to avoid the familiar end-of-week drawer of forgotten vegetables.',
+    ],
+    sections: [
+      { id: 'check-before-you-shop', title: 'Take a two-minute kitchen inventory', paragraphs: [
+        'Open the fridge and check the vegetable drawer before making a list. Note what is already there, what needs using soon, and which staples are running low. Check the pantry too: a bag of dal, some rice, or a packet of pasta might already provide the starting point for a meal.',
+        'Then look at the week ahead. Count the meals you expect to cook at home, allowing for work lunches, plans with friends, and leftovers. Shopping for your actual schedule is more helpful than buying for an ideal week in which you cook from scratch every evening.',
+      ] },
+      { id: 'build-around-a-few-meals', title: 'Build your basket around three meals', paragraphs: [
+        'Choose three reliable meals and let them shape your list. You might plan palak dal, a mixed vegetable sabzi, and a vegetable pulao. Several ingredients can work across those dishes, which makes it easier to use a whole bunch or a full portion without repeating exactly the same meal.',
+        'Leave one or two meals open. That space can accommodate leftovers, a seasonal find, or an ingredient that needs using sooner than expected. Flexibility is part of a useful plan; it is not a sign that the plan has failed.',
+      ] },
+      { id: 'choose-a-balanced-mix', title: 'Choose a practical mix of vegetables', paragraphs: [
+        'Think in cooking roles rather than buying a fixed quantity of everything. The list below is a starting framework, not a prescribed amount or a nutritional formula. Adjust quantities to the number of people eating and the dishes you intend to make.',
+      ], bullets: [
+        'One or two leafy greens for an early-week dal, bhaji, or sauté.',
+        'Two versatile vegetables, such as carrots, beans, cauliflower, or a gourd, for your main dishes.',
+        'Kitchen staples such as onions, tomatoes, ginger, and garlic, after checking what you already have.',
+        'One herb or finishing ingredient, such as coriander or green chilli, with a clear use in mind.',
+        'One seasonal choice you are curious to try, paired with a simple recipe.',
+      ] },
+      { id: 'use-the-delicate-items-first', title: 'Put the delicate items first', paragraphs: [
+        'When the basket arrives, decide what you will cook first. Tender greens and herbs often deserve an early place in the plan. Other vegetables can follow according to their condition and storage needs. Keep a small “use next” area in the fridge so your priority ingredients are easy to spot.',
+        'A meal plan should follow the food, not the other way around. If your greens need attention today, move the leafy dish forward. If a recipe calls for a vegetable you do not have, consider a suitable alternative you already own before placing another order.',
+      ] },
+      { id: 'make-prep-work-for-you', title: 'Prepare only what saves you effort', paragraphs: [
+        'Meal preparation does not have to mean chopping every vegetable on delivery day. For some kitchens, the most useful preparation is sorting ingredients into meal groups, checking recipes, and keeping a clear shelf. Save delicate cutting and washing for the cooking session when that suits the ingredient.',
+        'If you do prepare ingredients in advance, use clean containers and follow suitable storage guidance. Label them clearly and make them part of the next planned meal. Keep a quick dish in your repertoire, such as vegetable dal or a simple cooked sabzi, for small quantities that remain.',
+      ] },
+      { id: 'learn-from-the-week', title: 'Let next week be a little easier', paragraphs: [
+        'Before your next order, review what you finished, what you enjoyed, and what went unused. Reduce quantities of the ingredients that repeatedly remain and make space for the ones you reach for naturally. This is how a basket becomes personal to your household.',
+        'Keep a short list of favourite combinations rather than a complicated spreadsheet. A few successful meals, a flexible shopping list, and a little attention to the fridge can make everyday cooking feel much more manageable.',
+      ] },
+    ],
+    takeaway: 'Start with what you have, plan a few dependable meals, and leave room to adapt. A thoughtful basket is one that gets cooked and enjoyed.',
+  },
 ];
 
-export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find(b => b.slug === slug);
+export function getReadingMinutes(post: BlogPost): number {
+  const text = [...post.introduction, ...post.sections.flatMap(section => [section.title, ...section.paragraphs, ...(section.bullets || [])]), post.takeaway].join(' ');
+  return Math.max(1, Math.ceil(text.trim().split(/\s+/).length / 200));
 }

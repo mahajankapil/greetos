@@ -707,3 +707,37 @@ model PhoneOtp {
 
   @@index([phone])
 }
+
+/// A journal article on /blogs/news, written by the store team in admin → Blog.
+/// The body is structured rather than free HTML so the storefront controls the
+/// layout (table of contents, numbered sections) and nothing typed in admin can
+/// inject markup.
+model BlogPost {
+  id             String    @id @default(cuid())
+  slug           String    @unique
+  title          String
+  /// Optional shorter headline for cards; falls back to title.
+  cardTitle      String?
+  excerpt        String
+  category       String?
+  author         String?
+  coverImage     String?
+  coverAlt       String?
+  /// CSS object-position for the cover crop, e.g. "50% 40%".
+  coverPosition  String?
+  photoCredit    String?
+  photoCreditUrl String?
+  /// Opening paragraphs, one entry per paragraph.
+  introduction   String[]
+  /// [{ id, title, paragraphs: string[], bullets: string[] }]
+  sections       Json      @default("[]")
+  takeaway       String?
+  /// [{ title, url }]
+  sources        Json      @default("[]")
+  published      Boolean   @default(false)
+  publishedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([published, publishedAt])
+}

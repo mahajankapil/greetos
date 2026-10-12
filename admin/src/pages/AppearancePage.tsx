@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Loader2, Save, Plus, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { api, apiError } from '../lib/api';
 
 interface Banner {
@@ -39,15 +40,6 @@ interface CategoryItem {
   image: string;
 }
 
-interface BlogPostItem {
-  id: string;
-  title: string;
-  author: string;
-  date: string;
-  image: string;
-  slug: string;
-}
-
 export interface DirectorCard {
   id: string;
   name: string;
@@ -76,7 +68,6 @@ export default function AppearancePage() {
   
   const [banners, setBanners] = useState<Banner[]>([]);
   const [homeCategories, setHomeCategories] = useState<CategoryItem[]>([]);
-  const [blogPosts, setBlogPosts] = useState<BlogPostItem[]>([]);
   const [announcementText, setAnnouncementText] = useState('');
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [welcome, setWelcome] = useState<WelcomePopup>({
@@ -186,41 +177,6 @@ export default function AppearancePage() {
           }
         }
 
-        if (settings.blog_posts) {
-          try {
-            setBlogPosts(JSON.parse(settings.blog_posts));
-          } catch (e) {
-            console.error("Failed to parse blog_posts", e);
-          }
-        } else {
-          setBlogPosts([
-            {
-              id: '1',
-              title: 'Guide to Storing Fresh Organic Leafy Greens at Home',
-              author: 'Old Spice Agro Fresh LLP',
-              date: 'August 31, 2026',
-              image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=800&auto=format&fit=crop',
-              slug: 'guide-to-storing-fresh-organic-leafy-greens',
-            },
-            {
-              id: '2',
-              title: 'Health Benefits of Eating Seasonally Harvested Produce',
-              author: 'Old Spice Agro Fresh LLP',
-              date: 'August 31, 2026',
-              image: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=800&auto=format&fit=crop',
-              slug: 'health-benefits-of-eating-seasonally-harvested-produce',
-            },
-            {
-              id: '3',
-              title: '100% Organic Produce: From Our Local Farms to Your Kitchen',
-              author: 'Old Spice Agro Fresh LLP',
-              date: 'April 22, 2026',
-              image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop',
-              slug: '100-percent-organic-vegetables-from-farm-to-table',
-            },
-          ]);
-        }
-
         if (settings.our_story_section) {
           try {
             setOurStory((prev) => ({ ...prev, ...JSON.parse(settings.our_story_section) }));
@@ -246,7 +202,6 @@ export default function AppearancePage() {
       await api.put('/admin/settings', {
         hero_banners: JSON.stringify(banners),
         home_categories: JSON.stringify(homeCategories),
-        blog_posts: JSON.stringify(blogPosts),
         announcement_text: announcementText,
         homepage_gallery: JSON.stringify(gallery),
         homepage_feature_banner: JSON.stringify(featureBanner),
@@ -290,28 +245,6 @@ export default function AppearancePage() {
       ...prev,
       directors: (prev.directors || []).filter((d) => d.id !== id),
     }));
-  };
-
-  const addBlogPost = () => {
-    setBlogPosts([
-      ...blogPosts,
-      {
-        id: Date.now().toString(),
-        title: 'New Article',
-        author: 'Old Spice Agro Fresh LLP',
-        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-        image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=800&auto=format&fit=crop',
-        slug: `blog-${Date.now()}`,
-      },
-    ]);
-  };
-
-  const updateBlogPost = (id: string, field: keyof BlogPostItem, value: string) => {
-    setBlogPosts(blogPosts.map((b) => (b.id === id ? { ...b, [field]: value } : b)));
-  };
-
-  const removeBlogPost = (id: string) => {
-    setBlogPosts(blogPosts.filter((b) => b.id !== id));
   };
 
   const addCategory = () => {
@@ -553,108 +486,15 @@ export default function AppearancePage() {
             </div>
           </div>
 
-          {/* Blog Posts Manager Card */}
-          <div className="max-w-4xl overflow-hidden rounded-[24px] border border-[#e5e5e5] bg-white p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-black text-[#111111]">Blog Posts (Homepage & Articles)</h3>
-                <p className="text-xs text-[#666666]">Manage the articles displayed in the Blog section on the homepage.</p>
-              </div>
-              <button
-                onClick={addBlogPost}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#f5f5f5] px-4 py-2 text-sm font-bold text-[#111111] hover:bg-[#e5e5e5]"
-              >
-                <Plus size={16} /> Add Blog Post
-              </button>
+          {/* Blog posts moved to their own section (admin → Blog). */}
+          <div className="max-w-4xl overflow-hidden rounded-[24px] border border-[#e5e5e5] bg-white p-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-black text-[#111111]">Blog posts</h3>
+              <p className="text-xs text-[#666666]">Articles — and the four shown on the homepage — are written and published in the Blog section.</p>
             </div>
-
-            <div className="space-y-6">
-              {blogPosts.length === 0 && (
-                <p className="text-sm text-[#666666]">No blog posts created yet.</p>
-              )}
-
-              {blogPosts.map((post, index) => (
-                <div key={post.id} className="p-4 rounded-2xl border border-[#e5e5e5] bg-[#fafafa]">
-                  <div className="flex justify-between items-center mb-4 border-b border-[#e5e5e5] pb-2">
-                    <h4 className="font-bold text-[#111111] text-sm uppercase">Blog Post {index + 1}</h4>
-                    <button
-                      onClick={() => removeBlogPost(post.id)}
-                      className="text-[#b33131] hover:bg-[#fee3e3] p-1.5 rounded-lg transition-colors"
-                      title="Remove Post"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block">
-                        <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Article Title</span>
-                        <input
-                          value={post.title}
-                          onChange={(e) => updateBlogPost(post.id, 'title', e.target.value)}
-                          placeholder="Guide to Storing Fresh Leafy Greens..."
-                          className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <label className="block">
-                        <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Author Name</span>
-                        <input
-                          value={post.author}
-                          onChange={(e) => updateBlogPost(post.id, 'author', e.target.value)}
-                          placeholder="Old Spice Agro Fresh LLP"
-                          className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <label className="block">
-                        <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Publish Date</span>
-                        <input
-                          value={post.date}
-                          onChange={(e) => updateBlogPost(post.id, 'date', e.target.value)}
-                          placeholder="August 31, 2026"
-                          className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
-                        />
-                      </label>
-                    </div>
-
-                    <div>
-                      <label className="block">
-                        <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Article Slug / Link</span>
-                        <input
-                          value={post.slug}
-                          onChange={(e) => updateBlogPost(post.id, 'slug', e.target.value)}
-                          placeholder="leafy-greens-storage-guide"
-                          className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
-                        />
-                      </label>
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label className="block">
-                        <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Banner Image URL</span>
-                        <div className="flex gap-2 items-center">
-                          <input
-                            value={post.image}
-                            onChange={(e) => updateBlogPost(post.id, 'image', e.target.value)}
-                            placeholder="https://example.com/blog-banner.png"
-                            className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
-                          />
-                          {post.image && (
-                            <img src={post.image} alt={post.title} className="mt-1 h-10 w-16 shrink-0 rounded border border-[#e5e5e5] object-cover" />
-                          )}
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Link to="/blog" className="inline-flex items-center gap-2 rounded-2xl bg-black px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800">
+              Open Blog
+            </Link>
           </div>
 
           <div className="max-w-4xl overflow-hidden rounded-[24px] border border-[#e5e5e5] bg-white p-6">

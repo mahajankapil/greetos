@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Sparkles, Package, ShoppingBag, Megaphone, LogOut, Shirt, FolderTree, HeartPulse, Users, CreditCard, Bell, Ticket, Tag, Truck, Star, RefreshCw, Palette, Gift, Building2, Menu, X, Video, FileText } from 'lucide-react';
+import { Sparkles, Package, ShoppingBag, Megaphone, LogOut, Shirt, FolderTree, HeartPulse, Users, CreditCard, Bell, Ticket, Tag, Truck, Star, RefreshCw, Palette, Gift, Building2, Menu, X, Video, FileText, BookOpen } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 // Brand mark. Hosted remotely, same asset the storefront header uses, so the
@@ -15,6 +15,7 @@ const nav = [
   { to: '/product-category-bars', label: 'Home Categories', icon: Tag, roles: ['admin'] },
   { to: '/merchandising', label: 'Featured & Bestsellers', icon: Star, roles: ['admin'] },
   { to: '/reels', label: 'Instagram Reels', icon: Video, roles: ['admin'] },
+  { to: '/blog', label: 'Blog', icon: BookOpen, roles: ['admin'] },
   { to: '/orders', label: 'Orders', icon: ShoppingBag, roles: ['admin'] },
   { to: '/returns', label: 'Returns', icon: RefreshCw, roles: ['admin'] },
   { to: '/reviews', label: 'Reviews', icon: Star, roles: ['admin'] },
