@@ -2,6 +2,16 @@
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 
+/* PT Sans draws the rupee sign (U+20B9) as a ruble-looking glyph, so ₹ prices
+   read as "₽". This family covers only that one character and points at
+   system fonts that draw it correctly; it sits first in the font stacks below. */
+@font-face {
+  font-family: 'Rupee';
+  src: local('Segoe UI'), local('Arial'), local('Roboto'), local('Noto Sans'),
+    local('Helvetica Neue'), local('Helvetica'), local('DejaVu Sans'), local('Liberation Sans');
+  unicode-range: U+20B9;
+}
+
 /* ===== DESIGN SYSTEM VARIABLES ===== */
 :root {
   --color-brand: #88b950;
@@ -9,10 +19,10 @@
   --color-brand-light: #eef7e6;
   --color-text-dark: #1c2417;
   --color-text-muted: #64748b;
-  /* --font-display / --font-sans are set on <html> by next/font (app/layout.tsx) */
-  --font-heading: var(--font-display), Georgia, 'Times New Roman', serif;
-  --font-body: var(--font-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-nav: var(--font-sans);
+  /* --font-sans / --font-caption are set on <html> by next/font (app/layout.tsx) */
+  --font-body: 'Rupee', var(--font-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: var(--font-body);
+  --font-nav: 'Rupee', var(--font-caption), var(--font-sans), system-ui, sans-serif;
 }
 
 /* ===== GLOBAL RESETS ===== */
@@ -27,9 +37,6 @@ html, body {
   color: var(--color-text-dark);
   background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
-  /* Fraunces' soft axis: rounder, friendlier letterforms. Fonts without the
-     axis (Outfit) ignore it. */
-  font-variation-settings: 'SOFT' 50;
 }
 
 /* Browsers don't let form controls inherit the page font (they fall back to
@@ -1060,6 +1067,12 @@ input[type="search"]::-webkit-search-results-decoration {
   .oldspice-banner-slider .swiper-button-prev {
     display: none !important;
   }
+
+  /* No dots on phone banners: the headline sits near the bottom edge and the
+     dots covered it. The banners still autoplay and can be swiped. */
+  .oldspice-banner-slider:not(.oldspice-banner-slider--fallback) .swiper-pagination {
+    display: none !important;
+  }
 }
 
 /* Admin-uploaded banners keep their own proportions, but a wrong-sized upload
@@ -1561,10 +1574,35 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 
-/* ===== FOOTER HOMEPAGE ONLY ON MOBILE ===== */
+/* ===== FOOTER: FULL ON DESKTOP, ONE LINE ON PHONES ===== */
+.footer-compact { display: none; }
+
 @media (max-width: 768px) {
-  .oldspice-footer.hide-on-mobile {
-    display: none !important;
+  .oldspice-footer.footer-full { display: none !important; }
+
+  .footer-compact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    padding: 0 6px 0 10px;
+    border-top: 3px solid #88b950;
+    background: #2d451e;
+    font-family: var(--font-nav);
+    font-size: 11px;
+    color: #b9cfa3;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .footer-compact__copy { margin-right: auto; }
+  /* 44px-tall touch targets on a one-line bar. */
+  .footer-compact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 4px;
+    color: #e6f0d8;
+    font-weight: 700;
   }
 }
 
@@ -1953,6 +1991,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 /* Phone menu rows */
 .site-nav-mobile-item { color: #374151; }
+/* The browser's own triangle sat on the left of MORE; the chevron on the right replaces it. */
+.mobile-more-menu > summary { list-style: none; }
+.mobile-more-menu > summary::-webkit-details-marker { display: none; }
+.mobile-more-chevron { flex-shrink: 0; transition: transform 0.2s ease; }
+.mobile-more-menu[open] > summary .mobile-more-chevron { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) { .mobile-more-chevron { transition: none; } }
 
 /* Narrow desktops (1024–1150px) have less room for six items */
 @media (min-width: 1024px) and (max-width: 1150px) {
@@ -1965,3 +2009,45 @@ input[type="search"]::-webkit-search-results-decoration {
 @media (min-width: 1351px) and (max-width: 1439px) {
   .header-actions .action-pill-btn { display: none !important; }
 }
+
+
+/* ===== CART ON PHONES: FLOATING BAR (replaces header icon + bottom-nav tab) ===== */
+.cart-float { display: none; }
+
+@media (max-width: 768px) {
+  .header-cart-btn { display: none !important; }
+
+  .cart-float {
+    position: fixed;
+    left: max(12px, env(safe-area-inset-left, 0px));
+    right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 10px);
+    z-index: 95;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 6px 14px 6px 8px;
+    border: 0;
+    border-radius: 16px;
+    background: #2d6033;
+    color: #fff;
+    font-family: var(--font-body);
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(20, 48, 24, 0.35);
+    animation: cart-float-in 0.25s ease-out;
+  }
+  .cart-float:focus-visible { outline: 3px solid #c5dd9a; outline-offset: 3px; }
+  .cart-float__icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 10px; background: rgba(255, 255, 255, 0.18); flex-shrink: 0; }
+  .cart-float__sum { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+  .cart-float__count { font-size: 12px; opacity: 0.9; }
+  .cart-float__total { font-size: 17px; font-weight: 700; }
+  .cart-float__cta { margin-left: auto; display: inline-flex; align-items: center; gap: 2px; font-size: 17px; font-weight: 700; white-space: nowrap; }
+
+  /* Keep the last content (and the one-line footer) clear of the bar. */
+  body:has(.cart-float) { padding-bottom: calc(64px + 76px + env(safe-area-inset-bottom, 0px)) !important; }
+}
+
+@keyframes cart-float-in { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .cart-float { animation: none; } }

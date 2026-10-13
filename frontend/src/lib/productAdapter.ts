@@ -110,7 +110,8 @@ export function adaptProduct(p: ApiProduct): Product {
     primaryImage: p.image,
     hoverImage: p.secondaryImage || undefined,
     images: Array.from(new Set(gallery)),
-    rating: p.rating,
+    // Out of 5. Clamped here so a stray stored value above 5 can never show on the shop.
+    rating: Math.min(5, Math.max(0, p.rating || 0)),
     reviewCount: p.reviewsCount,
     unitsSold: (p as any).unitsSold || undefined,
     description: p.description,

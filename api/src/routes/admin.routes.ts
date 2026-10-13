@@ -251,7 +251,8 @@ const productSchema = z.object({
   categoryIds: z.array(z.string()).optional(),
   usp: z.string().optional(),
   description: z.string().optional(),
-  rating: z.number().optional(),
+  // Ratings are out of 5; reviews recompute this on their own, this is the manual field.
+  rating: z.number().min(0).max(5).optional(),
   reviewsCount: z.number().int().optional(),
   unitsSold: z.string().optional().nullable(),
   labels: z.array(z.string()).optional(),

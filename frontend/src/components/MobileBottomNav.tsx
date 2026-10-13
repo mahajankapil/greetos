@@ -3,13 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 
 export const MobileBottomNav: React.FC = () => {
   const pathname = usePathname();
-  const { totalItems } = useCart();
   const { user } = useAuth();
 
   const navItems = [
@@ -34,12 +31,6 @@ export const MobileBottomNav: React.FC = () => {
           <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.8"></rect>
         </svg>
       ),
-    },
-    {
-      label: 'Cart',
-      href: '/cart',
-      matchPrefix: '/cart',
-      icon: <ShoppingBag size={22} strokeWidth={1.8} />,
     },
     {
       label: 'Offers',
@@ -80,11 +71,9 @@ export const MobileBottomNav: React.FC = () => {
             href={item.href}
             className={`rx-menu-item ${isActive ? 'active' : ''}`}
             aria-current={isActive ? 'page' : undefined}
-            aria-label={item.label === 'Cart' ? `Cart, ${totalItems} items` : item.label}
           >
             <span className="rx-menu-icon" aria-hidden="true">
               {item.icon}
-              {item.label === 'Cart' && totalItems > 0 && <span className="rx-cart-count">{totalItems > 99 ? '99+' : totalItems}</span>}
             </span>
             <span>{item.label}</span>
           </Link>

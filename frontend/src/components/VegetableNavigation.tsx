@@ -7,6 +7,7 @@ import { COLLECTIONS } from '@/data/collections';
 
 const vegetableLinks = [
   { title: 'All Vegetables', href: '/collections/all' },
+  { title: 'Weekly Vegetable Planner', href: '/weekly-planner' },
   ...COLLECTIONS.filter((collection) => collection.slug !== 'organic-baskets').map((collection) => ({
     title: collection.title,
     href: `/collections/${collection.slug}`,

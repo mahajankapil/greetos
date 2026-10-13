@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Fraunces, Outfit } from 'next/font/google';
+import { PT_Sans, PT_Sans_Caption } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
@@ -23,17 +23,18 @@ export const viewport: Viewport = {
   themeColor: '#2d451e',
 };
 
-// Typefaces, self-hosted with the build by next/font. (The theme's own fonts
-// were hot-linked from another site and never loaded here.)
-//   Fraunces — headings: a soft, warm serif for an organic produce brand.
-//   Outfit   — body, menu, buttons, prices: clean and easy to read small.
-// Both are variable fonts, so one file each covers every weight in use.
-const displayFont = Fraunces({ subsets: ['latin'], display: 'swap', axes: ['opsz', 'SOFT'], variable: '--font-display' });
-const sansFont = Outfit({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
+// One typeface across the whole storefront, self-hosted with the build by
+// next/font (same families as the Google Fonts @import the brand supplied,
+// without the render-blocking request to fonts.googleapis.com).
+//   PT Sans          — everything: headings, body, buttons, prices, form fields.
+//   PT Sans Caption  — menu and small labels.
+// PT Sans ships 400 and 700 only; other weights in the CSS snap to the nearest.
+const sansFont = PT_Sans({ subsets: ['latin'], display: 'swap', weight: ['400', '700'], style: ['normal', 'italic'], variable: '--font-sans' });
+const captionFont = PT_Sans_Caption({ subsets: ['latin'], display: 'swap', weight: ['400', '700'], variable: '--font-caption' });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${sansFont.variable}`}>
+    <html lang="en" className={`${sansFont.variable} ${captionFont.variable}`}>
       <body
         style={{
           margin: 0,

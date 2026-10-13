@@ -25,6 +25,7 @@ import MerchandisingPage from './pages/MerchandisingPage';
 import InvoicePage from './pages/InvoicePage';
 import ReelsPage from './pages/ReelsPage';
 import BlogPage from './pages/BlogPage';
+import WeeklyPlannerPage from './pages/WeeklyPlannerPage';
 
 /**
  * Sends an unknown URL to whichever home the signed-in role actually has —
@@ -219,6 +220,16 @@ export default function App() {
             <ProtectedRoute>
               <Layout>
                 <BlogPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/weekly-planner"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <WeeklyPlannerPage />
               </Layout>
             </ProtectedRoute>
           }

@@ -185,7 +185,7 @@ export default function ProductsPage() {
           .split(',')
           .map((s) => s.trim())
           .filter(Boolean),
-        rating: editing.rating.trim() === '' ? 0 : Number(editing.rating),
+        rating: clampRating(editing.rating),
         reviewsCount: editing.reviewsCount.trim() === '' ? 0 : Number(editing.reviewsCount),
         unitsSold: editing.unitsSold.trim(),
         soldOut: editing.soldOut,
@@ -535,9 +535,12 @@ export default function ProductsPage() {
                 <Field
                   label="Rating"
                   value={editing.rating}
-                  onChange={(v) => setEditing({ ...editing, rating: v })}
+                  onChange={(v) => setEditing({ ...editing, rating: limitRatingInput(v) })}
                   type="number"
-                  hint="e.g. 4.8"
+                  step="0.1"
+                  min={0}
+                  max={5}
+                  hint="0 to 5, e.g. 4.8"
                 />
                 <Field
                   label="Ratings count"
@@ -750,12 +753,33 @@ export default function ProductsPage() {
   );
 }
 
+/** Highest rating a product can have. */
+const MAX_RATING = 5;
+
+/** Typed rating → a number in 0–5 with one decimal. Empty or invalid is 0. */
+function clampRating(raw: string): number {
+  const n = Number(raw);
+  if (raw.trim() === '' || !Number.isFinite(n)) return 0;
+  return Math.round(Math.min(MAX_RATING, Math.max(0, n)) * 10) / 10;
+}
+
+/** Keeps the box from ever holding a rating above 5 (or below 0) while typing. */
+function limitRatingInput(raw: string): string {
+  const n = Number(raw);
+  if (raw.trim() === '' || !Number.isFinite(n)) return raw;
+  if (n > MAX_RATING) return String(MAX_RATING);
+  if (n < 0) return '0';
+  return raw;
+}
+
 function Field({
   label,
   value,
   onChange,
   type,
   step,
+  min,
+  max,
   hint,
 }: {
   label: string;
@@ -763,6 +787,8 @@ function Field({
   onChange: (v: string) => void;
   type?: string;
   step?: string;
+  min?: number;
+  max?: number;
   hint?: string;
 }) {
   return (
@@ -772,6 +798,8 @@ function Field({
         value={value}
         type={type}
         step={step}
+        min={min}
+        max={max}
         onChange={(e) => onChange(e.target.value)}
         className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
       />

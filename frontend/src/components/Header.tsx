@@ -134,7 +134,6 @@ export const Header: React.FC = () => {
   const menuItems = [
     { id: 'HeaderMenu-home', name: 'HOME', href: '/' },
     { id: 'HeaderMenu-best-sellers', name: 'BEST SELLERS', href: '/collections/best-sellers' },
-    { id: 'HeaderMenu-combos', name: 'ORGANIC BASKETS', href: '/collections/super-saver-combos' },
     { id: 'HeaderMenu-all-products', name: 'SHOP VEGETABLES', href: '/collections/all' },
     { id: 'HeaderMenu-offers', name: 'OFFERS', href: '/offers' },
   ];
@@ -142,7 +141,6 @@ export const Header: React.FC = () => {
   const moreDropdownItems = [
     { id: 'HeaderMenu-blog', name: 'BLOGS & ORGANIC FARMING NEWS', href: '/blogs/news' },
     { id: 'HeaderMenu-about', name: 'ABOUT US', href: '/about-us' },
-    { id: 'HeaderMenu-directors', name: 'BOARD OF DIRECTORS', href: '/board-of-directors' },
     { id: 'HeaderMenu-contact-us', name: 'CONTACT US', href: '/contact' },
   ];
 
@@ -602,10 +600,10 @@ export const Header: React.FC = () => {
             </svg>
           </Link>
 
-          {/* Cart Icon with Counter */}
+          {/* Cart Icon with Counter. Hidden on phones, where the floating cart bar replaces it. */}
           <button
             onClick={openCart}
-            className="touch-icon"
+            className="touch-icon header-cart-btn"
             type="button"
             aria-label="Cart"
             style={{
@@ -992,44 +990,6 @@ export const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Drawer Search Field */}
-          <div style={{ padding: '16px 20px 12px', borderBottom: '1px solid #f3f4f6' }}>
-            <form action="/collections/all" method="get" role="search" onSubmit={() => setDrawerOpen(false)}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: '#f3f4f6',
-                  borderRadius: '9999px',
-                  padding: '8px 14px',
-                  border: '1px solid #e5e7eb',
-                }}
-              >
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#6b7280" style={{ width: '15px', height: '15px', marginRight: '8px', flexShrink: 0 }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-                <input
-                  type="text"
-                  name="q"
-                  aria-label="Search vegetables"
-                  enterKeyHint="search"
-                  placeholder={SEARCH_SUGGESTIONS[placeholderIdx]}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{
-                    border: 'none',
-                    outline: 'none',
-                    background: 'transparent',
-                    width: '100%',
-                    fontSize: '12px',
-                    fontWeight: 500,
-                    color: '#111827',
-                  }}
-                />
-              </div>
-            </form>
-          </div>
-
           {/* Polished Navigation List with Chevrons */}
           <div style={{ flex: 1, padding: '8px 0' }}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column' }}>
@@ -1064,8 +1024,12 @@ export const Header: React.FC = () => {
               })}
               <li>
                 <details className="mobile-more-menu">
-                  <summary className="site-nav-link site-nav-mobile-item" style={{ padding: '13px 20px', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}>
-                    MORE
+                  <summary className="site-nav-link site-nav-mobile-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '13px 20px', cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}>
+                    <span>MORE</span>
+                    {/* Same chevron as the other rows, on the right; turns down when open. */}
+                    <svg className="mobile-more-chevron" aria-hidden="true" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#9ca3af" style={{ width: '14px', height: '14px' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
                   </summary>
                   <ul style={{ listStyle: 'none', padding: '8px 0', margin: 0, background: '#fafbfc' }}>
                     {moreDropdownItems.map((item) => (

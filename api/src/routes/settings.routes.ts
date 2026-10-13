@@ -29,6 +29,8 @@ const PUBLIC_SETTING_KEYS = [
   'welcome_popup',
   'blog_posts',
   'our_story_section',
+  // Wording and on/off switches for the Weekly Vegetable Planner page.
+  'weekly_planner',
   'legal_privacy_policy',
   'legal_refund_policy',
   'legal_terms_of_service',

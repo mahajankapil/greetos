@@ -29,7 +29,7 @@ export const CollectionsGrid: React.FC<CollectionsGridProps> = ({ categories: cu
     <section className="vegetable-categories" aria-labelledby="vegetable-categories-title">
       <div className="vegetable-categories__inner">
         <div className="vegetable-categories__heading">
-          <p className="vegetable-categories__eyebrow">FRESH PICKS FOR YOUR KITCHEN</p>
+          {/* <p className="vegetable-categories__eyebrow">FRESH PICKS FOR YOUR KITCHEN</p> */}
           <h2 id="vegetable-categories-title">Shop by Category</h2>
           {/* <p>From leafy greens to everyday essentials, find your favourites.</p> */}
         </div>

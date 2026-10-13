@@ -31,6 +31,24 @@ const DEFAULT_CATEGORY_IMAGES: Record<string, string> = {
   'other-vegetables': 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800&auto=format&fit=crop',
 };
 
+/** Shown until the admin uploads their own hero banners. */
+const DEFAULT_HERO_BANNERS: DynamicBanner[] = [
+  {
+    id: 'default-mixed-veg',
+    desktop: '/banner/hero-1-desktop.jpg',
+    mobile: '/banner/hero-1-mobile.jpg',
+    link: '/collections/all',
+    alt: 'Mixed Veg Combo: potato, carrot and green peas. Fresh vegetables for a delicious mixed veg sabzi.',
+  },
+  {
+    id: 'default-fresh-salad',
+    desktop: '/banner/hero-2-desktop.jpg',
+    mobile: '/banner/hero-2-mobile.jpg',
+    link: '/collections/all',
+    alt: 'Fresh Salad Combo: cucumber, tomato, carrot and lettuce. Fresh vegetables for a crunchy, colourful salad.',
+  },
+];
+
 export default async function HomePage() {
   const [products, settings, reels, apiCategories, articles] = await Promise.all([
     getProducts(),
@@ -77,6 +95,10 @@ export default async function HomePage() {
       },
     ];
   }
+
+  // Nothing uploaded in Admin → Appearance: show the two brand banners from
+  // /public/banner (a wide one for desktop, a portrait one for phones).
+  if (heroBanners.length === 0) heroBanners = DEFAULT_HERO_BANNERS;
 
   const homeCategories = apiCategories
     .filter((c) => !c.parentId)

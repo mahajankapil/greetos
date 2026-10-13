@@ -7,6 +7,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CartDrawer } from '@/components/CartDrawer';
 import { MobileBottomNav } from '@/components/MobileBottomNav';
+import { FloatingCartBar } from '@/components/FloatingCartBar';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 
 /**
@@ -41,6 +42,7 @@ export const SiteFooter: React.FC = () => {
       <Footer />
       <CartDrawer />
       <MobileBottomNav />
+      <FloatingCartBar />
     </>
   );
 };

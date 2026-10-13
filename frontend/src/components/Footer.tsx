@@ -1,93 +1,102 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Check, Leaf, Mail, MapPin, Truck } from 'lucide-react';
+import { SITE } from '@/lib/site';
+import styles from './Footer.module.css';
 
 export const Footer: React.FC = () => {
-  const pathname = usePathname();
-  const isHomepage = pathname === '/';
-
+  // Not connected to POST /subscribers (which accepts source 'footer'): the old
+  // form only showed an alert and stored nothing. This keeps that behaviour but
+  // shows the confirmation on the page instead of alert().
+  const [subscribed, setSubscribed] = useState(false);
   return (
-    <footer
-      className={`oldspice-footer ${!isHomepage ? 'hide-on-mobile' : ''}`}
-      style={{
-        background: '#ffffff',
-        borderTop: '1px solid #e2e8f0',
-        color: '#1c2417',
-        paddingTop: '50px',
-        paddingBottom: '30px',
-      }}
-    >
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', marginBottom: '40px' }}>
-          
-          {/* Column 1: Products */}
-          <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#1c2417', marginBottom: '16px' }}>Products</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
-              <li><Link href="/collections/all" style={{ color: '#4a5568', textDecoration: 'none' }}>All Products</Link></li>
-              <li><Link href="/collections/best-sellers" style={{ color: '#4a5568', textDecoration: 'none' }}>Best Sellers</Link></li>
-              <li><Link href="/collections/super-saver-combos" style={{ color: '#4a5568', textDecoration: 'none' }}>Super Saver Combos</Link></li>
+    <>
+    {/* Phones get one line instead of the full footer — see .footer-compact in globals.css. */}
+    <footer className="footer-compact" aria-label="Legal">
+      <span className="footer-compact__copy">© {new Date().getFullYear()} Old Spice</span>
+      <Link href="/terms">Terms</Link>
+      <Link href="/privacy-policy">Privacy</Link>
+      <Link href="/refund-policy">Refund</Link>
+      <Link href="/shipping-policy">Shipping</Link>
+    </footer>
+    <footer className={`oldspice-footer footer-full ${styles.footer}`}>
+      <div className={styles.wrap}>
+        <div className={styles.grid}>
+          <div className={styles.brandCol}>
+            <div>
+              <Link href="/" className={styles.brand} aria-label={`${SITE.name} home`}>
+                <span className={styles.logo}><img src={SITE.logoUrl} alt="" /></span>
+                <span className={styles.brandName}>{SITE.name}</span>
+              </Link>
+              <p className={styles.blurb}>{SITE.tagline}. Harvested on our farm and delivered fresh to your kitchen.</p>
+            </div>
+            <ul className={styles.contact}>
+              <li><a href={`mailto:${SITE.email}`}><Mail size={18} aria-hidden="true" />{SITE.email}</a></li>
+              <li><span><MapPin size={18} aria-hidden="true" />{SITE.address.city}, {SITE.address.state}</span></li>
             </ul>
           </div>
 
-          {/* Column 2: Customer Policy */}
-          <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#1c2417', marginBottom: '16px' }}>Customer Policy</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
-              <li><Link href="/privacy-policy" style={{ color: '#4a5568', textDecoration: 'none' }}>Privacy Policy</Link></li>
-              <li><Link href="/refund-policy" style={{ color: '#4a5568', textDecoration: 'none' }}>Refund Policy</Link></li>
-              <li><Link href="/terms" style={{ color: '#4a5568', textDecoration: 'none' }}>Terms of Service</Link></li>
-              <li><Link href="/shipping-policy" style={{ color: '#4a5568', textDecoration: 'none' }}>Shipping &amp; Delivery</Link></li>
+          <nav aria-label="Shop">
+            <h2 className={styles.heading}>Shop</h2>
+            <ul className={styles.links}>
+              <li><Link href="/collections/all">All Products</Link></li>
+              <li><Link href="/collections/best-sellers">Best Sellers</Link></li>
+              <li><Link href="/collections/super-saver-combos">Organic Baskets</Link></li>
+              <li><Link href="/weekly-planner">Weekly Planner<span className={styles.badgeNew}>New</span></Link></li>
             </ul>
-          </div>
+          </nav>
 
-          {/* Column 3: Support */}
-          <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#1c2417', marginBottom: '16px' }}>Support</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
-              <li><Link href="/contact" style={{ color: '#4a5568', textDecoration: 'none' }}>Contact Us</Link></li>
-              <li><Link href="/about-us" style={{ color: '#4a5568', textDecoration: 'none' }}>About Us</Link></li>
-              <li><Link href="/account/login" style={{ color: '#4a5568', textDecoration: 'none' }}>Track Your Order</Link></li>
+          <nav aria-label="Help">
+            <h2 className={styles.heading}>Help</h2>
+            <ul className={styles.links}>
+              <li><Link href="/contact">Contact Us</Link></li>
+              <li><Link href="/about-us">About Us</Link></li>
+              <li><Link href="/account/login">Track Your Order</Link></li>
             </ul>
-          </div>
+          </nav>
 
-          {/* Column 4: Newsletter */}
-          <div>
-            <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#1c2417', marginBottom: '16px' }}>Subscribe to our newsletter</h4>
-            <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
-              Promotions, new products and sales. Directly to your inbox.
-            </p>
-            <form className="footer-newsletter" onSubmit={(e) => { e.preventDefault(); alert('Subscribed successfully to Old Spice Agro Fresh LLP!'); }} style={{ display: 'flex', gap: '6px' }}>
-              <input
-                type="email"
-                aria-label="Email address for newsletter"
-                autoComplete="email"
-                placeholder="Enter your email"
-                required
-                style={{ flex: 1, minWidth: 0, padding: '8px 12px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '13px' }}
-              />
-              <button
-                type="submit"
-                style={{ background: '#2d451e', color: '#ffffff', border: 'none', borderRadius: '4px', padding: '8px 18px', fontWeight: 800, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer' }}
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
+          <nav aria-label="Policies">
+            <h2 className={styles.heading}>Policies</h2>
+            <ul className={styles.links}>
+              <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link href="/refund-policy">Refund Policy</Link></li>
+              <li><Link href="/terms">Terms of Service</Link></li>
+              <li><Link href="/shipping-policy">Shipping &amp; Delivery</Link></li>
+            </ul>
+          </nav>
 
+          <div className={`${styles.news} ${styles.newsCol}`}>
+            <h2 className={styles.heading}>Newsletter</h2>
+            <p>Seasonal harvests, new vegetables and offers, straight to your inbox.</p>
+            {subscribed ? (
+              <p className={styles.thanks} role="status"><Check size={18} aria-hidden="true" /> Thanks, you are on the list.</p>
+            ) : (
+              <form className={styles.form} onSubmit={(e) => { e.preventDefault(); setSubscribed(true); }}>
+                <input
+                  type="email"
+                  className={styles.input}
+                  aria-label="Email address for newsletter"
+                  autoComplete="email"
+                  placeholder="Your email"
+                  required
+                />
+                <button type="submit" className={styles.submit}>Subscribe</button>
+              </form>
+            )}
+          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '20px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#64748b' }}>
-          <p>© {new Date().getFullYear()} Old Spice Agro Fresh LLP. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: '12px', fontSize: '16px' }}>
-            <span>📷</span>
-            <span>📘</span>
+        <div className={styles.bottom}>
+          <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+          <div className={styles.trust}>
+            <span><Leaf size={16} aria-hidden="true" />100% organic</span>
+            <span><Truck size={16} aria-hidden="true" />Farm to doorstep</span>
           </div>
         </div>
       </div>
     </footer>
+    </>
   );
 };

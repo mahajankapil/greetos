@@ -71,11 +71,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             )}
           </>
         )}
-
-        <aside className={styles.shopBanner}>
-          <div><p className={styles.eyebrow}>FROM READING TO COOKING</p><h2>Put fresh ideas on your plate.</h2><p>Find the vegetables for your next everyday favourite.</p></div>
-          <Link href="/collections/all">Explore fresh produce <span aria-hidden="true">↗</span></Link>
-        </aside>
       </div>
     </div>
   );

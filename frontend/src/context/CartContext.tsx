@@ -109,7 +109,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, { product, option, quantity }];
     });
-    if (options?.openDrawer !== false) {
+    // On phones the floating "View Cart" bar confirms the add instead; popping
+    // the whole cart open over the page after every tap is what shoppers there
+    // did not want. Larger screens keep the drawer. (768px matches the CSS
+    // that shows the bar and hides the header cart icon.)
+    const onPhone = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+    if (options?.openDrawer !== false && !onPhone) {
       setIsOpen(true);
     }
   };
