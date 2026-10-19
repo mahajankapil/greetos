@@ -15,8 +15,9 @@ const router = Router();
  * by accident: a new key is private until it is named here.
  */
 const PUBLIC_SETTING_KEYS = [
-  'announcement_text',
+  'announcement_bar_enabled',
   'hero_banners',
+  'hero_banners_enabled',
   'hero_banner_desktop',
   'hero_banner_mobile',
   'home_categories',

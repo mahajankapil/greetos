@@ -89,7 +89,7 @@ app.use(errorHandler);
 
 app.listen(config.port, () => {
   // eslint-disable-next-line no-console
-  console.log(`Old Spice API listening on :${config.port} (${config.env})`);
+  console.log(`GREETOS API listening on :${config.port} (${config.env})`);
   if (config.allowDevOtpInProd) {
     console.warn(
       '⚠  ALLOW_DEV_OTP is on — anyone can sign in with the fixed code ' +

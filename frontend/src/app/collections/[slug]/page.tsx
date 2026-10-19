@@ -54,11 +54,19 @@ const resolve = cache(async (slug: string): Promise<Resolved> => {
     all = PRODUCTS;
   }
 
-  if (slug === 'all') {
+  if (slug === 'all' || slug === 'all-items') {
     return {
-      title: 'All Products',
+      title: slug === 'all-items' ? 'All items' : 'All Products',
       description: 'Farm Fresh Organic Produce',
       products: all,
+    };
+  }
+
+  if (slug === 'new-arrival') {
+    return {
+      title: 'New Arrival',
+      description: 'The latest additions to our catalog',
+      products: [...all].reverse(),
     };
   }
 

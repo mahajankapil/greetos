@@ -3,12 +3,9 @@ import type { Metadata } from 'next';
 import { HeroSlider, type DynamicBanner } from '@/components/HeroSlider';
 import { CollectionsGrid } from '@/components/CollectionsGrid';
 import { ProductSlider } from '@/components/ProductSlider';
-import { CustomerReviews } from '@/components/CustomerReviews';
-import { TrustBadges } from '@/components/TrustBadges';
 import { NewsInsights } from '@/components/NewsInsights';
 import { ReelsSection } from '@/components/ReelsSection';
 import { getProducts, getSettings, getReels, getCategories } from '@/lib/api';
-import { COLLECTIONS } from '@/data/collections';
 import { getArticles } from '@/lib/blog';
 import { adaptProduct } from '@/lib/productAdapter';
 import { SITE } from '@/lib/site';
@@ -19,7 +16,7 @@ export const revalidate = 0;
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.tagline}`,
   description:
-    'Shop Old Spice Agro Fresh for 100% organic, farm-fresh vegetables, green leafy herbs, roots, gourds, and daily cooking produce delivered straight from local farms to your doorstep.',
+    'Shop GREETOS for 100% organic, farm-fresh vegetables, green leafy herbs, roots, gourds, and daily cooking produce delivered straight from local farms to your doorstep.',
   alternates: { canonical: '/' },
 };
 
@@ -63,20 +60,23 @@ export default async function HomePage() {
   const combos = all.filter((p) => p.isCombo);
   const bestSellers = all.filter((p) => p.isBestSeller);
 
-  const vegetableSections = COLLECTIONS
-    .filter((collection) => collection.slug !== 'organic-baskets')
-    .map((collection) => ({
-      ...collection,
-      title: collection.slug === 'other-vegetables' ? 'Everyday Vegetables' : collection.title,
-      products: products
-        .filter((product) => !product.isCombo && (
-          product.categories.some((category) => category.slug === collection.slug || category.name.toLowerCase() === collection.title.toLowerCase()) ||
-          product.category?.toLowerCase() === collection.title.toLowerCase() ||
-          product.category === collection.slug
-        ))
-        .map(adaptProduct),
-    }))
-    .filter((collection) => collection.products.length > 0);
+  const categorySections = apiCategories
+    .filter((category) => !category.parentId)
+    .map((category) => {
+      const categoryProducts = category.slug === 'all-items'
+        ? all
+        : category.slug === 'new-arrival'
+          ? [...all].reverse()
+          : products
+              .filter((product) => product.categories.some((assignedCategory) => assignedCategory.slug === category.slug))
+              .map(adaptProduct);
+      return {
+        slug: category.slug,
+        title: category.name,
+        products: categoryProducts.slice(0, 6),
+      };
+    })
+    .filter((category) => category.products.length > 0);
 
   let heroBanners: DynamicBanner[] = [];
   if (settings?.hero_banners) {
@@ -110,9 +110,20 @@ export default async function HomePage() {
 
   return (
     <div style={{ background: '#ffffff' }}>
-      <HeroSlider banners={heroBanners} />
+      {settings?.hero_banners_enabled !== 'false' && <HeroSlider banners={heroBanners} />}
 
       <CollectionsGrid categories={homeCategories} />
+
+      <div className="home-vegetable-sections">
+        {categorySections.map((category) => (
+          <ProductSlider
+            key={category.slug}
+            title={category.title}
+            products={category.products}
+            viewAllLink={`/collections/${category.slug}`}
+          />
+        ))}
+      </div>
 
       {combos.length > 0 && (
         <ProductSlider title="Super Saver Combos" products={combos} viewAllLink="/collections/super-saver-combos" />
@@ -122,25 +133,10 @@ export default async function HomePage() {
         <ProductSlider title="Best Sellers" products={bestSellers} viewAllLink="/collections/best-sellers" />
       )}
 
-      <div className="home-vegetable-sections">
-        {vegetableSections.map((collection) => (
-          <ProductSlider
-            key={collection.slug}
-            title={collection.title}
-            subtitle={collection.subtitle}
-            products={collection.products}
-            viewAllLink={`/collections/${collection.slug}`}
-          />
-        ))}
-      </div>
-
       <ReelsSection reels={reels} />
 
       <NewsInsights posts={articles.slice(0, 4)} />
 
-      <CustomerReviews />
-
-      <TrustBadges />
     </div>
   );
 }

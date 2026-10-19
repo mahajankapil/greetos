@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
     <>
     {/* Phones get one line instead of the full footer — see .footer-compact in globals.css. */}
     <footer className="footer-compact" aria-label="Legal">
-      <span className="footer-compact__copy">© {new Date().getFullYear()} Old Spice</span>
+      <span className="footer-compact__copy">© {new Date().getFullYear()} GREETOS</span>
       <Link href="/terms">Terms</Link>
       <Link href="/privacy-policy">Privacy</Link>
       <Link href="/refund-policy">Refund</Link>

@@ -4,15 +4,18 @@ import { api, apiError } from '../lib/api';
 
 export default function AnnouncementsPage() {
   const [text, setText] = useState('');
+  const [enabled, setEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    api
-      .get<string[]>('/announcements')
-      .then((res) => setText(res.data.join('\n')))
+    Promise.all([api.get<string[]>('/announcements'), api.get<Record<string, string>>('/settings')])
+      .then(([announcements, settings]) => {
+        setText(announcements.data.join('\n'));
+        setEnabled(settings.data.announcement_bar_enabled !== 'false');
+      })
       .catch((e) => setError(apiError(e, 'Failed to load announcements')))
       .finally(() => setLoading(false));
   }, []);
@@ -26,7 +29,7 @@ export default function AnnouncementsPage() {
         .split('\n')
         .map((s) => s.trim())
         .filter(Boolean);
-      await api.put('/admin/announcements', { messages });
+      await api.put('/admin/announcements', { messages, enabled });
       setSaved(true);
     } catch (e) {
       setError(apiError(e, 'Failed to save'));
@@ -51,6 +54,18 @@ export default function AnnouncementsPage() {
         </div>
       ) : (
         <div className="rounded-[24px] border border-[#e5e5e5] bg-white p-5">
+          <label className="mb-4 inline-flex min-h-11 cursor-pointer items-center gap-3 text-sm font-semibold text-[#333333]">
+            <input
+              type="checkbox"
+              checked={enabled}
+              onChange={(e) => {
+                setEnabled(e.target.checked);
+                setSaved(false);
+              }}
+              className="h-4 w-4 rounded border-gray-300 text-[#0f5636] focus:ring-[#0f5636]"
+            />
+            Show announcement bar on website
+          </label>
           <textarea
             value={text}
             onChange={(e) => {

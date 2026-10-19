@@ -12,10 +12,10 @@ type ArticleProps = { params: { slug: string } };
 
 export async function generateMetadata({ params }: ArticleProps): Promise<Metadata> {
   const post = await getArticle(params.slug);
-  if (!post) return { title: 'Story not found | Old Spice Agro Fresh' };
+  if (!post) return { title: 'Story not found | GREETOS' };
   return {
     metadataBase: new URL(SITE.url),
-    title: `${post.title} | Old Spice Agro Fresh`,
+    title: `${post.title} | GREETOS`,
     description: post.excerpt,
     alternates: { canonical: `/blogs/news/${post.slug}` },
     openGraph: { type: 'article', title: post.title, description: post.excerpt, publishedTime: post.publishedAt, authors: [post.author], images: [{ url: post.image, alt: post.imageAlt }] },

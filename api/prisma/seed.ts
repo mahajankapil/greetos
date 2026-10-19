@@ -16,6 +16,7 @@ import path from 'path';
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 import { config } from '../src/config/config';
+import { DEFAULT_ANNOUNCEMENTS } from '../src/data/announcements';
 import { recomputeProductRating } from '../src/utils/reviews';
 
 /**
@@ -98,14 +99,8 @@ function slugify(s: string): string {
   return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-const DEFAULT_ANNOUNCEMENTS = [
-  'Free delivery on farm fresh orders above ₹499',
-  '100% Organic & Naturally Grown · Harvested Daily',
-  'Direct from local organic farms to your doorstep',
-];
-
 /**
- * The catalogue taxonomy for Old Spice Agro Fresh.
+ * The catalogue taxonomy for GREETOS.
  */
 const CATEGORIES = [
   {

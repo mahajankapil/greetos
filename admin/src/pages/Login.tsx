@@ -51,7 +51,7 @@ export default function Login() {
           <h1 className="mt-4 text-2xl font-black text-[#111111]">
             {mode === 'login' ? 'Sign in' : mode === 'forgot' ? 'Reset password' : 'Check your email'}
           </h1>
-          <p className="mt-1 text-sm text-[#2a2a2a]">Old Spice Agro Fresh LLP admin &amp; partner panel</p>
+          <p className="mt-1 text-sm text-[#2a2a2a]">GREETOS admin &amp; partner panel</p>
         </div>
 
         {mode === 'login' && (
@@ -64,7 +64,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-3 text-sm outline-none focus:border-[#d4af37]"
-                placeholder="you@oldspice.pcgnp.co"
+                placeholder="you@example.com"
               />
             </label>
             <label className="block">
@@ -110,7 +110,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-3 text-sm outline-none focus:border-[#d4af37]"
-                placeholder="you@oldspice.pcgnp.co"
+                placeholder="you@example.com"
               />
             </label>
 

@@ -257,7 +257,7 @@ export default function AccountPage() {
             <MenuRow
               href="/about-us"
               icon={<Info size={18} color="#4d7a1f" />}
-              title="About Old Spice Agro Fresh"
+              title="About GREETOS"
               subtitle="Our story and our farms"
               last
             />

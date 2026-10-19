@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: 'Blogs & Organic Farming News | Old Spice Agro Fresh',
+  title: 'Blogs & Organic Farming News | GREETOS',
   description: 'Practical guides to fresh vegetables, seasonal eating, organic farming and a more thoughtful everyday kitchen.',
   alternates: { canonical: '/blogs/news' },
 };

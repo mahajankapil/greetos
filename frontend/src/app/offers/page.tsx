@@ -22,7 +22,7 @@ export default function OffersPage() {
         Special Offers & Coupons
       </h1>
       <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '30px', fontSize: '14px' }}>
-        Current offers from Old Spice Agro Fresh
+        Current offers from GREETOS
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>

@@ -80,7 +80,7 @@ export const config = {
   },
 
   admin: {
-    email: process.env.ADMIN_EMAIL ?? 'admin@oldspice.local',
+    email: process.env.ADMIN_EMAIL ?? 'admin@greetos.in',
     password: process.env.ADMIN_PASSWORD ?? 'ChangeMe123!',
   },
 

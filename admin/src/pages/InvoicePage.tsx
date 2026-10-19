@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Loader2, Printer, ArrowLeft, Phone } from 'lucide-react';
 import { api, apiError } from '../lib/api';
 
-const LOGO_ASSET = 'https://mkpillllll.sirv.com/stuff/logoo.png';
+const LOGO_ASSET = 'https://ik.imagekit.io/kirgb3odmp/greetos/Logo.png?updatedAt=1792317727877';
 
 interface InvoiceItem {
   id: string;
@@ -128,13 +128,13 @@ export default function InvoicePage() {
         <div className="flex items-start justify-between pb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight text-black uppercase">
-              OLD SPICE<br />AGRO FRESH LLP
+              GREETOS
             </h1>
           </div>
 
           {/* Logo Card */}
           <div className="w-48 h-24 bg-[#f3efe6] rounded-lg p-2 flex items-center justify-center border border-[#e2dacb] shadow-xs">
-            <img src={LOGO_ASSET} alt="Old Spice Agro Fresh LLP" className="h-full w-full object-contain" />
+            <img src={LOGO_ASSET} alt="GREETOS" className="h-full w-full object-contain" />
           </div>
         </div>
 

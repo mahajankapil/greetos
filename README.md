@@ -1,6 +1,6 @@
-# Old Spice Agro Fresh
+# GREETOS
 
-Vegetable store at https://oldspice.pcgnp.co.
+GREETOS vegetable storefront. Current deployment hostnames are listed below.
 
 | Folder | What | Live at |
 |---|---|---|
@@ -26,10 +26,11 @@ them on vps95.
 
 ## Database
 
-Own Supabase project `ifozkfqnoilinnaxcqmm` (ap-south-1), reached through the
-`aws-0-ap-south-1` pooler: `DATABASE_URL` on :6543 (transaction), `DIRECT_URL`
-on :5432 (session). It has no Prisma migration history (it was created with
-`prisma db push`), so don't run `prisma migrate deploy` against it.
+The API uses the separate `greetospune` Supabase project in Mumbai
+(`vcyhbnidoqrhwvwwogee`). Its connection URLs are kept in the ignored
+`api/.env`; both point directly to that project's database. The schema is
+managed with `prisma db push`, not `prisma migrate deploy`. Switching projects
+does not copy records; the new database starts with its own independent data.
 
 **Never point this app at `rzpjeynwqauwxbwukpge`.** That is Poshanful's live
 database. `npm run seed` refuses it, and it deletes every product not in

@@ -67,8 +67,8 @@ export default function AppearancePage() {
   const [success, setSuccess] = useState('');
   
   const [banners, setBanners] = useState<Banner[]>([]);
+  const [bannersEnabled, setBannersEnabled] = useState(true);
   const [homeCategories, setHomeCategories] = useState<CategoryItem[]>([]);
-  const [announcementText, setAnnouncementText] = useState('');
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [welcome, setWelcome] = useState<WelcomePopup>({
     enabled: false,
@@ -85,7 +85,7 @@ export default function AppearancePage() {
   const [ourStory, setOurStory] = useState<OurStoryState>({
     enabled: true,
     title: 'Board Of Directors',
-    subtitle: 'Leadership & Vision Behind Old Spice Agro Fresh LLP',
+    subtitle: 'Leadership & Vision Behind GREETOS',
     directors: [
       {
         id: 'dir-1',
@@ -124,10 +124,6 @@ export default function AppearancePage() {
         const res = await api.get('/settings');
         const settings = res.data || {};
         
-        if (settings.announcement_text) {
-          setAnnouncementText(settings.announcement_text);
-        }
-
         if (settings.home_categories) {
           try {
             setHomeCategories(JSON.parse(settings.home_categories));
@@ -152,6 +148,7 @@ export default function AppearancePage() {
             }]);
           }
         }
+        setBannersEnabled(settings.hero_banners_enabled !== 'false');
 
         if (settings.homepage_gallery) {
           try {
@@ -201,8 +198,8 @@ export default function AppearancePage() {
     try {
       await api.put('/admin/settings', {
         hero_banners: JSON.stringify(banners),
+        hero_banners_enabled: String(bannersEnabled),
         home_categories: JSON.stringify(homeCategories),
-        announcement_text: announcementText,
         homepage_gallery: JSON.stringify(gallery),
         homepage_feature_banner: JSON.stringify(featureBanner),
         our_story_section: JSON.stringify(ourStory),
@@ -316,31 +313,20 @@ export default function AppearancePage() {
         </div>
       ) : (
         <div className="space-y-6">
-          <div className="max-w-4xl overflow-hidden rounded-[24px] border border-[#e5e5e5] bg-white p-6 shadow-sm">
-            <h3 className="text-lg font-black text-[#111111] mb-2">Top Announcement Bar Messages</h3>
-            <p className="text-xs text-[#666666] mb-4">
-              Customize the scrolling ticker text displayed at the top of the storefront header.
-            </p>
-            <div className="space-y-3">
-              <label className="block">
-                <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Announcement Messages (Use | to separate multiple items)</span>
-                <textarea
-                  rows={3}
-                  value={announcementText}
-                  onChange={(e) => setAnnouncementText(e.target.value)}
-                  placeholder="Free delivery on farm fresh orders above ₹499 | 100% Organic & Naturally Grown · Harvested Daily | Direct from local organic farms to your doorstep"
-                  className="mt-1.5 w-full rounded-2xl border border-[#e5e5e5] px-4 py-3 text-sm outline-none focus:border-[#d4af37]"
-                />
-                <p className="mt-1.5 text-[11px] text-[#888888]">
-                  Tip: Separate multiple scrolling announcement messages using the pipe character (<code className="bg-gray-100 px-1 py-0.5 rounded font-mono">|</code>).
-                </p>
-              </label>
-            </div>
-          </div>
-
           <div className="max-w-4xl overflow-hidden rounded-[24px] border border-[#e5e5e5] bg-white p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-black text-[#111111]">Hero Banners</h3>
+              <div>
+                <h3 className="text-lg font-black text-[#111111]">Hero Banners</h3>
+                <label className="mt-2 inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-semibold text-[#333333]">
+                  <input
+                    type="checkbox"
+                    checked={bannersEnabled}
+                    onChange={(e) => setBannersEnabled(e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300 text-[#0f5636] focus:ring-[#0f5636]"
+                  />
+                  Show banners on website
+                </label>
+              </div>
             <button
               onClick={addBanner}
               className="inline-flex items-center gap-2 rounded-xl bg-[#f5f5f5] px-4 py-2 text-sm font-bold text-[#111111] hover:bg-[#e5e5e5]"
@@ -683,7 +669,7 @@ export default function AppearancePage() {
                 <input
                   value={welcome.subtitle}
                   onChange={(e) => setWelcome({ ...welcome, subtitle: e.target.value })}
-                  placeholder="Join the Old Spice Agro Fresh list and get a little something off your first order."
+                  placeholder="Join the GREETOS list and get a little something off your first order."
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
               </label>
@@ -759,9 +745,9 @@ export default function AppearancePage() {
               <label className="block sm:col-span-2">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[#666666]">Subtitle / Subheading</span>
                 <input
-                  value={ourStory.subtitle || 'Leadership & Vision Behind Old Spice Agro Fresh LLP'}
+                  value={ourStory.subtitle || 'Leadership & Vision Behind GREETOS'}
                   onChange={(e) => setOurStory({ ...ourStory, subtitle: e.target.value })}
-                  placeholder="Leadership & Vision Behind Old Spice Agro Fresh LLP"
+                  placeholder="Leadership & Vision Behind GREETOS"
                   className="mt-1 w-full rounded-2xl border border-[#e5e5e5] px-4 py-2.5 text-sm outline-none focus:border-[#d4af37]"
                 />
               </label>

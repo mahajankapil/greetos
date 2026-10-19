@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 
 // Brand mark. Hosted remotely, same asset the storefront header uses, so the
 // admin cannot drift from the storefront's logo.
-const BRAND_MARK = 'https://mkpillllll.sirv.com/stuff/logoo.png';
+const BRAND_MARK = 'https://ik.imagekit.io/kirgb3odmp/greetos/Logo.png?updatedAt=1792317727877';
 
 // `roles` decides who sees each link. Only admins use this panel now — the
 // panel but only ever see their own earnings.
@@ -53,7 +53,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <img src={BRAND_MARK} alt="" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="text-[9px] uppercase tracking-[0.15em] text-[#d4af37]">Old Spice Agro Fresh</p>
+            <p className="text-[9px] uppercase tracking-[0.15em] text-[#d4af37]">GREETOS</p>
             <h1 className="text-base font-black text-white">{isPartner ? 'Partner' : 'Admin'}</h1>
           </div>
         </div>
@@ -71,11 +71,11 @@ export default function Layout({ children }: { children: ReactNode }) {
       } lg:w-auto w-[280px]`}>
         <div className="hidden lg:flex items-center gap-3 pb-6">
           <div className="flex h-12 w-12 items-center justify-center">
-            {/* Old Spice Agro Fresh mark — the same artwork the storefront header uses. */}
+            {/* GREETOS mark — the same artwork the storefront header uses. */}
             <img src={BRAND_MARK} alt="" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="text-[9px] uppercase tracking-[0.15em] text-[#d4af37]">Old Spice Agro Fresh</p>
+            <p className="text-[9px] uppercase tracking-[0.15em] text-[#d4af37]">GREETOS</p>
             <h1 className="text-lg font-black text-white">{isPartner ? 'Partner' : 'Admin'}</h1>
           </div>
         </div>

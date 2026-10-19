@@ -15,7 +15,7 @@ const DEFAULT_POLICIES: Record<PolicyKey, PolicyData> = {
   privacy: {
     title: 'Privacy Policy',
     lastUpdated: '8 September 2026',
-    intro: 'This policy explains what personal information Old Spice Agro Fresh LLP collects when you visit or buy from this store, why we collect it, and what we do with it.',
+    intro: 'This policy explains what personal information GREETOS collects when you visit or buy from this store, why we collect it, and what we do with it.',
     content: `## 1. Information We Collect
 We collect information you provide directly to us when creating an account, placing an order, or contacting us for support (e.g. name, email, phone number, delivery address).
 
@@ -28,9 +28,9 @@ Your personal information is kept secure and will never be sold or shared with u
   refund: {
     title: 'Refund & Cancellation Policy',
     lastUpdated: '8 September 2026',
-    intro: 'Important policy details regarding refunds, returns, and product exchanges at Old Spice Agro Fresh LLP.',
+    intro: 'Important policy details regarding refunds, returns, and product exchanges at GREETOS.',
     content: `## STRICT NO REFUND & NO RETURN POLICY
-At Old Spice Agro Fresh LLP, we strictly follow a No Refund & No Returns policy. We only process product Exchanges under specific conditions outlined below.
+At GREETOS, we strictly follow a No Refund & No Returns policy. We only process product Exchanges under specific conditions outlined below.
 
 ## 1. No Refunds & No Returns
 Once an order is placed or delivered, we do not accept returns or offer financial refunds under any circumstances.
@@ -49,7 +49,7 @@ If your product meets the above exchange criteria, please reach out to us within
   terms: {
     title: 'Terms of Service',
     lastUpdated: '8 September 2026',
-    intro: 'These terms govern your use of this website and any order you place with Old Spice Agro Fresh LLP.',
+    intro: 'These terms govern your use of this website and any order you place with GREETOS.',
     content: `## 1. Overview
 By visiting our site and/or purchasing something from us, you engage in our Service and agree to be bound by the following terms and conditions.
 
@@ -62,7 +62,7 @@ These terms are governed by and construed in accordance with the laws of India.`
   shipping: {
     title: 'Shipping & Delivery Policy',
     lastUpdated: '8 September 2026',
-    intro: 'How and when Old Spice Agro Fresh LLP orders are dispatched and delivered across India.',
+    intro: 'How and when GREETOS orders are dispatched and delivered across India.',
     content: `## 1. Dispatch & Delivery Estimates
 - Orders are packed and handed to courier partners within 1–2 business days of payment confirmation.
 - Standard delivery usually takes 3–7 business days depending on location.

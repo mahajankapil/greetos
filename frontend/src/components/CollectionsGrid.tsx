@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { COLLECTIONS } from '@/data/collections';
 
 export interface CategoryItem {
@@ -37,15 +38,20 @@ export const CollectionsGrid: React.FC<CollectionsGridProps> = ({ categories: cu
           {categories.map((category) => {
             const fallback = defaultCategories.find((item) => item.href === category.href);
             const subtitle = category.subtitle || fallback?.subtitle;
+            const isAllItems = ['/collections/all', '/collections/all-items'].includes(category.href);
 
             return (
-              <li key={category.href} className="vegetable-categories__item">
+              <li
+                key={category.href}
+                className={`vegetable-categories__item${isAllItems ? ' vegetable-categories__item--all' : ''}`}
+              >
                 <Link href={category.href} className="vegetable-categories__link">
                   <span className="vegetable-categories__image">
                     <img src={category.image || fallback?.image} alt="" width={148} height={148} loading="lazy" />
                   </span>
                   <span className="vegetable-categories__name">{category.title}</span>
                   {subtitle && <span className="vegetable-categories__description">{subtitle}</span>}
+                  {isAllItems && <ArrowRight className="vegetable-categories__all-icon" size={20} aria-hidden="true" />}
                 </Link>
               </li>
             );

@@ -9,7 +9,7 @@ import styles from './about.module.css';
 export const metadata: Metadata = {
   title: `About Us | ${SITE.name}`,
   description:
-    'Old Spice Agro Fresh LLP grows 100% organic, pesticide-free vegetables and herbs and delivers them from farm to table.',
+    'GREETOS grows 100% organic, pesticide-free vegetables and herbs and delivers them from farm to table.',
   alternates: { canonical: '/about-us' },
 };
 

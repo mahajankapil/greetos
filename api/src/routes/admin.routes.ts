@@ -455,14 +455,22 @@ router.put(
 router.put(
   '/announcements',
   asyncHandler(async (req, res) => {
-    const { messages } = z.object({ messages: z.array(z.string().min(1)) }).parse(req.body);
+    const { messages, enabled } = z.object({
+      messages: z.array(z.string().min(1)),
+      enabled: z.boolean().default(true),
+    }).parse(req.body);
     await prisma.$transaction([
       prisma.announcement.deleteMany({}),
       prisma.announcement.createMany({
         data: messages.map((message, i) => ({ message, sortOrder: i, active: true })),
       }),
+      prisma.setting.upsert({
+        where: { key: 'announcement_bar_enabled' },
+        update: { value: String(enabled) },
+        create: { key: 'announcement_bar_enabled', value: String(enabled) },
+      }),
     ]);
-    res.json({ ok: true, count: messages.length });
+    res.json({ ok: true, count: messages.length, enabled });
   }),
 );
 
@@ -1605,7 +1613,7 @@ router.post(
       return;
     }
     const settings = await getBusinessSettings();
-    const legalName = settings.legalName || 'OLD SPICE AGRO FRESH LLP';
+    const legalName = settings.legalName || 'GREETOS';
     const address = settings.address || 'Pune, Maharashtra';
     const gstin = settings.gstin || '27AAAAA0000A1Z5';
     const state = settings.state || 'Maharashtra';
@@ -1669,7 +1677,7 @@ router.get(
     // Auto-generate invoice if not generated yet
     if (!order.invoice) {
       const settings = await getBusinessSettings();
-      const legalName = settings.legalName || 'OLD SPICE AGRO FRESH LLP';
+      const legalName = settings.legalName || 'GREETOS';
       const address = settings.address || 'Pune, Maharashtra';
       const gstin = settings.gstin || '27AAAAA0000A1Z5';
       const state = settings.state || 'Maharashtra';

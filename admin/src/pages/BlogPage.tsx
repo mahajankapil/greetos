@@ -30,7 +30,7 @@ import type { BlogPost } from '../types';
  */
 
 const STOREFRONT_URL = (import.meta.env.VITE_STOREFRONT_URL || 'http://localhost:3000').replace(/\/$/, '');
-const DEFAULT_AUTHOR = 'Old Spice Agro Fresh LLP';
+const DEFAULT_AUTHOR = 'GREETOS';
 const CATEGORY_SUGGESTIONS = ['Kitchen know-how', 'Seasonal eating', 'Farm stories', 'Everyday inspiration', 'Organic farming news'];
 const FOCUS_OPTIONS = [
   { label: 'Centre', value: '' },

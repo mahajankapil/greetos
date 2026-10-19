@@ -4,26 +4,33 @@ import React, { useEffect, useState } from 'react';
 
 export const AnnouncementBar: React.FC = () => {
   const [customItems, setCustomItems] = useState<string[] | null>(null);
+  const [barEnabled, setBarEnabled] = useState<boolean | null>(null);
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
         const apiBase = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5002/api').replace(/\/$/, '');
-        const res = await fetch(`${apiBase}/settings`);
+        const [res, settingsRes] = await Promise.all([
+          fetch(`${apiBase}/announcements`, { cache: 'no-store' }),
+          fetch(`${apiBase}/settings`, { cache: 'no-store' }),
+        ]);
+        if (settingsRes.ok) {
+          const settings = await settingsRes.json();
+          const enabled = settings.announcement_bar_enabled !== 'false';
+          setBarEnabled(enabled);
+          if (!enabled) return;
+        } else {
+          setBarEnabled(true);
+        }
         if (res.ok) {
           const data = await res.json();
-          if (data.announcement_text && data.announcement_text.trim().length > 0) {
-            const items = data.announcement_text
-              .split('|')
-              .map((s: string) => s.trim())
-              .filter(Boolean);
-            if (items.length > 0) {
-              setCustomItems(items);
-            }
+          if (Array.isArray(data)) {
+            const items = data.filter((message): message is string => typeof message === 'string').map((message) => message.trim()).filter(Boolean);
+            if (items.length > 0) setCustomItems(items);
           }
         }
       } catch {
-        // Silently use defaults
+        setBarEnabled(true);
       }
     };
     fetchAnnouncement();
@@ -36,6 +43,8 @@ export const AnnouncementBar: React.FC = () => {
   ];
 
   const announcements = customItems && customItems.length > 0 ? customItems : defaultAnnouncements;
+
+  if (barEnabled !== true) return null;
 
   return (
     <section

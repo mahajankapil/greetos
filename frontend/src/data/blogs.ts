@@ -26,7 +26,7 @@ export interface BlogPost {
   sources?: { title: string; url: string }[];
 }
 
-const author = 'Old Spice Agro Fresh LLP';
+const author = 'GREETOS';
 
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -128,7 +128,7 @@ export const BLOG_POSTS: BlogPost[] = [
     photoCredit: { name: 'RDNE Stock project', url: 'https://www.pexels.com/photo/a-close-up-shot-of-a-person-arranging-vegetables-in-a-basket-8540212/' },
     introduction: [
       'Before a vegetable reaches your chopping board, it has already been through several important stages: growing, harvesting, sorting, packing, and transport. Looking at that journey makes it easier to understand freshness and to ask useful questions when you shop.',
-      'At Old Spice Agro Fresh, our journal is a place to make those everyday choices easier to understand. This guide explores what to look for along the way, from the information on a label to the way you unpack a delivery at home.',
+      'At GREETOS, our journal is a place to make those everyday choices easier to understand. This guide explores what to look for along the way, from the information on a label to the way you unpack a delivery at home.',
     ],
     sections: [
       { id: 'it-starts-with-the-soil', title: 'The story starts with the soil', paragraphs: [

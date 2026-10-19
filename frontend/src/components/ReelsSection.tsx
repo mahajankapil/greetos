@@ -7,7 +7,7 @@ import type { ApiReel } from '@/lib/api';
 import { SITE } from '@/lib/site';
 
 
-const LOGO_AVATAR = 'https://mkpillllll.sirv.com/oldspice/categ/products/logooldspice.png';
+const LOGO_AVATAR = SITE.logoUrl;
 
 interface ReelsSectionProps {
   reels?: ApiReel[];

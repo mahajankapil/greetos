@@ -1,4 +1,4 @@
-// Old Spice Agro Fresh — data model.
+// GREETOS — data model.
 // Plain PostgreSQL via Prisma. Nothing here is tied to a specific host:
 // point DATABASE_URL / DIRECT_URL at any Postgres (see db/README.md).
 

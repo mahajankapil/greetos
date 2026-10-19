@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { PRODUCTS, Product } from '@/data/products';
-import { VegetableNavigation } from '@/components/VegetableNavigation';
 import { useDialog } from '@/hooks/useDialog';
+import { SITE } from '@/lib/site';
+import { BadgePercent, Store, UserRound } from 'lucide-react';
 
 const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5002/api').replace(/\/$/, '');
 
@@ -27,21 +28,38 @@ export const Header: React.FC = () => {
   const { user, loading: authLoading } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useDialog(drawerOpen, () => setDrawerOpen(false));
+  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const mobileSearchRef = useRef<HTMLDivElement>(null);
+  const desktopSearchInputRef = useRef<HTMLInputElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     setDrawerOpen(false);
     setMoreDropdownOpen(false);
+    setSearchOpen(false);
     setIsFocused(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const focusInput = () => {
+      (desktop.matches ? desktopSearchInputRef : mobileSearchInputRef).current?.focus();
+    };
+    focusInput();
+    desktop.addEventListener('change', focusInput);
+    return () => desktop.removeEventListener('change', focusInput);
+  }, [searchOpen]);
 
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 1024px)');
@@ -49,8 +67,6 @@ export const Header: React.FC = () => {
     desktop.addEventListener('change', closeOnDesktop);
     return () => desktop.removeEventListener('change', closeOnDesktop);
   }, []);
-
-  const logo = 'https://mkpillllll.sirv.com/oldspice/categ/products/logooldspice.png';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -106,18 +122,28 @@ export const Header: React.FC = () => {
   // Close search dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target as Node) &&
-        mobileSearchRef.current &&
-        !mobileSearchRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+      const clickedInside = [searchContainerRef.current, mobileSearchRef.current, searchToggleRef.current]
+        .some((element) => element?.contains(target));
+      if (!clickedInside) {
+        setSearchOpen(false);
         setIsFocused(false);
       }
     };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && searchOpen) {
+        setSearchOpen(false);
+        setIsFocused(false);
+        searchToggleRef.current?.focus();
+      }
+    };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [searchOpen]);
 
   // Filter ONLY products from /collections/all
   const searchResults = useMemo(() => {
@@ -134,14 +160,18 @@ export const Header: React.FC = () => {
   const menuItems = [
     { id: 'HeaderMenu-home', name: 'HOME', href: '/' },
     { id: 'HeaderMenu-best-sellers', name: 'BEST SELLERS', href: '/collections/best-sellers' },
-    { id: 'HeaderMenu-all-products', name: 'SHOP VEGETABLES', href: '/collections/all' },
     { id: 'HeaderMenu-offers', name: 'OFFERS', href: '/offers' },
   ];
 
   const moreDropdownItems = [
-    { id: 'HeaderMenu-blog', name: 'BLOGS & ORGANIC FARMING NEWS', href: '/blogs/news' },
     { id: 'HeaderMenu-about', name: 'ABOUT US', href: '/about-us' },
     { id: 'HeaderMenu-contact-us', name: 'CONTACT US', href: '/contact' },
+  ];
+
+  const mobileShortcuts = [
+    { label: 'All Products', href: '/collections/all', icon: Store, active: pathname.startsWith('/collections') },
+    { label: 'Offers', href: '/offers', icon: BadgePercent, active: pathname.startsWith('/offers') },
+    { label: 'Account', href: user ? '/account' : '/account/login', icon: UserRound, active: pathname.startsWith('/account') },
   ];
 
   const isItemActive = (href: string) => {
@@ -202,8 +232,8 @@ export const Header: React.FC = () => {
 
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img
-              src={logo}
-              alt="Old Spice Agro Fresh"
+              src={SITE.logoUrl}
+              alt={SITE.name}
               width="135"
               height="45"
               style={{ objectFit: 'contain', display: 'block', maxHeight: '42px', width: 'auto' }}
@@ -224,7 +254,6 @@ export const Header: React.FC = () => {
             }}
           >
             {menuItems.map((item) => {
-              if (item.id === 'HeaderMenu-all-products') return <VegetableNavigation key={item.id} />;
               const active = isItemActive(item.href);
               return (
                 <li key={item.id}>
@@ -348,8 +377,31 @@ export const Header: React.FC = () => {
 
         {/* Right Side: Search Input/Icon + Account + Cart + Action Button */}
         <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
+          <button
+            ref={searchToggleRef}
+            type="button"
+            className="touch-icon"
+            aria-label={searchOpen ? 'Close search' : 'Open search'}
+            aria-expanded={searchOpen}
+            onClick={() => {
+              setSearchOpen((open) => !open);
+              setIsFocused(false);
+            }}
+            style={{ background: 'none', border: 'none', borderRadius: '50%', color: '#111827', cursor: 'pointer', padding: '6px' }}
+          >
+            {searchOpen ? (
+              <svg fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" style={{ width: '22px', height: '22px' }}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.8" stroke="currentColor" style={{ width: '22px', height: '22px' }}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-4.34-4.34m0 0A7.5 7.5 0 1 0 6.06 6.06a7.5 7.5 0 0 0 10.6 10.6Z" />
+              </svg>
+            )}
+          </button>
+
           {/* Integrated Search Box with Animated Placeholder */}
-          <div className="desktop-search-container" ref={searchContainerRef} style={{ position: 'relative' }}>
+          {searchOpen && <div className="desktop-search-container" ref={searchContainerRef} style={{ position: 'relative' }}>
             <form action="/collections/all" method="get" role="search" style={{ display: 'flex', alignItems: 'center' }}>
               <div
                 style={{
@@ -391,6 +443,7 @@ export const Header: React.FC = () => {
                 )}
 
                 <input
+                  ref={desktopSearchInputRef}
                   type="text"
                   name="q"
                   aria-label="Search vegetables"
@@ -577,7 +630,7 @@ export const Header: React.FC = () => {
                 )}
               </div>
             )}
-          </div>
+          </div>}
 
           {/* Account Icon */}
           <Link
@@ -669,7 +722,7 @@ export const Header: React.FC = () => {
       </div>
 
       {/* Mobile Search Bar Row (Front Page & Header) */}
-      <div
+      {searchOpen && <div
         className="mobile-search-bar-row"
         ref={mobileSearchRef}
         style={{
@@ -718,6 +771,7 @@ export const Header: React.FC = () => {
             )}
 
             <input
+              ref={mobileSearchInputRef}
               type="text"
               name="q"
               aria-label="Search vegetables"
@@ -903,7 +957,7 @@ export const Header: React.FC = () => {
             )}
           </div>
         )}
-      </div>
+      </div>}
 
       {/* Premium Redesigned Mobile Drawer Overlay */}
       <div
@@ -992,9 +1046,37 @@ export const Header: React.FC = () => {
 
           {/* Polished Navigation List with Chevrons */}
           <div style={{ flex: 1, padding: '8px 0' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px', padding: '8px 16px 16px' }}>
+              {mobileShortcuts.map(({ label, href, icon: Icon, active }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  onClick={() => setDrawerOpen(false)}
+                  aria-current={active ? 'page' : undefined}
+                  style={{
+                    gridColumn: label === 'Account' ? '1 / -1' : undefined,
+                    minHeight: label === 'Account' ? '56px' : '72px',
+                    display: 'flex',
+                    flexDirection: label === 'Account' ? 'row' : 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '7px',
+                    border: `1px solid ${active ? '#cbdcc5' : '#e5e7eb'}`,
+                    borderRadius: '12px',
+                    background: active ? '#f1f7ee' : '#ffffff',
+                    color: active ? '#245c32' : '#374151',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Icon size={21} strokeWidth={1.8} aria-hidden="true" />
+                  <span>{label}</span>
+                </Link>
+              ))}
+            </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column' }}>
-              {menuItems.map((item) => {
-                if (item.id === 'HeaderMenu-all-products') return <VegetableNavigation key={item.id} mobile onNavigate={() => setDrawerOpen(false)} />;
+              {menuItems.filter((item) => item.id === 'HeaderMenu-best-sellers').map((item) => {
                 const active = isItemActive(item.href);
                 return (
                   <li key={item.id}>
@@ -1054,40 +1136,6 @@ export const Header: React.FC = () => {
             </ul>
           </div>
 
-          {/* Drawer Bottom Action Section */}
-          <div
-            style={{
-              padding: '16px 20px',
-              borderTop: '1px solid #f3f4f6',
-              background: '#fafbfc',
-            }}
-          >
-            <Link
-              href={user ? '/account' : '/account/login'}
-              onClick={() => setDrawerOpen(false)}
-              style={{
-                textDecoration: 'none',
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '0.8px',
-                color: '#111827',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '10px 16px',
-                borderRadius: '9999px',
-                background: '#ffffff',
-                border: '1px solid #e5e7eb',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-              }}
-            >
-              <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.8" stroke="currentColor" style={{ width: '18px', height: '18px' }}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-              </svg>
-              {user ? 'YOUR ACCOUNT' : 'LOG IN / SIGN UP'}
-            </Link>
-          </div>
         </div>
       </div>
 

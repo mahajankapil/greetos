@@ -12,10 +12,10 @@
  * stores whose contact and policy pages are unverifiable.
  */
 export const SITE = {
-  name: 'Old Spice Agro Fresh LLP',
-  legalName: 'Old Spice Agro Fresh LLP',
+  name: 'GREETOS',
+  legalName: 'GREETOS',
   tagline: '100% Organic Farm Fresh Vegetables & Herbs',
-  logoUrl: 'https://mkpillllll.sirv.com/oldspice/categ/products/logooldspice.png',
+  logoUrl: 'https://ik.imagekit.io/kirgb3odmp/greetos/Logo.png?updatedAt=1792317727877',
   /** Used to build canonical + structured-data URLs. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://oldspiceagrofresh.com',
   email: 'support@oldspiceagrofresh.com',

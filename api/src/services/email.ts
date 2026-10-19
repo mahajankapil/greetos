@@ -34,7 +34,7 @@ function layout(heading: string, body: string): string {
   <div style="background:#f5f5f5;padding:32px 16px;font-family:'Helvetica Neue',Arial,sans-serif;">
     <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden;">
       <div style="background:${INK};padding:20px 28px;">
-        <span style="color:#ffffff;font-size:18px;font-weight:900;letter-spacing:2px;">OLD SPICE AGRO FRESH LLP</span>
+        <span style="color:#ffffff;font-size:18px;font-weight:900;letter-spacing:2px;">GREETOS</span>
         <span style="color:${GOLD};font-size:10px;font-weight:700;letter-spacing:2px;display:block;margin-top:4px;">100% ORGANIC FARM FRESH VEGETABLES & HERBS</span>
       </div>
       <div style="padding:28px;">
@@ -42,7 +42,7 @@ function layout(heading: string, body: string): string {
         ${body}
       </div>
       <div style="padding:16px 28px;border-top:1px solid #e5e5e5;color:#999;font-size:11px;">
-        Old Spice Agro Fresh LLP · This is an automated message, please do not reply.
+        GREETOS · This is an automated message, please do not reply.
       </div>
     </div>
   </div>`;
@@ -59,7 +59,7 @@ export async function sendPasswordResetEmail(email: string, resetLink: string): 
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'Old Spice Agro Fresh — Reset your admin password',
+    subject: 'GREETOS — Reset your admin password',
     html: layout(
       'Reset your admin password',
       `<p style="color:#444;font-size:14px;line-height:1.6;">
@@ -89,11 +89,11 @@ export async function sendAdminInviteEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'Old Spice Agro Fresh — You have been added as an admin',
+    subject: 'GREETOS — You have been added as an admin',
     html: layout(
       `Welcome aboard, ${name}`,
       `<p style="color:#444;font-size:14px;line-height:1.6;">
-         An administrator account has been created for you on the Old Spice Agro Fresh admin panel.
+         An administrator account has been created for you on the GREETOS admin panel.
          Set your password using the button below — the link expires in 24 hours.
        </p>
        ${button(setPasswordLink, 'Set Your Password')}
@@ -126,11 +126,11 @@ export async function sendCreatorInviteEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'Old Spice Agro Fresh — Your partner code and earnings portal',
+    subject: 'GREETOS — Your partner code and earnings portal',
     html: layout(
-      `Welcome to Old Spice Agro Fresh, ${name}`,
+      `Welcome to GREETOS, ${name}`,
       `<p style="color:#444;font-size:14px;line-height:1.6;">
-         Your Old Spice Agro Fresh partner code is live:
+         Your GREETOS partner code is live:
        </p>
        <p style="margin:14px 0;">
          <span style="display:inline-block;border:1px dashed ${INK};border-radius:8px;padding:10px 20px;
@@ -177,22 +177,22 @@ export interface OrderEmailInput {
 
 const ORDER_EMAIL_COPY: Record<OrderEmailKind, { subject: (o: string) => string; heading: string; body: string }> = {
   confirmed: {
-    subject: (o) => `Order ${o} confirmed — OLD SPICE AGRO FRESH`,
+    subject: (o) => `Order ${o} confirmed — GREETOS`,
     heading: 'Your order is confirmed',
     body: 'We have your order and it is locked in. You will hear from us again when it ships.',
   },
   processing: {
-    subject: (o) => `Order ${o} is being packed — OLD SPICE AGRO FRESH`,
+    subject: (o) => `Order ${o} is being packed — GREETOS`,
     heading: 'Your order is being packed',
     body: 'Each piece is checked and wrapped by hand before it leaves us.',
   },
   shipped: {
-    subject: (o) => `Order ${o} has shipped — OLD SPICE AGRO FRESH`,
+    subject: (o) => `Order ${o} has shipped — GREETOS`,
     heading: 'Your order is on its way',
     body: 'Your parcel has been handed to the courier.',
   },
   delivered: {
-    subject: (o) => `Order ${o} delivered — OLD SPICE AGRO FRESH`,
+    subject: (o) => `Order ${o} delivered — GREETOS`,
     heading: 'Delivered',
     body: 'Your order has arrived. If anything is damaged or not what you ordered, report it from My Orders and we will put it right.',
   },
@@ -255,11 +255,11 @@ export async function sendLoginOtpEmail(email: string, code: string, ttlMinutes:
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: `${code} is your Old Spice Agro Fresh login code`,
+    subject: `${code} is your GREETOS login code`,
     html: layout(
       'Your login code',
       `<p style="color:#444;font-size:14px;line-height:1.6;">
-         Enter this code on the Old Spice Agro Fresh store to sign in. It expires in
+         Enter this code on the GREETOS store to sign in. It expires in
          ${ttlMinutes} minutes and can only be used once.
        </p>
        <div style="margin:22px 0;padding:18px;background:#f5f5f5;border-radius:10px;text-align:center;">
@@ -292,7 +292,7 @@ export async function sendOrderConfirmationEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: `Old Spice Agro Fresh — Order ${order.orderNo} confirmed`,
+    subject: `GREETOS — Order ${order.orderNo} confirmed`,
     html: layout(
       `Thanks, ${order.customer}`,
       `<p style="color:#444;font-size:14px;line-height:1.6;">
@@ -345,7 +345,7 @@ export async function sendAbandonedCartEmail(
   await transporter.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: 'You left something behind — OLD SPICE AGRO FRESH',
+    subject: 'You left something behind — GREETOS',
     html: layout(
       'Still thinking it over?',
       `<p style="color:#444;font-size:14px;line-height:1.6;">

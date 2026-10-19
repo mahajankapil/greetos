@@ -60,7 +60,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
     link: b.link || '/collections/all',
     webImg: b.desktop,
     mobileImg: b.mobile || b.desktop,
-    alt: b.alt || 'Old Spice Agro Fresh Banner',
+    alt: b.alt || 'GREETOS Banner',
   }));
   const useFallback = customSlides.length === 0;
   const slideCount = useFallback ? FALLBACK_SLIDES.length : customSlides.length;

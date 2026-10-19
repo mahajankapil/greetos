@@ -83,6 +83,7 @@ export async function getCategory(slug: string): Promise<{ name: string; slug: s
 export interface ApiSettings {
   announcement_text?: string;
   hero_banners?: string;
+  hero_banners_enabled?: string;
   hero_banner_desktop?: string;
   hero_banner_mobile?: string;
   homepage_gallery?: string;

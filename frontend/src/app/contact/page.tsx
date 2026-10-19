@@ -17,7 +17,7 @@ export default function ContactPage() {
         Contact Us
       </h1>
       <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '36px', fontSize: '15px' }}>
-        Have questions about Old Spice Agro Fresh LLP products or your order? Get in touch with us!
+        Have questions about GREETOS products or your order? Get in touch with us!
       </p>
 
       {/* Info Cards */}
@@ -55,7 +55,7 @@ export default function ContactPage() {
               Message Received!
             </h2>
             <p style={{ color: '#64748b', fontSize: '14px' }}>
-              Thank you for reaching out. The Old Spice Agro Fresh LLP team will get back to you shortly.
+              Thank you for reaching out. The GREETOS team will get back to you shortly.
             </p>
           </div>
         ) : (

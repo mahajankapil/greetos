@@ -8,7 +8,7 @@
  *   npx tsx scripts/import-blog-posts.ts
  *
  * Back up the database first (house rule), and check DATABASE_URL points at the
- * oldspice database — this refuses Poshanful's.
+ * GREETOS database — this refuses Poshanful's.
  */
 import { readFileSync } from 'fs';
 import path from 'path';

@@ -13,7 +13,7 @@ import { BLOG_POSTS, getReadingMinutes, type BlogPost as BundledPost } from '@/d
 
 const API_BASE = (process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5002/api').replace(/\/$/, '');
 export const FALLBACK_IMAGE = '/illustrations/vegetable-basket.svg';
-export const DEFAULT_AUTHOR = 'Old Spice Agro Fresh LLP';
+export const DEFAULT_AUTHOR = 'GREETOS';
 
 export interface ArticleSection {
   id: string;

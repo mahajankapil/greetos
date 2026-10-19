@@ -6,9 +6,9 @@ import { ShoppingCart, ChevronRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 /**
- * Phone-only "View Cart" bar, floating above the bottom navigation once the
- * cart has something in it. It replaces the cart icon in the header and the
- * Cart tab in the bottom nav, so there is one obvious way to the cart with the
+ * Phone-only "View Cart" bar, floating above the bottom edge once the
+ * cart has something in it. It replaces the cart icon in the header, so there
+ * is one obvious way to the cart with the
  * running total beside it. Hidden on the cart page itself; checkout never
  * renders it (SiteFooter returns nothing there).
  */

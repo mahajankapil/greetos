@@ -10,7 +10,7 @@ import StyledJsxRegistry from './StyledJsxRegistry';
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.tagline}`,
   description:
-    'Shop Old Spice Agro Fresh LLP for 100% organic farm fresh vegetables, herbs, and natural agricultural produce.',
+    'Shop GREETOS for 100% organic farm fresh vegetables, herbs, and natural agricultural produce.',
   icons: {
     icon: SITE.logoUrl,
   },
